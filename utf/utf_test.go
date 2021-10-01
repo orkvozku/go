@@ -43,7 +43,7 @@ package utf_test
 
 import (
 	"fmt"
-	"orkvozku/utf"
+	"github.com/orkvozku/go/utf"
 	"testing"
 )
 

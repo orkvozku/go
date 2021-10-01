@@ -20,7 +20,7 @@ Decoding Example:
 package main
 
 // import this package:
-import "github.com/orkvozku/go/utf
+import "github.com/orkvozku/go/utf"
 
 import (
     "fmt"
@@ -63,7 +63,7 @@ Encoding Example:
 package main
 
 // import this package:
-import "github.com/orkvozku/go/utf
+import "github.com/orkvozku/go/utf"
 
 import (
     "fmt"
