@@ -27,7 +27,7 @@
   review your plans to determine if they satisfy this request.
 ***************************************************************************/
 
-/* This package is the author's first experiment in the Go programming language.
+/* This module is the author's first experiment in the Go programming language.
  * As such, it may contain poorly or incorrectly written code. Until it has
  * been more carefully reviewed and refined, do not use it as an example of
  * how to write Go code. Polite suggestions for improvement are welcome.
@@ -42,6 +42,7 @@ information, consult https://pkg.go.dev/cmd/go#hdr-Test_packages
 package utf_test
 
 import (
+	"bytes"
 	"fmt"
 	"github.com/orkvozku/go/utf"
 	"testing"
@@ -53,11 +54,11 @@ import (
 
 // testCaseTo defines the structure of testCasesTo entries.
 type testCaseTo struct {
-	standard int
-	lax      int
-	wild     int
-	mutf8    int
-	mutf8Sur int
+	standard utf.Encoding
+	lax      utf.Encoding
+	wild     utf.Encoding
+	mutf8    utf.Encoding
+	mutf8Sur utf.Encoding
 }
 
 // testCasesTo is a set of test cases for utf.To*(). These are simply expected
@@ -97,6 +98,13 @@ func TestTo(t *testing.T) {
 						encToString(encodingTo),
 						encToString(tc.standard))
 				}
+				encodingToAlt := encoding.ToStandard()
+				if encodingToAlt != encodingTo {
+					t.Errorf("(*%s) ToStandard() = %s, want %s",
+						txtEncoding,
+						encToString(encodingToAlt),
+						encToString(encodingTo))
+				}
 				encodingTo = utf.ToLax(encoding)
 				if encodingTo != tc.lax {
 					t.Errorf("ToLax(%s) = %s, want %s",
@@ -104,12 +112,26 @@ func TestTo(t *testing.T) {
 						encToString(encodingTo),
 						encToString(tc.lax))
 				}
+				encodingToAlt = encoding.ToLax()
+				if encodingToAlt != encodingTo {
+					t.Errorf("(*%s) ToLax() = %s, want %s",
+						txtEncoding,
+						encToString(encodingToAlt),
+						encToString(encodingTo))
+				}
 				encodingTo = utf.ToWild(encoding)
 				if encodingTo != tc.wild {
 					t.Errorf("ToWild(%s) = %s, want %s",
 						txtEncoding,
 						encToString(encodingTo),
 						encToString(tc.wild))
+				}
+				encodingToAlt = encoding.ToWild()
+				if encodingToAlt != encodingTo {
+					t.Errorf("(*%s) ToWild() = %s, want %s",
+						txtEncoding,
+						encToString(encodingToAlt),
+						encToString(encodingTo))
 				}
 				encodingTo = utf.ToMutf8(encoding)
 				if tc.mutf8 != utf.UtfNotUsed {
@@ -127,6 +149,13 @@ func TestTo(t *testing.T) {
 							txtEncoding)
 					}
 				}
+				encodingToAlt = encoding.ToMutf8()
+				if encodingToAlt != encodingTo {
+					t.Errorf("(*%s) ToMutf8() = %s, want %s",
+						txtEncoding,
+						encToString(encodingToAlt),
+						encToString(encodingTo))
+				}
 				encodingTo = utf.ToMutf8Sur(encoding)
 				if tc.mutf8Sur != utf.UtfNotUsed {
 					if encodingTo != tc.mutf8Sur {
@@ -143,6 +172,13 @@ func TestTo(t *testing.T) {
 							txtEncoding)
 					}
 				}
+				encodingToAlt = encoding.ToMutf8Sur()
+				if encodingToAlt != encodingTo {
+					t.Errorf("(*%s) ToMutf8Sur() = %s, want %s",
+						txtEncoding,
+						encToString(encodingToAlt),
+						encToString(encodingTo))
+				}
 			} else if encoding == utf.UtfNotUsed {
 				encodingTo := utf.ToStandard(encoding)
 				if encodingTo != encoding {
@@ -151,12 +187,26 @@ func TestTo(t *testing.T) {
 						encToString(encodingTo),
 						txtEncoding)
 				}
+				encodingToAlt := encoding.ToStandard()
+				if encodingToAlt != encodingTo {
+					t.Errorf("(*%s) ToStandard() = %s, want %s",
+						txtEncoding,
+						encToString(encodingToAlt),
+						encToString(encodingTo))
+				}
 				encodingTo = utf.ToLax(encoding)
 				if encodingTo != encoding {
 					t.Errorf("ToLax(%s) = %s, want %s",
 						txtEncoding,
 						encToString(encodingTo),
 						txtEncoding)
+				}
+				encodingToAlt = encoding.ToLax()
+				if encodingToAlt != encodingTo {
+					t.Errorf("(*%s) ToLax() = %s, want %s",
+						txtEncoding,
+						encToString(encodingToAlt),
+						encToString(encodingTo))
 				}
 				encodingTo = utf.ToWild(encoding)
 				if encodingTo != encoding {
@@ -165,6 +215,13 @@ func TestTo(t *testing.T) {
 						encToString(encodingTo),
 						txtEncoding)
 				}
+				encodingToAlt = encoding.ToWild()
+				if encodingToAlt != encodingTo {
+					t.Errorf("(*%s) ToWild() = %s, want %s",
+						txtEncoding,
+						encToString(encodingToAlt),
+						encToString(encodingTo))
+				}
 				encodingTo = utf.ToMutf8(encoding)
 				if encodingTo != encoding {
 					t.Errorf("ToMutf8(%s) = %s, want %s",
@@ -172,12 +229,26 @@ func TestTo(t *testing.T) {
 						encToString(encodingTo),
 						txtEncoding)
 				}
+				encodingToAlt = encoding.ToMutf8()
+				if encodingToAlt != encodingTo {
+					t.Errorf("(*%s) ToMutf8() = %s, want %s",
+						txtEncoding,
+						encToString(encodingToAlt),
+						encToString(encodingTo))
+				}
 				encodingTo = utf.ToMutf8Sur(encoding)
 				if encodingTo != encoding {
 					t.Errorf("ToMutf8Sur(%s) = %s, want %s",
 						txtEncoding,
 						encToString(encodingTo),
 						txtEncoding)
+				}
+				encodingToAlt = encoding.ToMutf8Sur()
+				if encodingToAlt != encodingTo {
+					t.Errorf("(*%s) ToMutf8Sur() = %s, want %s",
+						txtEncoding,
+						encToString(encodingToAlt),
+						encToString(encodingTo))
 				}
 			}
 		}
@@ -191,18 +262,18 @@ func TestTo(t *testing.T) {
 // testCaseBom defines the structure of testCasesBom entries.
 type testCaseBom struct {
 	bom       []byte
-	encodings []int
+	encodings []utf.Encoding
 }
 
 // testCasesBom is a set of BOM test cases for utf.Bom(). These are simply
 // expected BOM codes for the various encodings.
 var testCasesBom = []testCaseBom{
-	{[]byte{0xef, 0xbb, 0xbf}, []int{utf.Utf8, utf.Utf8Lax, utf.Utf8Wild, utf.Mutf8, utf.Mutf8Sur}},
-	{[]byte{0xfe, 0xff}, []int{utf.Utf16Be, utf.Utf16BeLax}},
-	{[]byte{0xff, 0xfe}, []int{utf.Utf16Le, utf.Utf16LeLax}},
-	{[]byte{0x00, 0x00, 0xfe, 0xff}, []int{utf.Utf32Be, utf.Utf32BeLax, utf.Utf32BeWild}},
-	{[]byte{0xff, 0xfe, 0x00, 0x00}, []int{utf.Utf32Le, utf.Utf32LeLax, utf.Utf32LeWild}},
-	{[]byte{}, []int{utf.UtfNotUsed}},
+	{[]byte{0xef, 0xbb, 0xbf}, []utf.Encoding{utf.Utf8, utf.Utf8Lax, utf.Utf8Wild, utf.Mutf8, utf.Mutf8Sur}},
+	{[]byte{0xfe, 0xff}, []utf.Encoding{utf.Utf16Be, utf.Utf16BeLax}},
+	{[]byte{0xff, 0xfe}, []utf.Encoding{utf.Utf16Le, utf.Utf16LeLax}},
+	{[]byte{0x00, 0x00, 0xfe, 0xff}, []utf.Encoding{utf.Utf32Be, utf.Utf32BeLax, utf.Utf32BeWild}},
+	{[]byte{0xff, 0xfe, 0x00, 0x00}, []utf.Encoding{utf.Utf32Le, utf.Utf32LeLax, utf.Utf32LeWild}},
+	{[]byte{}, []utf.Encoding{utf.UtfNotUsed}},
 }
 
 // TestUftDecode walks through the test cases of testCasesDecode and performs
@@ -217,23 +288,135 @@ func TestUtfBom(t *testing.T) {
 			encoding := tc.encodings[k]
 			txtEncoding := encToString(encoding)
 			data := utf.Bom(encoding)
-			if len(data) != len(tc.bom) {
-				t.Errorf("Bom(%s) len = %d, want %d",
+			if !bytes.Equal(data, tc.bom) {
+				t.Errorf("Bom(%s) = %s, want %s",
 					txtEncoding,
-					len(data),
-					len(tc.bom))
+					bytesToString(data),
+					bytesToString(tc.bom))
 			} else {
-				for n := 0; n < len(data); n++ {
-					if data[n] != tc.bom[n] {
-						t.Errorf("Bom(%s)[%d] = 0x%02x, want 0x%02x",
-							txtEncoding,
-							n,
-							data[n],
-							tc.bom[n])
-						break
-					}
+				dataAlt := encoding.Bom()
+				if !bytes.Equal(dataAlt, tc.bom) {
+					t.Errorf("(*%s) Bom() = %s, want %s",
+						txtEncoding,
+						bytesToString(dataAlt),
+						bytesToString(tc.bom))
 				}
 			}
+		}
+	}
+}
+
+//===========================================================================
+// Tests: ParseBomLen:
+//===========================================================================
+
+// testCaseBom defines the structure of testCasesBom entries.
+type testCaseBomLen struct {
+	data           []byte
+	encoding       utf.Encoding
+	bomLen         int
+	encodingRules1 utf.Encoding
+	bomLenRules1   int
+}
+
+// testCasesBom is a set of BOM test cases for utf.Bom(). These are simply
+// expected BOM codes for the various encodings.
+var testCasesBomLen = []testCaseBomLen{
+	{[]byte{0x00, 0x00, 0xfe, 0xff}, utf.Utf32Be, 4, utf.Utf32Be, 4},
+	{[]byte{0x00, 0x00, 0x00, 0x41}, utf.Utf32Be, 0, utf.Utf32Be, 0},
+	{[]byte{0x00, 0x00, 0x00, 0x00}, utf.Utf32Be, 0, utf.Utf32Be, 0},
+	{[]byte{0xff, 0xfe, 0x00, 0x00}, utf.Utf32Le, 4, utf.Utf32Le, 4},
+	{[]byte{0x41, 0x00, 0x00, 0x00}, utf.Utf32Le, 0, utf.Utf32Le, 0},
+	{[]byte{0xfe, 0xff, 0x00, 0x41}, utf.Utf16Be, 2, utf.Utf16Be, 2},
+	{[]byte{0xfe, 0xff, 0x04, 0x10}, utf.Utf16Be, 2, utf.Utf16Be, 2},
+	{[]byte{0xfe, 0xff}, utf.Utf16Be, 2, utf.Utf16Be, 2},
+	{[]byte{0x00, 0x00, 0x04, 0x10}, utf.Utf16Be, 0, utf.Utf16Be, 0},
+	{[]byte{0x00, 0x00, 0x04, 0x00}, utf.Utf16Be, 0, utf.Utf16Be, 0},
+	{[]byte{0x00, 0x00}, utf.Utf16Be, 0, utf.Utf16Be, 0},
+	{[]byte{0x00, 0x41, 0x04, 0x10}, utf.Utf16Be, 0, utf.Utf16Be, 0},
+	{[]byte{0x00, 0x41, 0x04, 0x00}, utf.Utf16Be, 0, utf.Utf16Be, 0},
+	{[]byte{0x00, 0x41}, utf.Utf16Be, 0, utf.Utf16Be, 0},
+	{[]byte{0x00, 0x0f, 0xdb, 0xff}, utf.Utf16Be, 0, utf.Utf16Be, 0},
+	{[]byte{0x00, 0x0f, 0xdc, 0x00}, utf.Utf32Be, 0, utf.Utf16Be, 0},
+	{[]byte{0x00, 0x0f, 0xdf, 0xff}, utf.Utf32Be, 0, utf.Utf16Be, 0},
+	{[]byte{0x00, 0x0f, 0xe0, 0x00}, utf.Utf16Be, 0, utf.Utf16Be, 0},
+	{[]byte{0x00, 0x0f, 0xff, 0xfd}, utf.Utf16Be, 0, utf.Utf16Be, 0},
+	{[]byte{0x00, 0x0f, 0xff, 0xfe}, utf.Utf32Be, 0, utf.Utf16Be, 0},
+	{[]byte{0x00, 0x0f, 0xff, 0xff}, utf.Utf32Be, 0, utf.Utf16Be, 0},
+	{[]byte{0x00, 0x10, 0xff, 0xff}, utf.Utf32Be, 0, utf.Utf16Be, 0},
+	{[]byte{0xff, 0xfe, 0x00, 0x41}, utf.Utf16Le, 2, utf.Utf16Le, 2},
+	{[]byte{0xff, 0xfe, 0x04, 0x10}, utf.Utf16Le, 2, utf.Utf16Le, 2},
+	{[]byte{0xff, 0xfe, 0x04, 0x00}, utf.Utf16Le, 2, utf.Utf16Le, 2},
+	{[]byte{0xff, 0xfe}, utf.Utf16Le, 2, utf.Utf16Le, 2},
+	{[]byte{0x41, 0x00, 0x00, 0x41}, utf.Utf16Le, 0, utf.Utf16Le, 0},
+	{[]byte{0x41, 0x00, 0x04, 0x00}, utf.Utf16Le, 0, utf.Utf16Le, 0},
+	{[]byte{0x41, 0x00, 0x04, 0x10}, utf.Utf16Le, 0, utf.Utf16Le, 0},
+	{[]byte{0xef, 0xbb, 0xbf, 0x00}, utf.Utf8, 3, utf.Utf8, 3},
+	{[]byte{0xef, 0xbb, 0xbf, 0x41}, utf.Utf8, 3, utf.Utf8, 3},
+	{[]byte{0xef, 0xbb, 0xbf}, utf.Utf8, 3, utf.Utf8, 3},
+	{[]byte{0x04, 0x10, 0x04, 0x10}, utf.Utf8, 0, utf.Utf8, 0},
+	{[]byte{0x04, 0x10, 0x41}, utf.Utf8, 0, utf.Utf8, 0},
+	{[]byte{0x04, 0x10}, utf.Utf8, 0, utf.Utf8, 0},
+	{[]byte{0x41}, utf.Utf8, 0, utf.Utf8, 0},
+	{[]byte{}, utf.Utf8, 0, utf.Utf8, 0},
+}
+
+// TestUtfBomLen walks through the test cases of testCasesBomLen and performs
+// encoding and BOM detection tests on them.
+func TestUtfBomLen(t *testing.T) {
+	for i := 0; i < len(testCasesBomLen); i++ {
+		tc := testCasesBomLen[i]
+		tcDataLen := len(tc.data)
+		hexData := bytesToString(tc.data)
+		encoding, bomLen := utf.ParseBomLen(tc.data, tcDataLen)
+		if encoding != tc.encoding || bomLen != tc.bomLen {
+			t.Errorf("ParseBomLen(%s) = %s,%d, want %s,%d",
+				hexData,
+				encToString(encoding),
+				bomLen,
+				encToString(tc.encoding),
+				tc.bomLen)
+		}
+		bomLen = utf.ParseBomLenEncoding(tc.data, tcDataLen, encoding)
+		if bomLen != tc.bomLen {
+			t.Errorf("ParseBomLenEncoding(%s, %s) = %d, want %d",
+				hexData,
+				encToString(encoding),
+				bomLen,
+				tc.bomLen)
+		}
+		bomLen = encoding.ParseBomLenEncoding(tc.data, tcDataLen)
+		if bomLen != tc.bomLen {
+			t.Errorf("(*%s) ParseBomLenEncoding(%s) = %d, want %d",
+				encToString(encoding),
+				hexData,
+				bomLen,
+				tc.bomLen)
+		}
+		encoding, bomLen = utf.ParseBomLenRules1(tc.data, tcDataLen)
+		if encoding != tc.encodingRules1 || bomLen != tc.bomLenRules1 {
+			t.Errorf("ParseBomLenRules1(%s) = %s,%d, want %s,%d",
+				hexData,
+				encToString(encoding),
+				bomLen,
+				encToString(tc.encodingRules1),
+				tc.bomLenRules1)
+		}
+		bomLen = utf.ParseBomLenEncoding(tc.data, tcDataLen, encoding)
+		if bomLen != tc.bomLenRules1 {
+			t.Errorf("ParseBomLenEncoding(%s, %s) = %d, want %d",
+				hexData,
+				encToString(encoding),
+				bomLen,
+				tc.bomLenRules1)
+		}
+		bomLen = encoding.ParseBomLenEncoding(tc.data, tcDataLen)
+		if bomLen != tc.bomLenRules1 {
+			t.Errorf("(*%s) ParseBomLenEncoding(%s) = %d, want %d",
+				encToString(encoding),
+				hexData,
+				bomLen,
+				tc.bomLenRules1)
 		}
 	}
 }
@@ -246,7 +429,7 @@ func TestUtfBom(t *testing.T) {
 type testCaseDecode struct {
 	data       []byte
 	bomLength  int
-	encoding   int
+	encoding   utf.Encoding
 	variations int
 	out        []rune
 }
@@ -424,6 +607,7 @@ var testCasesDecode = []testCaseDecode{
 func TestUtfDecode(t *testing.T) {
 	for i := 0; i < len(testCasesDecode); i++ {
 		tc := testCasesDecode[i]
+		txtTcEncoding := encToString(tc.encoding)
 		tcStdEncoding := utf.ToStandard(tc.encoding)
 		hexData := bytesToString(tc.data)
 		encoding, ofs := utf.ParseBom(tc.data)
@@ -438,23 +622,35 @@ func TestUtfDecode(t *testing.T) {
 		}
 		if ofs > 0 {
 			bom := utf.Bom(tc.encoding)
+			testBomAlt := true
 			if len(bom) != ofs {
 				t.Errorf("ParseBom(%s),Bom(%s) len = %d, want %d",
 					hexData,
-					encToString(tc.encoding),
+					txtTcEncoding,
 					len(bom),
 					ofs)
+				testBomAlt = false
 			} else {
 				for k := 0; k < len(bom); k++ {
 					if bom[k] != tc.data[k] {
 						t.Errorf("ParseBom(%s),Bom(%s)[%d] = 0x%02x, want 0x%02x",
 							hexData,
-							encToString(tc.encoding),
+							txtTcEncoding,
 							ofs,
 							bom[k],
 							tc.data[k])
+						testBomAlt = false
 						break
 					}
+				}
+			}
+			if testBomAlt {
+				bomAlt := tc.encoding.Bom()
+				if !bytes.Equal(bomAlt, bom) {
+					t.Errorf("(*%s) Bom() = %s, want %s",
+						txtTcEncoding,
+						bytesToString(bomAlt),
+						bytesToString(bom))
 				}
 			}
 		}
@@ -510,15 +706,37 @@ func TestUtfDecode(t *testing.T) {
 
 // decodeTestEncoding is a utility function used by TestUftDecode to perform a
 // decode test for a given encoding.
-func decodeTestEncoding(t *testing.T, tc *testCaseDecode, hexData *string, ofs, encoding int) {
+func decodeTestEncoding(t *testing.T, tc *testCaseDecode, hexData *string, ofs int, encoding utf.Encoding) {
 	for i := 0; ; i++ {
 		r, delta := utf.NextRune(tc.data, ofs, encoding)
-		rAlt, deltaAlt := utf.NextRuneLen(tc.data, ofs, len(tc.data), encoding)
+		rAlt, deltaAlt := encoding.NextRune(tc.data, ofs)
+		if rAlt != r || deltaAlt != delta {
+			t.Errorf("(*%s) NextRune(%s,%d)/NextRune = 0x%0x,%d, want 0x%0x,%d",
+				encToString(encoding),
+				*hexData,
+				ofs,
+				rAlt,
+				deltaAlt,
+				r,
+				delta)
+		}
+		rAlt, deltaAlt = utf.NextRuneLen(tc.data, ofs, len(tc.data), encoding)
 		if rAlt != r || deltaAlt != delta {
 			t.Errorf("NextRuneLen(%s,%d,%s)/NextRune = 0x%0x,%d, want 0x%0x,%d",
 				*hexData,
 				ofs,
 				encToString(encoding),
+				rAlt,
+				deltaAlt,
+				r,
+				delta)
+		}
+		rAlt, deltaAlt = encoding.NextRuneLen(tc.data, ofs, len(tc.data))
+		if rAlt != r || deltaAlt != delta {
+			t.Errorf("(*%s) NextRuneLen(%s,%d)/NextRune = 0x%0x,%d, want 0x%0x,%d",
+				encToString(encoding),
+				*hexData,
+				ofs,
 				rAlt,
 				deltaAlt,
 				r,
@@ -641,35 +859,55 @@ func TestUtfEncode(t *testing.T) {
 			case utf.Utf32LeWild:
 				thisBytes = thisTestCase.utf32LeWild
 			}
-			var bytes []byte = []byte{}
+			var data []byte = []byte{}
+			var dataAlt []byte = []byte{}
 			for n := 0; n < len(thisTestCase.runes); n++ {
 				newBytes := utf.Bytes(thisTestCase.runes[n], thisEncoding)
 				for m := 0; m < len(newBytes); m++ {
-					bytes = append(bytes, newBytes[m])
+					data = append(data, newBytes[m])
+				}
+				newBytes = thisEncoding.Bytes(thisTestCase.runes[n])
+				for m := 0; m < len(newBytes); m++ {
+					dataAlt = append(dataAlt, newBytes[m])
 				}
 			}
-			if len(bytes) != len(thisBytes) {
+			if len(data) != len(thisBytes) {
 				t.Errorf("encoding{%s,%s} len = %d, want %d",
 					txtRunes,
 					encToString(thisEncoding),
-					len(bytes),
+					len(data),
 					len(thisBytes))
 				continue
 			}
-			for m := 0; m < len(bytes); m++ {
-				if bytes[m] != thisBytes[m] {
+			for m := 0; m < len(data); m++ {
+				if data[m] != thisBytes[m] {
 					t.Errorf("encoding{%s,%s}[%d] = 0x%02x, want 0x%02x",
 						txtRunes,
 						encToString(thisEncoding),
 						m,
-						bytes[m],
+						data[m],
 						thisBytes[m])
 					break
 				}
 			}
+			if !bytes.Equal(dataAlt, data) {
+				t.Errorf("(*%s) Bytes()/Bytes() at case %d",
+					encToString(thisEncoding),
+					i)
+			}
 			ofs := 0
 			for n := 0; ; n++ {
-				r, delta := utf.NextRune(bytes, ofs, thisEncoding)
+				r, delta := utf.NextRune(data, ofs, thisEncoding)
+				rAlt, deltaAlt := thisEncoding.NextRune(data, ofs)
+				if rAlt != r || deltaAlt != delta {
+					t.Errorf("(*%s) NextRune/NextRune{%s} = %v,%d, want %v,%d",
+						encToString(thisEncoding),
+						txtRunes,
+						rAlt,
+						deltaAlt,
+						r,
+						delta)
+				}
 				if r == utf.ReplacementCode && delta == 0 && n == len(thisTestCase.runes) {
 					break
 				}
@@ -678,7 +916,7 @@ func TestUtfEncode(t *testing.T) {
 					t.Errorf("encoding{%s,%s} decode  len = %d, want %d",
 						txtRunes,
 						encToString(thisEncoding),
-						len(bytes),
+						len(data),
 						len(thisTestCase.runes))
 					break
 				}
@@ -721,7 +959,7 @@ func TestUtfEncode(t *testing.T) {
 const bad = utf.ReplacementCode
 
 // encodingsAll is a list of all valid encodings that might test.
-var encodingsAll = []int{
+var encodingsAll = []utf.Encoding{
 	utf.Utf8,
 	utf.Utf8Lax,
 	utf.Utf8Wild,
@@ -791,7 +1029,7 @@ func runesToString(data []rune) string {
 
 // encToString returns a string representation of an encoding
 // (utf.Utf*).
-func encToString(encoding int) string {
+func encToString(encoding utf.Encoding) string {
 	switch encoding {
 	case utf.Utf8:
 		return "Utf8"

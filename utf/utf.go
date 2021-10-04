@@ -27,7 +27,7 @@
   review your plans to determine if they satisfy this request.
 ***************************************************************************/
 
-/* This package is the author's first experiment in the Go programming language.
+/* This module is the author's first experiment in the Go programming language.
  * As such, it may contain poorly or incorrectly written code. Until it has
  * been more carefully reviewed and refined, do not use it as an example of
  * how to write Go code. Polite suggestions for improvement are welcome.
@@ -86,34 +86,37 @@ package utf
 // Typically, the Unicode Replacement Character (U+FFFD) is used for this purpose.
 const ReplacementCode = '\ufffd'
 
+// Encoding is a type that distinguishes Utf*/Mutf* constants.
+type Encoding int
+
 // Utf* constants identify a specific encoding format to use within this code.
 const (
-	Utf8        = iota // UTF-8
-	Utf8Lax            // UTF-8, but allows overlong encodings, paired/un-paired UTF-16 surrogates
-	Utf8Wild           // UTF-8, Utf8Lax but also allows encodings above U+10FFFF
-	Mutf8              // MUTF-8: UTF-8 except for \0x00 encoded as overlong form 0xc0 0x80
-	Mutf8Sur           // MUTF-8: Mutf8 except UTF-16 surrogates must be used for >= U+010000
-	Utf16Be            // UTF-16BE
-	Utf16BeLax         // UTF-16BE, but allows un-paired surrogates
-	Utf16Le            // UTF-16LE
-	Utf16LeLax         // UTF-16LE, but allows un-paired surrogates
-	Utf32Be            // UTF-32BE
-	Utf32BeLax         // UTF-32BE, but allows paired/un-paired UTF-16 surrogates
-	Utf32BeWild        // UTF-32BE, Utf32BeLax but also allows encodings above U+10FFFF
-	Utf32Le            // UTF-32LE
-	Utf32LeLax         // UTF-32LE, but allows paired/un-paired UTF-16 surrogates
-	Utf32LeWild        // UTF-32LE, Utf32LeLax but also allows encodings above U+10FFFF
-	UtfNotUsed         // this value simply means "none of the above"
+	Utf8        Encoding = iota // UTF-8
+	Utf8Lax     Encoding = iota // UTF-8, but allows overlong encodings, paired/un-paired UTF-16 surrogates
+	Utf8Wild    Encoding = iota // UTF-8, Utf8Lax but also allows encodings above U+10FFFF
+	Mutf8       Encoding = iota // MUTF-8: UTF-8 except for \0x00 encoded as overlong form 0xc0 0x80
+	Mutf8Sur    Encoding = iota // MUTF-8: Mutf8 except UTF-16 surrogates must be used for >= U+010000
+	Utf16Be     Encoding = iota // UTF-16BE
+	Utf16BeLax  Encoding = iota // UTF-16BE, but allows un-paired surrogates
+	Utf16Le     Encoding = iota // UTF-16LE
+	Utf16LeLax  Encoding = iota // UTF-16LE, but allows un-paired surrogates
+	Utf32Be     Encoding = iota // UTF-32BE
+	Utf32BeLax  Encoding = iota // UTF-32BE, but allows paired/un-paired UTF-16 surrogates
+	Utf32BeWild Encoding = iota // UTF-32BE, Utf32BeLax but also allows encodings above U+10FFFF
+	Utf32Le     Encoding = iota // UTF-32LE
+	Utf32LeLax  Encoding = iota // UTF-32LE, but allows paired/un-paired UTF-16 surrogates
+	Utf32LeWild Encoding = iota // UTF-32LE, Utf32LeLax but also allows encodings above U+10FFFF
+	UtfNotUsed  Encoding = iota // "undefined encoding" (typically used as a placeholder)
 )
 
 //===========================================================================
-// Interface: Utilities:
+// API: Utilities:
 //===========================================================================
 
 // ToStandard takes an encoding and returns the corresponding standard version.
 // For example, Utf8Lax, Utf8Wild, Mutf8, and Mutf8Sur all convert to Utf8.
 // Unrecognized encodings are returned unchanged.
-func ToStandard(encoding int) int {
+func ToStandard(encoding Encoding) Encoding {
 	switch encoding {
 	case Utf8Lax, Utf8Wild, Mutf8, Mutf8Sur:
 		return Utf8
@@ -130,13 +133,18 @@ func ToStandard(encoding int) int {
 	}
 }
 
+// ToStandard is method alternative of ToStandard() that is bound to the encoding.
+func (encoding *Encoding) ToStandard() Encoding {
+	return ToStandard(*encoding)
+}
+
 // ToLax takes an encoding and returns the corresponding "Lax" version.
 // If there is no corresponding "Lax" version, the input encoding
 // is returned.
 //
 // Typical usage is to take the encoding returned from ParseBom or
 // ParseBomLen and filter it through this function.
-func ToLax(encoding int) int {
+func ToLax(encoding Encoding) Encoding {
 	switch encoding {
 	case Utf8, Utf8Wild, Mutf8, Mutf8Sur:
 		return Utf8Lax
@@ -153,13 +161,18 @@ func ToLax(encoding int) int {
 	}
 }
 
+// ToLax is method alternative of ToLax() that is bound to the encoding.
+func (encoding *Encoding) ToLax() Encoding {
+	return ToLax(*encoding)
+}
+
 // ToWild takes an encoding and returns the corresponding "Wild" version.
 // If there is no corresponding "Wild" version, the input encoding
 // is returned.
 //
 // Typical usage is to take the encoding returned from ParseBom or
 // ParseBomLen and filter it through this function.
-func ToWild(encoding int) int {
+func ToWild(encoding Encoding) Encoding {
 	switch encoding {
 	case Utf8, Utf8Lax, Mutf8, Mutf8Sur:
 		return Utf8Wild
@@ -176,13 +189,18 @@ func ToWild(encoding int) int {
 	}
 }
 
+// ToWild is method alternative of ToWild() that is bound to the encoding.
+func (encoding *Encoding) ToWild() Encoding {
+	return ToWild(*encoding)
+}
+
 // ToMutf8 takes an encoding and returns Mutf8 if it is one of the
 // other UTF-8 encodings. If it is not one of the other UTF-8
 // encodings, the input encoding is returned.
 //
 // Typical usage is to take the encoding returned from ParseBom or
 // ParseBomLen and filter it through this function.
-func ToMutf8(encoding int) int {
+func ToMutf8(encoding Encoding) Encoding {
 	switch encoding {
 	case Utf8, Utf8Lax, Utf8Wild, Mutf8Sur:
 		return Mutf8
@@ -191,13 +209,18 @@ func ToMutf8(encoding int) int {
 	}
 }
 
+// ToMutf8 is method alternative of ToMutf8() that is bound to the encoding.
+func (encoding *Encoding) ToMutf8() Encoding {
+	return ToMutf8(*encoding)
+}
+
 // ToMutf8Sur takes an encoding and returns Mutf8Sur if it is one
 // of the other UTF-8 encodings. If it is not one of the other
 // UTF-8 encodings, the input encoding is returned.
 //
 // Typical usage is to take the encoding returned from ParseBom or
 // ParseBomLen and filter it through this function.
-func ToMutf8Sur(encoding int) int {
+func ToMutf8Sur(encoding Encoding) Encoding {
 	switch encoding {
 	case Utf8, Utf8Lax, Utf8Wild, Mutf8:
 		return Mutf8Sur
@@ -206,14 +229,19 @@ func ToMutf8Sur(encoding int) int {
 	}
 }
 
+// ToMutf8Sur is method alternative of ToMutf8Sur() that is bound to the encoding.
+func (encoding *Encoding) ToMutf8Sur() Encoding {
+	return ToMutf8Sur(*encoding)
+}
+
 //===========================================================================
-// Interface: Byte Order Mark (BOM):
+// API: Byte Order Mark (BOM):
 //===========================================================================
 
 // ParseBom is like ParseBomLen, but the length of data is not included.
 //
 // It returns the encoding (e.g. utf.Utf8) and the byte length of the BOM (0 if none).
-func ParseBom(data []byte) (int, int) {
+func ParseBom(data []byte) (Encoding, int) {
 	return ParseBomLen(data, len(data))
 }
 
@@ -229,12 +257,10 @@ func ParseBom(data []byte) (int, int) {
 // first character is in the ASCII range 01-0x7f. Also, it is assumed that the first
 // 4 bytes do not include NUL (U+0000) characters. If these assumptions are false then
 // the encoding is ambiguous. For example, the starting sequence, 0x00 0x0a 0x00 0x00,
-//  could be any of the 5 possible UTF encodings without these assumptions.
+// could be any of the 5 possible UTF encodings without these assumptions.
 //
 // It returns the encoding (e.g. utf.Utf8) and the byte length of the BOM (0 if none).
-func ParseBomLen(data []byte, dataLen int) (int, int) {
-	var encoding int = Utf8
-	var bomSize int = 0
+func ParseBomLen(data []byte, dataLen int) (Encoding, int) {
 	// encoding checklist:
 	//   3 bytes:
 	//     ef bb bf     UTF-8 BOM
@@ -247,7 +273,7 @@ func ParseBomLen(data []byte, dataLen int) (int, int) {
 	//           xx xx   UTF-16LE BOM
 	//     xx 00
 	//           00 00   UTF-32LE
-	//           xx xx   UTF-16LE
+	//           xx xx   UTF-16LE (only if first byte non-zero)
 	//     fe ff xx xx   UTF-16BE BOM
 	//     00 xx yy yy   UTF-16BE (or UTF-32BE if valid UTF-32BE but not UTF-16BE)
 	//   2 bytes:
@@ -259,64 +285,91 @@ func ParseBomLen(data []byte, dataLen int) (int, int) {
 	if dataLen >= 2 {
 		if dataLen >= 3 {
 			if data[0] == 0xef && data[1] == 0xbb && data[2] == 0xbf {
-				bomSize = 3 // 3: ef bb bf    UTF-8 BOM
-			} else if dataLen >= 4 {
+				return Utf8, 3 // 3: ef bb bf    UTF-8 BOM
+			}
+			if dataLen >= 4 {
 				if data[0] == 0 && data[1] == 0 {
 					if data[2] == 0xfe && data[3] == 0xff {
-						encoding = Utf32Be // 4: 00 00 fe ff UTF-32BE BOM
-						bomSize = 4
-					} else if data[2] == 0 {
-						encoding = Utf32Be // 4: 00 00 00 xx UTF-32BE
+						return Utf32Be, 4 // 4: 00 00 fe ff UTF-32BE BOM
+					}
+					if data[2] == 0 {
+						return Utf32Be, 0 // 4: 00 00 00 xx UTF-32BE
 					}
 				} else if data[0] == 0xff && data[1] == 0xfe {
 					if data[2] == 0 && data[3] == 0 {
-						encoding = Utf32Le // 4: ff fe 00 00 UTF-32LE BOM
-						bomSize = 4
-					} else {
-						encoding = Utf16Le // 4: ff fe xx xx UTF-16LE BOM
-						bomSize = 2
+						return Utf32Le, 4 // 4: ff fe 00 00 UTF-32LE BOM
 					}
-				} else if data[1] == 0 {
+					return Utf16Le, 2 // 4: ff fe xx xx UTF-16LE BOM
+				}
+				if data[1] == 0 {
 					if data[2] == 0 && data[3] == 0 {
-						encoding = Utf32Le // 4: xx 00 00 00 UTF-32LE
-					} else {
-						encoding = Utf16Le // 4: xx 00 xx xx UTF-16LE
+						return Utf32Le, 0 // 4: xx 00 00 00 UTF-32LE
 					}
-				} else if data[0] == 0xfe && data[1] == 0xff {
-					encoding = Utf16Be // 4: fe ff xx xx UTF-16BE BOM
-					bomSize = 2
-				} else if data[0] == 0 {
+					if data[0] != 0 {
+						return Utf16Le, 0 // 4: xx 00 xx xx UTF-16LE
+					}
+				}
+				if data[0] == 0xfe && data[1] == 0xff {
+					return Utf16Be, 2 // 4: fe ff xx xx UTF-16BE BOM
+				}
+				if data[0] == 0 {
 					// 00 xx yy yy is a little more tricky; could still be UTF-32BE
-					if data[1] <= 0x10 && data[2] >= 0xdc && data[2] <= 0xdf {
-						// this is valid UTF-32BE but not valid UTF-16BE, so we'll go with UTF-32BE
-						encoding = Utf32Be // 4: 00 xx xx xx UTF-32BE
-					} else {
-						encoding = Utf16Be // 4: 00 xx xx xx UTF-16BE
+					if data[1] <= 0x10 {
+						if data[2] >= 0xdc && data[2] <= 0xdf ||
+							data[2] == 0xff && data[3] >= 0xfe {
+							return Utf32Be, 0 // 4: 00 xx xx xx UTF-32BE
+						}
+						return Utf16Be, 0 // 4: 00 xx xx xx UTF-16BE
 					}
+					return Utf16Be, 0 // 4: 00 xx xx xx UTF-16BE
 				}
 			}
 		}
 		if dataLen < 4 {
 			if data[0] == 0xff && data[1] == 0xfe {
-				encoding = Utf16Le // 2: ff fe UTF-16LE BOM
-				bomSize = 2
-			} else if data[1] == 0 {
-				encoding = Utf16Le // 2: xx 00 UTF-16LE
-			} else if data[0] == 0xfe && data[1] == 0xff {
-				encoding = Utf16Be // 2: fe ff UTF-16BE BOM
-				bomSize = 2
-			} else if data[0] == 0 {
-				encoding = Utf16Be // 2: 00 xx UTF-16BE
+				return Utf16Le, 2 // 2: ff fe UTF-16LE BOM
+			}
+			if data[0] == 0xfe && data[1] == 0xff {
+				return Utf16Be, 2 // 2: ff fe UTF-16BE BOM
+			}
+			if data[0] == 0 {
+				return Utf16Be, 0 // 2: 00 xx UTF-16BE
+			}
+			if data[1] == 0 {
+				return Utf16Le, 0 // 2: xx 00 UTF-16LE
 			}
 		}
 	}
-	return encoding, bomSize
+	return Utf8, 0
+}
+
+// ParseBomLenRules1 is like ParseBomLen, but some adjustments to the selection
+// methodology that make it compliant with Version 1.2.2 of the YAML Specification.
+// These changes are as follows.
+//
+// All patterns of the form, 0x00.0x?? but are not any of 0x00.0x00.0xFE.0xFF,
+// 0x00.0x00.0x00, or 0x00.0x00.0x00.0x00, resolve to UTF16-BE. This means that some
+// patterns of 0x00.0xXX.0xYY.0xZZ of which 0xXXYYZZ is a valid code point but 0x00YYZZ
+// is not will still resolve to UTF-16BE in spite of being invalid as UTF-16BE but not
+// as UTF-32BE. Currently, the cases where these are valid code points for UTF-32BE but
+// not UTF-16BE are in the Supplementary Private Use Area-A [U+0F0000,U+0FFFFF] and
+// Supplimentary Private Use Area-B [U+100000,U+10FFFF].
+//
+// It returns the encoding (e.g. utf.Utf8) and the byte length of the BOM (0 if none).
+func ParseBomLenRules1(data []byte, dataLen int) (Encoding, int) {
+	if dataLen >= 2 && data[0] == 0 &&
+		(dataLen < 3 || data[1] != 0 || data[2] != 0) &&
+		(dataLen < 4 || data[1] != 0 || data[2] != 0xfe || data[3] != 0xff) &&
+		(dataLen < 4 || data[1] != 0 || data[2] != 0 || data[3] != 0) {
+		return Utf16Be, 0
+	}
+	return ParseBomLen(data, dataLen)
 }
 
 // UtfParseBomLenEncoding returns how many leading bytes are used by the Byte Order Mark
 // (BOM) for the provided encoding. If no BOM is found or the encoding is unrecognized,
 // 0 is returned.
-func ParseBomLenEncoding(data []byte, dataLen, encoding int) int {
+func ParseBomLenEncoding(data []byte, dataLen int, encoding Encoding) int {
 	switch encoding {
 	case Utf8, Utf8Lax, Utf8Wild, Mutf8, Mutf8Sur:
 		if dataLen >= 3 && data[0] == 0xef && data[1] == 0xbb && data[2] == 0xbf {
@@ -342,9 +395,15 @@ func ParseBomLenEncoding(data []byte, dataLen, encoding int) int {
 	return 0
 }
 
+// ParseBomLenEncoding is method alternative of ParseBomLenEncoding() that
+// is bound to the encoding.
+func (encoding *Encoding) ParseBomLenEncoding(data []byte, dataLen int) int {
+	return ParseBomLenEncoding(data, dataLen, *encoding)
+}
+
 // Bom returns a Byte Order Mark (BOM) corresponding with the specified encoding.
 // An unrecognized encoding returns a byte slice of 0 bytes.
-func Bom(encoding int) []byte {
+func Bom(encoding Encoding) []byte {
 	switch encoding {
 	case Utf8, Utf8Lax, Utf8Wild, Mutf8, Mutf8Sur:
 		return []byte{0xef, 0xbb, 0xbf}
@@ -360,15 +419,25 @@ func Bom(encoding int) []byte {
 	return []byte{}
 }
 
+// Bom is method alternative of Bom() that is bound to the encoding.
+func (encoding *Encoding) Bom() []byte {
+	return Bom(*encoding)
+}
+
 //===========================================================================
-// Interface: Decode: Encoded Bytes:
+// API: Decode: Encoded Bytes:
 //===========================================================================
 
 // NextRune is like NextRuneLen, but the length of data is not included.
 //
 // It returns the rune and the corresponding byte length from the encoded bytes.
-func NextRune(data []byte, offset, encoding int) (rune, int) {
+func NextRune(data []byte, offset int, encoding Encoding) (rune, int) {
 	return NextRuneLen(data, offset, len(data), encoding)
+}
+
+// NextRune is method alternative of NextRune() that is bound to the encoding.
+func (encoding *Encoding) NextRune(data []byte, offset int) (rune, int) {
+	return NextRuneLen(data, offset, len(data), *encoding)
 }
 
 // NextRuneLen decodes the next code point in the byte sequence at the
@@ -397,7 +466,7 @@ func NextRune(data []byte, offset, encoding int) (rune, int) {
 // value returned by this function instead.
 //
 // It returns the rune and the corresponding byte length from the encoded bytes.
-func NextRuneLen(data []byte, offset, dataLength, encoding int) (rune, int) {
+func NextRuneLen(data []byte, offset, dataLength int, encoding Encoding) (rune, int) {
 	remainingLength := dataLength - offset
 	switch encoding {
 	case Utf8, Utf8Lax, Utf8Wild, Mutf8, Mutf8Sur:
@@ -457,8 +526,13 @@ func NextRuneLen(data []byte, offset, dataLength, encoding int) (rune, int) {
 	return ReplacementCode, 0
 }
 
+// NextRuneLen is method alternative of NextRuneLen() that is bound to the encoding.
+func (encoding *Encoding) NextRuneLen(data []byte, offset, dataLength int) (rune, int) {
+	return NextRuneLen(data, offset, dataLength, *encoding)
+}
+
 //===========================================================================
-// Interface: Encode:
+// API: Encode:
 //===========================================================================
 
 // Bytes takes a code point and encoding and returns the []byte representation.
@@ -470,7 +544,7 @@ func NextRuneLen(data []byte, offset, dataLength, encoding int) (rune, int) {
 // If the code point is out of range (i.e. above U+10FFFF for encodings other
 // than the "Wild" encodings, or above U+1FFFFF for Utf8Wild), then the
 // returned []byte encodes ReplacementCode (U+00FFFD).
-func Bytes(r rune, encoding int) []byte {
+func Bytes(r rune, encoding Encoding) []byte {
 	u := uint32(r) // avoids dealing with negative numbers
 	switch encoding {
 	case Mutf8, Mutf8Sur:
@@ -524,6 +598,11 @@ func Bytes(r rune, encoding int) []byte {
 		}
 	}
 	return Bytes(ReplacementCode, encoding)
+}
+
+// Bytes is method alternative of Bytes() that is bound to the encoding.
+func (encoding *Encoding) Bytes(r rune) []byte {
+	return Bytes(r, *encoding)
 }
 
 //===========================================================================

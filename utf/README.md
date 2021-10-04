@@ -41,6 +41,7 @@ func main() {
     // scan the Unicode code points:
     for {
         r, len := utf.NextRune(data, offset, encoding)
+        // alternate: r, len := encoding.NextRune(data, offset)
         if len > 0 {
             fmt.Printf(" U+%06X\n", r)
             offset += len
@@ -74,6 +75,7 @@ var text = "Hi \U0001F642"
 func main() {
     const enc = utf.Utf8
     for _, r := range text {
+        // alternate: replace utf.Bytes(r, enc) with enc.Bytes(r) below
         fmt.Printf("Character \"%c\" encodes to 0x%x\n", r, utf.Bytes(r, enc))
     }
 
@@ -165,16 +167,18 @@ The following examples consider the code point sequence, U+000048,U+000069,U+000
     - Out of range (> U+10FFFF): U+FFFFFFFF => `0xFF,0xFF,0xFF,0xFF` (VALID encodings decdode to the code point sequence, U+000048,U+000069,U+000000,U+FFFFFFFF):
         + `0x48,0x00,0x00,0x00,0x69,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0xFF,0xFF,0xFF,0xFF` - VALID: `Utf32LeWild`; INVALID: `Utf32Le`, `Utf32LeLax`
 
-## BOM Interface
-### `ParseBom(data []byte) (int, int)`
+## BOM API
+### `utf.ParseBom(data []byte) (utf.Encoding, int)`
 Same as ParseBomLen, except that len(data) is not provided.
 
 ```go
 var data = []byte{0xef, 0xbb, 0xbf, 0x48, 0x69, 0x20, 0xf0, 0x9f, 0x99, 0x82}
 encoding, offset := utf.ParseBom(data)  // returns utf.Utf8, 3
 encoding = utf.ToLax(encoding) // optional: choose "Lax" encoding
+// alternate: encoding = encoding.ToLax()
 for {
     r, len := utf.NextRune(data, offset, encoding)
+    // alternate: r, len := encoding.NextRune(data, offset)
     if len > 0 {
         fmt.Printf(" U+%06X\n", r)
         offset += len
@@ -184,16 +188,18 @@ for {
 }
 ```
 
-### `ParseBomLen(data []byte, dataLen int) (int, int)`
+### `utf.ParseBomLen(data []byte, dataLen int) (utf.Encoding, int)`
 Parses the Byte Order Mark (BOM) at the start of the data and returns the corresponding standard encoding (i.e. `Utf8`, `Utf16Be`, `Utf16Le`, `Utf32Be`, or `Utf32Le`) and byte length of the BOM. If no BOM was detected, then the returned byte length is 0 and an assumed encoding is returned. Typically, this function is called just before decoding the data with `NextRune` or `NextRuneLen`.
 
 ```go
 var data = []byte{0xef, 0xbb, 0xbf, 0x48, 0x69, 0x20, 0xf0, 0x9f, 0x99, 0x82}
 const dataLen = len(data)
 encoding, offset := utf.ParseBomLen(data, dataLen)  // returns utf.Utf8, 3
-encoding = utf.ToLax(encoding) // optional: choose "Lax" encoding
+encoding = encoding.ToLax() // optional: choose "Lax" encoding
+// alternate: encoding = utf.ToLax(encoding)
 for {
     r, len := utf.NextRuneLen(data, offset, dataLen, encoding)
+    // alternate: r, len := encoding.NextRuneLen(data, offset, dataLen)
     if len > 0 {
         fmt.Printf(" U+%06X\n", r)
         offset += len
@@ -203,16 +209,24 @@ for {
 }
 ```
 
-### `ParseBomLenEncoding(data []byte, dataLen, encoding int) int`
+### `utf.ParseBomLenRules1(data []byte, dataLen int) (utf.Encoding, int)`
+Similar to ParseBomLen, but with an adjustment to the encoding selection decision process that makes it compliant with Version 1.2.2 of the YASM Specification and any other specification that has equivalent decision requirements for encoding.
+
+The specific difference from ParseBomLen deals with patterns of the form, 0x00.0x?? but are not any of 0x00.0x00.0xFE.0xFF, 0x00.0x00.0x00, or 0x00.0x00.0x00.0x00. For these patterns, ParseBomLen selects UTF-16BE unless the pattern would translate to invalid code points under UTF-16BE but a valid code point according to UTF-32BE, in which case UTF-32BE is selected. ParseBomLenRules1 will select UTF-16BE regardless.
+
+As of this writing, the only assigned Unicode code points for which `ParseBomLenRules` produce a different result than `ParseBomLen` are rarely used code points that are unlikely to be used in typical applications.
+
+### `utf.ParseBomLenEncoding(data []byte, dataLen, encoding utf.Encoding) int`
+#### `(*utf.Encoding) ParseBomLenEncoding(data []byte, dataLen) int`
 Similar to ParseBomLen, except that the encoding is specified. If a BOM corresponding to the specified encoding is detected, the length is returned. Otherwise, a length of 0 is returned.
 
 ```go
 var data = []byte{0xef, 0xbb, 0xbf, 0x48, 0x69, 0x20, 0xf0, 0x9f, 0x99, 0x82}
 const dataLen = len(data)
 const encoding = utf.Utf8Lax
-offset := utf.ParseBomLenEncoding(data, dataLen, encoding)  // returns 3
+offset := encoding.ParseBomLenEncoding(data, dataLen)  // returns 3
 for {
-    r, len := utf.NextRuneLen(data, offset, dataLen, encoding)
+    r, len := encoding.NextRuneLen(data, offset, dataLen)
     if len > 0 {
         fmt.Printf(" U+%06X\n", r)
         offset += len
@@ -222,15 +236,17 @@ for {
 }
 ```
 
-### `Bom(encoding int) []byte`
+### `utf.Bom(encoding utf.Encoding) []byte`
+#### `(*utf.Encoding) utf.Bom() []byte`
 Returns a Byte Order Mark (BOM) for the specified encoding. A splice of zero bytes is returned for unrecognized encodings.
 
 ```go
 bom := utf.Bom(utf.Utf16Be) // returns []byte{0xfe, 0xff}
 ```
 
-## Decoding Interface
-### `NextRune(data []byte, offset, encoding int) (rune, int)`
+## Decoding API
+### `utf.NextRune(data []byte, offset, encoding utf.Encoding) (rune, int)`
+#### `(*utf.Encoding) NextRune(data []byte, offset) (rune, int)`
 Same as NextRunLen, except that len(data) is not provided.
 
 ```go
@@ -245,7 +261,8 @@ for i := 0; ; i++ {
 }
 ```
 
-### `NextRuneLen(data []byte, offset, dataLength, encoding int) (rune, int)`
+### `utf.NextRuneLen(data []byte, offset, dataLength, encoding utf.Encoding) (rune, int)`
+#### `(*utf.Encoding) utf.NextRuneLen(data []byte, offset, dataLength) (rune, int)`
 Decodes the bytes starting at the specified offset and encoding into a code point, returning the code point and the number of bytes used to decode the code point. Invalid data returns `ReplacementCode` (U+00FFFD) and the corresponding length of invalid data to skip over. If there is insufficient data to decode another code point, then `ReplacementCode` (U+00FFFD) and a byte length of 0 is returned.
 
 ```go
@@ -261,8 +278,9 @@ for i := 0; ; i++ {
 }
 ```
 
-## Encoding Interface
-### `Bytes(r rune, encoding int) []byte`
+## Encoding API
+### `utf.Bytes(r rune, encoding utf.Encoding) []byte`
+#### `(*utf.Encoding) utf.Bytes(r rune) []byte`
 Encodes a code point (rune) into a slice of bytes of the specified encoding. The "Lax" encodings produce the same results as the standard encodings. Out of range code points are encoded as `ReplacementCode` (U+00FFFD) except if a "Wild" encoding is used that supports code points in that range (i.e. `Utf8Wild` in range [U+110000, U+1FFFFF], `Utf32BeWild`/`Utf32LeWild` in range [U+110000, U+FFFFFFFF]). `Mutf8` produces the same results as `Utf8` except for code point U+000000. `Mutf8Sur` produces the same results as `Mutf8` except that UTF-16 surrogates are used in the range [U+010000, U+10FFFF].
 
 ```go
@@ -270,14 +288,16 @@ data := utf.Bytes(0x1f642, utf.Utf8)  // returns []byte{0xf0, 0x9f, 0x99, 0x82}
 ```
 
 ## Miscellaneous Utilities Interface
-### `ToStandard(encoding int) int`
+### `utf.ToStandard(encoding utf.Encoding) utf.Encoding`
+#### `(*utf.Encoding) utf.ToStandard() utf.Encoding`
 Converts any encoding to its corresponding base encoding (`Utf8`, `Utf16Be`, `Utf16Le`, `Utf32Be`, or `Utf32Le`).
 
 ```go
 encoding := utf.ToStandard(utf.Mutf8Sur)  // utf.Mutf8Sur => utf.Utf8
 ```
 
-### `ToLax(encoding int) int`
+### `utf.ToLax(encoding utf.Encoding) utf.Encoding`
+#### `(*utf.Encoding) utf.ToLax() utf.Encoding`
 Converts any encoding to its corresponding "Lax" encoding (`Utf8Lax`, `Utf16BeLax`, `Utf16LeLax`, `Utf32BeLax`, or `Utf32LeLax`).
 
 ```go
@@ -286,7 +306,8 @@ encoding, ofs := utf.ParseBom(data)
 encoding = utf.ToLax(encoding)
 ```
 
-### `ToWild(encoding int) int`
+### `utf.ToWild(encoding utf.Encoding) utf.Encoding`
+#### `(*utf.Encoding) utf.ToWild() utf.Encoding`
 Converts any encoding to its corresponding "Wild" encoding (`Utf8Wild`, `Utf32BeWild`, or `Utf32LeWild`). UTF-16 encodings do not have a "Wild" version so they are converted to the corresponding "Lax" version.
 
 ```go
@@ -295,7 +316,8 @@ encoding, ofs := utf.ParseBom(data)
 encoding = utf.ToWild(encoding)
 ```
 
-### `ToMutf8(encoding int) int`
+### `utf.ToMutf8(encoding utf.Encoding) utf.Encoding`
+#### `(*utf.Encoding) utf.ToMutf8() utf.Encoding`
 Converts UTF-8 and MUTF-8 encodings to `Mutf8`. Other encodings are returned unchanged.
 
 ```go
@@ -304,7 +326,8 @@ encoding, ofs := utf.ParseBom(data)
 encoding = utf.ToMutf8(encoding)
 ```
 
-### `ToMutf8Sur(encoding int) int`
+### `utf.ToMutf8Sur(encoding utf.Encoding) utf.Encoding`
+#### `(*utf.Encoding) utf.ToMutf8Sur() utf.Encoding`
 Converts UTF-8 and MUTF-8 encodings to `Mutf8Sur`. Other encodings are returned unchanged.
 
 ```go
