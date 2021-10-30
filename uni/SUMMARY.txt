@@ -1,0 +1,979 @@
+/***************************************************************************
+  Copyright 2021 https://github.com user @orkvozku
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+***************************************************************************/
+
+/***************************************************************************
+  This comment block is informational only and does not modify the License
+  described in other comment blocks in this source and/or elsewhere (e.g.
+  such as in a LICENSE file).
+
+  You are requested to use this software for good and not evil. If you are
+  unsure if your plans for good and not evil meet this request then consult
+  with any of your daughters. If you do not have any such daughters, then
+  choose your nicest family member who is willing as an alternative. If you
+  have no such family members, then choose the nicest person in your social
+  circle who is willing as an alternative.
+***************************************************************************/
+
+/***************************************************************************
+  Significant portions of this file are derived from the Unicode(R)
+  Character Database (UCD) retrieved from
+  https://www.unicode.org/Public/UCD/latest. The UCD is copyrighted by
+  Unicode, Inc. and subject to a license located at
+  https://www.unicode.org/license.html.
+
+  Unicode and the Unicode Logo are registered trademarks of Unicode, Inc.
+  in the United States and other countries.
+***************************************************************************/
+
+/***************************************************************************
+  This file is not intended to be modified by biological entities.
+***************************************************************************/
+
+Use this file to determine which functions of which packages of this module
+implement which Unicode properties.
+
+The functions that test for these properties come in the following forms.
+For each of these dorms, consider the following abstractions.
+
+ - X - The Unicode property name in abbreviated form, stripped of all
+       non-alphanumeric characters and with only the first character in
+       uppercase. For example, Unicode property, Bidi_Control, as an
+       abbreviated alias, Bidi_C, of which X would be Bibic.
+
+ - Y - The Unicode property value name, analogous to X. For example, for
+       Unicode property, Block, the value, Ancient_Greek_Musical_Notation,
+       Y would be Ancientgreekmusic.
+
+ - T - A Golang type that can represent a value of this property.
+
+The forms that these functions can have are as follows.
+
+ - HasXY(r rune) bool - Returns true only if code point, r, is assigned
+   property, X, value, Y. For example, HasGcLu(rune r) bool, returns true
+   only if code point, r, has General_Category property, Lu.
+
+All of the currently supported properties have the form as described above.
+However, some properties will likely be added in the future that do not fit
+this form. Examples include properties for decompositions and case mappings,
+which return a rune or a []rune. Other forms will be added as new properties
+are supported that require them.
+
+Function names are listed herein prefixed with their corresponding package
+names. In some cases, a function may be implemented in more than one package.
+One package has the primary implementation of the function while the others
+consist of stubs that call into the primary implementation of the other
+package. Those are listed with the comment, (secondary implementation).
+
+Module Version: 0.0.1
+Unicode Version: 14.0.0
+
+PACKAGES:
+ubasic:
+    Extended_Pictographic (ExtPict)
+    General_Category (gc)
+    Grapheme_Cluster_Break (GCB)
+    White_Space (WSpace, space)
+upatids:
+    ID_Start (IDS)
+    ID_Continue (IDC)
+    Pattern_Syntax (Pat_Syn)
+    Pattern_White_Space (Pat_WS)
+    XID_Continue (XIDC)
+    XID_Start (XIDS)
+uscripts:
+    Script_Extensions (scx)
+useg:
+    Extended_Pictographic (ExtPict)
+    Grapheme_Cluster_Break (GCB)
+    Line_Break (lb)
+    Sentence_Break (SB)
+    Word_Break (WB)
+
+PROPERTIES:
+Alphabetic (Alpha)
+    (not implemented)
+Age (age)
+    (not implemented)
+ASCII_Hex_Digit (AHex)
+    (not implemented)
+Bidi_Class (bc)
+    (not implemented)
+Bidi_Control (Bidi_C)
+    (not implemented)
+Bidi_Mirroring_Glyph (bmg)
+    (not implemented)
+Bidi_Paired_Bracket (bpb)
+    (not implemented)
+Bidi_Paired_Bracket_Type (bpt)
+    (not implemented)
+Bidi_Mirrored (Bidi_M)
+    (not implemented)
+Canonical_Combining_Class (ccc)
+    (not implemented)
+Case_Folding (cf)
+    (not implemented)
+Case_Ignorable (CI)
+    (not implemented)
+Block (blk)
+    (not implemented)
+Changes_When_Casefolded (CWCF)
+    (not implemented)
+Changes_When_Lowercased (CWL)
+    (not implemented)
+Changes_When_Casemapped (CWCM)
+    (not implemented)
+Changes_When_NFKC_Casefolded (CWKCF)
+    (not implemented)
+Changes_When_Titlecased (CWT)
+    (not implemented)
+Decomposition_Mapping (dm)
+    (not implemented)
+Decomposition_Type (dt)
+    (not implemented)
+Changes_When_Uppercased (CWU)
+    (not implemented)
+Default_Ignorable_Code_Point (DI)
+    (not implemented)
+Dash
+    (not implemented)
+Deprecated (Dep)
+    (not implemented)
+Emoji
+    (not implemented)
+Diacritic (Dia)
+    (not implemented)
+Emoji_Component (EComp)
+    (not implemented)
+Emoji_Modifier (EMod)
+    (not implemented)
+East_Asian_Width (ea)
+    (not implemented)
+Emoji_Modifier_Base (EBase)
+    (not implemented)
+Expands_On_NFC (XO_NFC)
+    (not implemented)
+Expands_On_NFD (XO_NFD)
+    (not implemented)
+Expands_On_NFKC (XO_NFKC)
+    (not implemented)
+Expands_On_NFKD (XO_NFKD)
+    (not implemented)
+Emoji_Presentation (EPres)
+    (not implemented)
+Extended_Pictographic (ExtPict)
+    value: No (N, F, False)
+        func ubasic.HasExtpictN(r rune) bool
+        func useg.HasExtpictN(r rune) bool (secondary implementation)
+    value: Yes (Y, T, True)
+        func ubasic.HasExtpictY(r rune) bool
+        func useg.HasExtpictY(r rune) bool (secondary implementation)
+Equivalent_Unified_Ideograph (EqUIdeo)
+    (not implemented)
+Extender (Ext)
+    (not implemented)
+FC_NFKC_Closure (FC_NFKC)
+    (not implemented)
+Cased
+    (not implemented)
+Full_Composition_Exclusion (Comp_Ex)
+    (not implemented)
+Grapheme_Base (Gr_Base)
+    (not implemented)
+General_Category (gc)
+    value: Currency_Symbol (Sc)
+        func ubasic.HasGcSc(r rune) bool
+    value: Close_Punctuation (Pe)
+        func ubasic.HasGcPe(r rune) bool
+    value: Dash_Punctuation (Pd)
+        func ubasic.HasGcPd(r rune) bool
+    value: Connector_Punctuation (Pc)
+        func ubasic.HasGcPc(r rune) bool
+    value: Decimal_Number (Nd, digit)
+        func ubasic.HasGcNd(r rune) bool
+    value: Enclosing_Mark (Me)
+        func ubasic.HasGcMe(r rune) bool
+    value: Final_Punctuation (Pf)
+        func ubasic.HasGcPf(r rune) bool
+    value: Cased_Letter (LC)
+        func ubasic.HasGcLc(r rune) bool
+    value: Initial_Punctuation (Pi)
+        func ubasic.HasGcPi(r rune) bool
+    value: Format (Cf)
+        func ubasic.HasGcCf(r rune) bool
+    value: Letter_Number (Nl)
+        func ubasic.HasGcNl(r rune) bool
+    value: Line_Separator (Zl)
+        func ubasic.HasGcZl(r rune) bool
+    value: Letter (L)
+        func ubasic.HasGcL(r rune) bool
+    value: Math_Symbol (Sm)
+        func ubasic.HasGcSm(r rune) bool
+    value: Mark (M, Combining_Mark)
+        func ubasic.HasGcM(r rune) bool
+    value: Modifier_Symbol (Sk)
+        func ubasic.HasGcSk(r rune) bool
+    value: Lowercase_Letter (Ll)
+        func ubasic.HasGcLl(r rune) bool
+    value: Nonspacing_Mark (Mn)
+        func ubasic.HasGcMn(r rune) bool
+    value: Number (N)
+        func ubasic.HasGcN(r rune) bool
+    value: Open_Punctuation (Ps)
+        func ubasic.HasGcPs(r rune) bool
+    value: Modifier_Letter (Lm)
+        func ubasic.HasGcLm(r rune) bool
+    value: Other_Letter (Lo)
+        func ubasic.HasGcLo(r rune) bool
+    value: Other_Punctuation (Po)
+        func ubasic.HasGcPo(r rune) bool
+    value: Other_Symbol (So)
+        func ubasic.HasGcSo(r rune) bool
+    value: Paragraph_Separator (Zp)
+        func ubasic.HasGcZp(r rune) bool
+    value: Other_Number (No)
+        func ubasic.HasGcNo(r rune) bool
+    value: Punctuation (P, punct)
+        func ubasic.HasGcP(r rune) bool
+    value: Separator (Z)
+        func ubasic.HasGcZ(r rune) bool
+    value: Space_Separator (Zs)
+        func ubasic.HasGcZs(r rune) bool
+    value: Control (Cc, cntrl)
+        func ubasic.HasGcCc(r rune) bool
+    value: Spacing_Mark (Mc)
+        func ubasic.HasGcMc(r rune) bool
+    value: Private_Use (Co)
+        func ubasic.HasGcCo(r rune) bool
+    value: Symbol (S)
+        func ubasic.HasGcS(r rune) bool
+    value: Surrogate (Cs)
+        func ubasic.HasGcCs(r rune) bool
+    value: Titlecase_Letter (Lt)
+        func ubasic.HasGcLt(r rune) bool
+    value: Other (C)
+        func ubasic.HasGcC(r rune) bool
+    value: Unassigned (Cn)
+        func ubasic.HasGcCn(r rune) bool
+    value: Uppercase_Letter (Lu)
+        func ubasic.HasGcLu(r rune) bool
+Grapheme_Cluster_Break (GCB)
+    value: Control (CN)
+        func ubasic.HasGcbCn(r rune) bool
+        func useg.HasGcbCn(r rune) bool (secondary implementation)
+    value: CR
+        func ubasic.HasGcbCr(r rune) bool
+        func useg.HasGcbCr(r rune) bool (secondary implementation)
+    value: Extend (EX)
+        func ubasic.HasGcbEx(r rune) bool
+        func useg.HasGcbEx(r rune) bool (secondary implementation)
+    value: L
+        func ubasic.HasGcbL(r rune) bool
+        func useg.HasGcbL(r rune) bool (secondary implementation)
+    value: LF
+        func ubasic.HasGcbLf(r rune) bool
+        func useg.HasGcbLf(r rune) bool (secondary implementation)
+    value: LV
+        func ubasic.HasGcbLv(r rune) bool
+        func useg.HasGcbLv(r rune) bool (secondary implementation)
+    value: Other (XX)
+        func ubasic.HasGcbXx(r rune) bool
+        func useg.HasGcbXx(r rune) bool (secondary implementation)
+    value: LVT
+        func ubasic.HasGcbLvt(r rune) bool
+        func useg.HasGcbLvt(r rune) bool (secondary implementation)
+    value: Prepend (PP)
+        func ubasic.HasGcbPp(r rune) bool
+        func useg.HasGcbPp(r rune) bool (secondary implementation)
+    value: Regional_Indicator (RI)
+        func ubasic.HasGcbRi(r rune) bool
+        func useg.HasGcbRi(r rune) bool (secondary implementation)
+    value: SpacingMark (SM)
+        func ubasic.HasGcbSm(r rune) bool
+        func useg.HasGcbSm(r rune) bool (secondary implementation)
+    value: T
+        func ubasic.HasGcbT(r rune) bool
+        func useg.HasGcbT(r rune) bool (secondary implementation)
+    value: V
+        func ubasic.HasGcbV(r rune) bool
+        func useg.HasGcbV(r rune) bool (secondary implementation)
+    value: ZWJ
+        func ubasic.HasGcbZwj(r rune) bool
+        func useg.HasGcbZwj(r rune) bool (secondary implementation)
+Grapheme_Extend (Gr_Ext)
+    (not implemented)
+Hangul_Syllable_Type (hst)
+    (not implemented)
+Grapheme_Link (Gr_Link)
+    (not implemented)
+Hex_Digit (Hex)
+    (not implemented)
+Hyphen
+    (not implemented)
+ID_Start (IDS)
+    value: No (N, F, False)
+        func upatids.HasIdsN(r rune) bool
+    value: Yes (Y, T, True)
+        func upatids.HasIdsY(r rune) bool
+ID_Continue (IDC)
+    value: No (N, F, False)
+        func upatids.HasIdcN(r rune) bool
+    value: Yes (Y, T, True)
+        func upatids.HasIdcY(r rune) bool
+Ideographic (Ideo)
+    (not implemented)
+IDS_Binary_Operator (IDSB)
+    (not implemented)
+IDS_Trinary_Operator (IDST)
+    (not implemented)
+Indic_Positional_Category (InPC)
+    (not implemented)
+Jamo_Short_Name (JSN)
+    (not implemented)
+Indic_Syllabic_Category (InSC)
+    (not implemented)
+Join_Control (Join_C)
+    (not implemented)
+ISO_Comment (isc)
+    (not implemented)
+Joining_Group (jg)
+    (not implemented)
+Joining_Type (jt)
+    (not implemented)
+Composition_Exclusion (CE)
+    (not implemented)
+kAccountingNumeric (cjkAccountingNumeric)
+    (not implemented)
+kCompatibilityVariant (cjkCompatibilityVariant)
+    (not implemented)
+kIICore (cjkIICore)
+    (not implemented)
+kIRG_GSource (cjkIRG_GSource)
+    (not implemented)
+kIRG_HSource (cjkIRG_HSource)
+    (not implemented)
+kIRG_JSource (cjkIRG_JSource)
+    (not implemented)
+kIRG_KPSource (cjkIRG_KPSource)
+    (not implemented)
+kIRG_KSource (cjkIRG_KSource)
+    (not implemented)
+kIRG_MSource (cjkIRG_MSource)
+    (not implemented)
+kIRG_SSource (cjkIRG_SSource)
+    (not implemented)
+kIRG_TSource (cjkIRG_TSource)
+    (not implemented)
+kIRG_UKSource (cjkIRG_UKSource)
+    (not implemented)
+kIRG_USource (cjkIRG_USource)
+    (not implemented)
+kIRG_VSource (cjkIRG_VSource)
+    (not implemented)
+kOtherNumeric (cjkOtherNumeric)
+    (not implemented)
+kPrimaryNumeric (cjkPrimaryNumeric)
+    (not implemented)
+kRSUnicode (cjkRSUnicode, Unicode_Radical_Stroke, URS)
+    (not implemented)
+Logical_Order_Exception (LOE)
+    (not implemented)
+Lowercase (Lower)
+    (not implemented)
+Line_Break (lb)
+    value: Break_Symbols (SY)
+        func useg.HasLbSy(r rune) bool
+    value: Carriage_Return (CR)
+        func useg.HasLbCr(r rune) bool
+    value: Alphabetic (AL)
+        func useg.HasLbAl(r rune) bool
+    value: Close_Parenthesis (CP)
+        func useg.HasLbCp(r rune) bool
+    value: Break_After (BA)
+        func useg.HasLbBa(r rune) bool
+    value: Close_Punctuation (CL)
+        func useg.HasLbCl(r rune) bool
+    value: Combining_Mark (CM)
+        func useg.HasLbCm(r rune) bool
+    value: Complex_Context (SA)
+        func useg.HasLbSa(r rune) bool
+    value: Break_Before (BB)
+        func useg.HasLbBb(r rune) bool
+    value: Conditional_Japanese_Starter (CJ)
+        func useg.HasLbCj(r rune) bool
+    value: Ambiguous (AI)
+        func useg.HasLbAi(r rune) bool
+    value: Contingent_Break (CB)
+        func useg.HasLbCb(r rune) bool
+    value: E_Base (EB)
+        func useg.HasLbEb(r rune) bool
+    value: E_Modifier (EM)
+        func useg.HasLbEm(r rune) bool
+    value: Exclamation (EX)
+        func useg.HasLbEx(r rune) bool
+    value: Glue (GL)
+        func useg.HasLbGl(r rune) bool
+    value: H2
+        func useg.HasLbH2(r rune) bool
+    value: H3
+        func useg.HasLbH3(r rune) bool
+    value: Hebrew_Letter (HL)
+        func useg.HasLbHl(r rune) bool
+    value: Hyphen (HY)
+        func useg.HasLbHy(r rune) bool
+    value: Infix_Numeric (IS)
+        func useg.HasLbIs(r rune) bool
+    value: Ideographic (ID)
+        func useg.HasLbId(r rune) bool
+    value: Inseparable (IN, Inseperable)
+        func useg.HasLbIn(r rune) bool
+    value: JL
+        func useg.HasLbJl(r rune) bool
+    value: JT
+        func useg.HasLbJt(r rune) bool
+    value: JV
+        func useg.HasLbJv(r rune) bool
+    value: Line_Feed (LF)
+        func useg.HasLbLf(r rune) bool
+    value: Break_Both (B2)
+        func useg.HasLbB2(r rune) bool
+    value: Mandatory_Break (BK)
+        func useg.HasLbBk(r rune) bool
+    value: Next_Line (NL)
+        func useg.HasLbNl(r rune) bool
+    value: Nonstarter (NS)
+        func useg.HasLbNs(r rune) bool
+    value: Numeric (NU)
+        func useg.HasLbNu(r rune) bool
+    value: Open_Punctuation (OP)
+        func useg.HasLbOp(r rune) bool
+    value: Postfix_Numeric (PO)
+        func useg.HasLbPo(r rune) bool
+    value: Prefix_Numeric (PR)
+        func useg.HasLbPr(r rune) bool
+    value: Quotation (QU)
+        func useg.HasLbQu(r rune) bool
+    value: Space (SP)
+        func useg.HasLbSp(r rune) bool
+    value: Regional_Indicator (RI)
+        func useg.HasLbRi(r rune) bool
+    value: Unknown (XX)
+        func useg.HasLbXx(r rune) bool
+    value: Surrogate (SG)
+        func useg.HasLbSg(r rune) bool
+    value: ZWJ
+        func useg.HasLbZwj(r rune) bool
+    value: Word_Joiner (WJ)
+        func useg.HasLbWj(r rune) bool
+    value: ZWSpace (ZW)
+        func useg.HasLbZw(r rune) bool
+Lowercase_Mapping (lc)
+    (not implemented)
+Math
+    (not implemented)
+NFC_Quick_Check (NFC_QC)
+    (not implemented)
+NFD_Quick_Check (NFD_QC)
+    (not implemented)
+NFKC_Casefold (NFKC_CF)
+    (not implemented)
+NFKC_Quick_Check (NFKC_QC)
+    (not implemented)
+NFKD_Quick_Check (NFKD_QC)
+    (not implemented)
+Name_Alias
+    (not implemented)
+Noncharacter_Code_Point (NChar)
+    (not implemented)
+Numeric_Type (nt)
+    (not implemented)
+Numeric_Value (nv)
+    (not implemented)
+Other_Alphabetic (OAlpha)
+    (not implemented)
+Other_Default_Ignorable_Code_Point (ODI)
+    (not implemented)
+Other_Grapheme_Extend (OGr_Ext)
+    (not implemented)
+Other_ID_Continue (OIDC)
+    (not implemented)
+Other_ID_Start (OIDS)
+    (not implemented)
+Other_Lowercase (OLower)
+    (not implemented)
+Other_Math (OMath)
+    (not implemented)
+Other_Uppercase (OUpper)
+    (not implemented)
+Pattern_Syntax (Pat_Syn)
+    value: No (N, F, False)
+        func upatids.HasPatsynN(r rune) bool
+    value: Yes (Y, T, True)
+        func upatids.HasPatsynY(r rune) bool
+Pattern_White_Space (Pat_WS)
+    value: No (N, F, False)
+        func upatids.HasPatwsN(r rune) bool
+    value: Yes (Y, T, True)
+        func upatids.HasPatwsY(r rune) bool
+Prepended_Concatenation_Mark (PCM)
+    (not implemented)
+Quotation_Mark (QMark)
+    (not implemented)
+Radical
+    (not implemented)
+Script (sc)
+    (not implemented)
+Script_Extensions (scx)
+    value: Anatolian_Hieroglyphs (Hluw)
+        func uscripts.HasScxHluw(r rune) bool
+    value: Ahom
+        func uscripts.HasScxAhom(r rune) bool
+    value: Arabic (Arab)
+        func uscripts.HasScxArab(r rune) bool
+    value: Armenian (Armn)
+        func uscripts.HasScxArmn(r rune) bool
+    value: Avestan (Avst)
+        func uscripts.HasScxAvst(r rune) bool
+    value: Balinese (Bali)
+        func uscripts.HasScxBali(r rune) bool
+    value: Bamum (Bamu)
+        func uscripts.HasScxBamu(r rune) bool
+    value: Bassa_Vah (Bass)
+        func uscripts.HasScxBass(r rune) bool
+    value: Batak (Batk)
+        func uscripts.HasScxBatk(r rune) bool
+    value: Bengali (Beng)
+        func uscripts.HasScxBeng(r rune) bool
+    value: Bhaiksuki (Bhks)
+        func uscripts.HasScxBhks(r rune) bool
+    value: Bopomofo (Bopo)
+        func uscripts.HasScxBopo(r rune) bool
+    value: Brahmi (Brah)
+        func uscripts.HasScxBrah(r rune) bool
+    value: Braille (Brai)
+        func uscripts.HasScxBrai(r rune) bool
+    value: Buginese (Bugi)
+        func uscripts.HasScxBugi(r rune) bool
+    value: Buhid (Buhd)
+        func uscripts.HasScxBuhd(r rune) bool
+    value: Canadian_Aboriginal (Cans)
+        func uscripts.HasScxCans(r rune) bool
+    value: Carian (Cari)
+        func uscripts.HasScxCari(r rune) bool
+    value: Adlam (Adlm)
+        func uscripts.HasScxAdlm(r rune) bool
+    value: Chakma (Cakm)
+        func uscripts.HasScxCakm(r rune) bool
+    value: Cham
+        func uscripts.HasScxCham(r rune) bool
+    value: Common (Zyyy)
+        func uscripts.HasScxZyyy(r rune) bool
+    value: Cherokee (Cher)
+        func uscripts.HasScxCher(r rune) bool
+    value: Cuneiform (Xsux)
+        func uscripts.HasScxXsux(r rune) bool
+    value: Chorasmian (Chrs)
+        func uscripts.HasScxChrs(r rune) bool
+    value: Cypriot (Cprt)
+        func uscripts.HasScxCprt(r rune) bool
+    value: Coptic (Copt, Qaac)
+        func uscripts.HasScxCopt(r rune) bool
+    value: Cypro_Minoan (Cpmn)
+        func uscripts.HasScxCpmn(r rune) bool
+    value: Deseret (Dsrt)
+        func uscripts.HasScxDsrt(r rune) bool
+    value: Cyrillic (Cyrl)
+        func uscripts.HasScxCyrl(r rune) bool
+    value: Devanagari (Deva)
+        func uscripts.HasScxDeva(r rune) bool
+    value: Dives_Akuru (Diak)
+        func uscripts.HasScxDiak(r rune) bool
+    value: Dogra (Dogr)
+        func uscripts.HasScxDogr(r rune) bool
+    value: Duployan (Dupl)
+        func uscripts.HasScxDupl(r rune) bool
+    value: Egyptian_Hieroglyphs (Egyp)
+        func uscripts.HasScxEgyp(r rune) bool
+    value: Elbasan (Elba)
+        func uscripts.HasScxElba(r rune) bool
+    value: Elymaic (Elym)
+        func uscripts.HasScxElym(r rune) bool
+    value: Ethiopic (Ethi)
+        func uscripts.HasScxEthi(r rune) bool
+    value: Georgian (Geor)
+        func uscripts.HasScxGeor(r rune) bool
+    value: Gothic (Goth)
+        func uscripts.HasScxGoth(r rune) bool
+    value: Grantha (Gran)
+        func uscripts.HasScxGran(r rune) bool
+    value: Greek (Grek)
+        func uscripts.HasScxGrek(r rune) bool
+    value: Gujarati (Gujr)
+        func uscripts.HasScxGujr(r rune) bool
+    value: Glagolitic (Glag)
+        func uscripts.HasScxGlag(r rune) bool
+    value: Gunjala_Gondi (Gong)
+        func uscripts.HasScxGong(r rune) bool
+    value: Han (Hani)
+        func uscripts.HasScxHani(r rune) bool
+    value: Gurmukhi (Guru)
+        func uscripts.HasScxGuru(r rune) bool
+    value: Hanifi_Rohingya (Rohg)
+        func uscripts.HasScxRohg(r rune) bool
+    value: Hangul (Hang)
+        func uscripts.HasScxHang(r rune) bool
+    value: Hanunoo (Hano)
+        func uscripts.HasScxHano(r rune) bool
+    value: Inherited (Zinh, Qaai)
+        func uscripts.HasScxZinh(r rune) bool
+    value: Hatran (Hatr)
+        func uscripts.HasScxHatr(r rune) bool
+    value: Inscriptional_Pahlavi (Phli)
+        func uscripts.HasScxPhli(r rune) bool
+    value: Inscriptional_Parthian (Prti)
+        func uscripts.HasScxPrti(r rune) bool
+    value: Hebrew (Hebr)
+        func uscripts.HasScxHebr(r rune) bool
+    value: Kaithi (Kthi)
+        func uscripts.HasScxKthi(r rune) bool
+    value: Hiragana (Hira)
+        func uscripts.HasScxHira(r rune) bool
+    value: Kannada (Knda)
+        func uscripts.HasScxKnda(r rune) bool
+    value: Caucasian_Albanian (Aghb)
+        func uscripts.HasScxAghb(r rune) bool
+    value: Katakana (Kana)
+        func uscripts.HasScxKana(r rune) bool
+    value: Javanese (Java)
+        func uscripts.HasScxJava(r rune) bool
+    value: Kayah_Li (Kali)
+        func uscripts.HasScxKali(r rune) bool
+    value: Khitan_Small_Script (Kits)
+        func uscripts.HasScxKits(r rune) bool
+    value: Kharoshthi (Khar)
+        func uscripts.HasScxKhar(r rune) bool
+    value: Khmer (Khmr)
+        func uscripts.HasScxKhmr(r rune) bool
+    value: Khudawadi (Sind)
+        func uscripts.HasScxSind(r rune) bool
+    value: Khojki (Khoj)
+        func uscripts.HasScxKhoj(r rune) bool
+    value: Lao (Laoo)
+        func uscripts.HasScxLaoo(r rune) bool
+    value: Latin (Latn)
+        func uscripts.HasScxLatn(r rune) bool
+    value: Lepcha (Lepc)
+        func uscripts.HasScxLepc(r rune) bool
+    value: Limbu (Limb)
+        func uscripts.HasScxLimb(r rune) bool
+    value: Linear_A (Lina)
+        func uscripts.HasScxLina(r rune) bool
+    value: Linear_B (Linb)
+        func uscripts.HasScxLinb(r rune) bool
+    value: Lisu
+        func uscripts.HasScxLisu(r rune) bool
+    value: Lycian (Lyci)
+        func uscripts.HasScxLyci(r rune) bool
+    value: Lydian (Lydi)
+        func uscripts.HasScxLydi(r rune) bool
+    value: Mahajani (Mahj)
+        func uscripts.HasScxMahj(r rune) bool
+    value: Malayalam (Mlym)
+        func uscripts.HasScxMlym(r rune) bool
+    value: Makasar (Maka)
+        func uscripts.HasScxMaka(r rune) bool
+    value: Mandaic (Mand)
+        func uscripts.HasScxMand(r rune) bool
+    value: Manichaean (Mani)
+        func uscripts.HasScxMani(r rune) bool
+    value: Marchen (Marc)
+        func uscripts.HasScxMarc(r rune) bool
+    value: Meetei_Mayek (Mtei)
+        func uscripts.HasScxMtei(r rune) bool
+    value: Medefaidrin (Medf)
+        func uscripts.HasScxMedf(r rune) bool
+    value: Mende_Kikakui (Mend)
+        func uscripts.HasScxMend(r rune) bool
+    value: Meroitic_Cursive (Merc)
+        func uscripts.HasScxMerc(r rune) bool
+    value: Miao (Plrd)
+        func uscripts.HasScxPlrd(r rune) bool
+    value: Meroitic_Hieroglyphs (Mero)
+        func uscripts.HasScxMero(r rune) bool
+    value: Modi
+        func uscripts.HasScxModi(r rune) bool
+    value: Mongolian (Mong)
+        func uscripts.HasScxMong(r rune) bool
+    value: Mro (Mroo)
+        func uscripts.HasScxMroo(r rune) bool
+    value: Multani (Mult)
+        func uscripts.HasScxMult(r rune) bool
+    value: Nabataean (Nbat)
+        func uscripts.HasScxNbat(r rune) bool
+    value: Myanmar (Mymr)
+        func uscripts.HasScxMymr(r rune) bool
+    value: New_Tai_Lue (Talu)
+        func uscripts.HasScxTalu(r rune) bool
+    value: Nandinagari (Nand)
+        func uscripts.HasScxNand(r rune) bool
+    value: Newa
+        func uscripts.HasScxNewa(r rune) bool
+    value: Nko (Nkoo)
+        func uscripts.HasScxNkoo(r rune) bool
+    value: Nushu (Nshu)
+        func uscripts.HasScxNshu(r rune) bool
+    value: Imperial_Aramaic (Armi)
+        func uscripts.HasScxArmi(r rune) bool
+    value: Ogham (Ogam)
+        func uscripts.HasScxOgam(r rune) bool
+    value: Ol_Chiki (Olck)
+        func uscripts.HasScxOlck(r rune) bool
+    value: Nyiakeng_Puachue_Hmong (Hmnp)
+        func uscripts.HasScxHmnp(r rune) bool
+    value: Old_Hungarian (Hung)
+        func uscripts.HasScxHung(r rune) bool
+    value: Old_Persian (Xpeo)
+        func uscripts.HasScxXpeo(r rune) bool
+    value: Old_Italic (Ital)
+        func uscripts.HasScxItal(r rune) bool
+    value: Old_Sogdian (Sogo)
+        func uscripts.HasScxSogo(r rune) bool
+    value: Old_Permic (Perm)
+        func uscripts.HasScxPerm(r rune) bool
+    value: Old_South_Arabian (Sarb)
+        func uscripts.HasScxSarb(r rune) bool
+    value: Old_North_Arabian (Narb)
+        func uscripts.HasScxNarb(r rune) bool
+    value: Old_Uyghur (Ougr)
+        func uscripts.HasScxOugr(r rune) bool
+    value: Old_Turkic (Orkh)
+        func uscripts.HasScxOrkh(r rune) bool
+    value: Oriya (Orya)
+        func uscripts.HasScxOrya(r rune) bool
+    value: Osage (Osge)
+        func uscripts.HasScxOsge(r rune) bool
+    value: Osmanya (Osma)
+        func uscripts.HasScxOsma(r rune) bool
+    value: Masaram_Gondi (Gonm)
+        func uscripts.HasScxGonm(r rune) bool
+    value: Palmyrene (Palm)
+        func uscripts.HasScxPalm(r rune) bool
+    value: Pau_Cin_Hau (Pauc)
+        func uscripts.HasScxPauc(r rune) bool
+    value: Phoenician (Phnx)
+        func uscripts.HasScxPhnx(r rune) bool
+    value: Phags_Pa (Phag)
+        func uscripts.HasScxPhag(r rune) bool
+    value: Psalter_Pahlavi (Phlp)
+        func uscripts.HasScxPhlp(r rune) bool
+    value: Rejang (Rjng)
+        func uscripts.HasScxRjng(r rune) bool
+    value: Runic (Runr)
+        func uscripts.HasScxRunr(r rune) bool
+    value: Sharada (Shrd)
+        func uscripts.HasScxShrd(r rune) bool
+    value: Samaritan (Samr)
+        func uscripts.HasScxSamr(r rune) bool
+    value: Shavian (Shaw)
+        func uscripts.HasScxShaw(r rune) bool
+    value: Siddham (Sidd)
+        func uscripts.HasScxSidd(r rune) bool
+    value: Saurashtra (Saur)
+        func uscripts.HasScxSaur(r rune) bool
+    value: SignWriting (Sgnw)
+        func uscripts.HasScxSgnw(r rune) bool
+    value: Sinhala (Sinh)
+        func uscripts.HasScxSinh(r rune) bool
+    value: Sogdian (Sogd)
+        func uscripts.HasScxSogd(r rune) bool
+    value: Sora_Sompeng (Sora)
+        func uscripts.HasScxSora(r rune) bool
+    value: Soyombo (Soyo)
+        func uscripts.HasScxSoyo(r rune) bool
+    value: Sundanese (Sund)
+        func uscripts.HasScxSund(r rune) bool
+    value: Syloti_Nagri (Sylo)
+        func uscripts.HasScxSylo(r rune) bool
+    value: Tagalog (Tglg)
+        func uscripts.HasScxTglg(r rune) bool
+    value: Syriac (Syrc)
+        func uscripts.HasScxSyrc(r rune) bool
+    value: Tagbanwa (Tagb)
+        func uscripts.HasScxTagb(r rune) bool
+    value: Tai_Le (Tale)
+        func uscripts.HasScxTale(r rune) bool
+    value: Pahawh_Hmong (Hmng)
+        func uscripts.HasScxHmng(r rune) bool
+    value: Tai_Viet (Tavt)
+        func uscripts.HasScxTavt(r rune) bool
+    value: Tai_Tham (Lana)
+        func uscripts.HasScxLana(r rune) bool
+    value: Takri (Takr)
+        func uscripts.HasScxTakr(r rune) bool
+    value: Tangsa (Tnsa)
+        func uscripts.HasScxTnsa(r rune) bool
+    value: Tamil (Taml)
+        func uscripts.HasScxTaml(r rune) bool
+    value: Tangut (Tang)
+        func uscripts.HasScxTang(r rune) bool
+    value: Thaana (Thaa)
+        func uscripts.HasScxThaa(r rune) bool
+    value: Thai
+        func uscripts.HasScxThai(r rune) bool
+    value: Tibetan (Tibt)
+        func uscripts.HasScxTibt(r rune) bool
+    value: Telugu (Telu)
+        func uscripts.HasScxTelu(r rune) bool
+    value: Tifinagh (Tfng)
+        func uscripts.HasScxTfng(r rune) bool
+    value: Tirhuta (Tirh)
+        func uscripts.HasScxTirh(r rune) bool
+    value: Toto
+        func uscripts.HasScxToto(r rune) bool
+    value: Unknown (Zzzz)
+        func uscripts.HasScxZzzz(r rune) bool
+    value: Ugaritic (Ugar)
+        func uscripts.HasScxUgar(r rune) bool
+    value: Vai (Vaii)
+        func uscripts.HasScxVaii(r rune) bool
+    value: Wancho (Wcho)
+        func uscripts.HasScxWcho(r rune) bool
+    value: Vithkuqi (Vith)
+        func uscripts.HasScxVith(r rune) bool
+    value: Warang_Citi (Wara)
+        func uscripts.HasScxWara(r rune) bool
+    value: Yezidi (Yezi)
+        func uscripts.HasScxYezi(r rune) bool
+    value: Yi (Yiii)
+        func uscripts.HasScxYiii(r rune) bool
+    value: Zanabazar_Square (Zanb)
+        func uscripts.HasScxZanb(r rune) bool
+Regional_Indicator (RI)
+    (not implemented)
+Sentence_Terminal (STerm)
+    (not implemented)
+Sentence_Break (SB)
+    value: ATerm (AT)
+        func useg.HasSbAt(r rune) bool
+    value: Close (CL)
+        func useg.HasSbCl(r rune) bool
+    value: CR
+        func useg.HasSbCr(r rune) bool
+    value: Extend (EX)
+        func useg.HasSbEx(r rune) bool
+    value: LF
+        func useg.HasSbLf(r rune) bool
+    value: Lower (LO)
+        func useg.HasSbLo(r rune) bool
+    value: Numeric (NU)
+        func useg.HasSbNu(r rune) bool
+    value: Format (FO)
+        func useg.HasSbFo(r rune) bool
+    value: Other (XX)
+        func useg.HasSbXx(r rune) bool
+    value: OLetter (LE)
+        func useg.HasSbLe(r rune) bool
+    value: SContinue (SC)
+        func useg.HasSbSc(r rune) bool
+    value: Sep (SE)
+        func useg.HasSbSe(r rune) bool
+    value: Sp (SP)
+        func useg.HasSbSp(r rune) bool
+    value: STerm (ST)
+        func useg.HasSbSt(r rune) bool
+    value: Upper (UP)
+        func useg.HasSbUp(r rune) bool
+Simple_Lowercase_Mapping (slc)
+    (not implemented)
+Simple_Titlecase_Mapping (stc)
+    (not implemented)
+Simple_Uppercase_Mapping (suc)
+    (not implemented)
+Simple_Case_Folding (scf, sfc)
+    (not implemented)
+Terminal_Punctuation (Term)
+    (not implemented)
+Soft_Dotted (SD)
+    (not implemented)
+Titlecase_Mapping (tc)
+    (not implemented)
+Name (na)
+    (not implemented)
+Unified_Ideograph (UIdeo)
+    (not implemented)
+Uppercase (Upper)
+    (not implemented)
+Unicode_1_Name (na1)
+    (not implemented)
+Variation_Selector (VS)
+    (not implemented)
+Uppercase_Mapping (uc)
+    (not implemented)
+White_Space (WSpace, space)
+    value: No (N, F, False)
+        func ubasic.HasWspaceN(r rune) bool
+    value: Yes (Y, T, True)
+        func ubasic.HasWspaceY(r rune) bool
+Vertical_Orientation (vo)
+    (not implemented)
+Word_Break (WB)
+    value: ALetter (LE)
+        func useg.HasWbLe(r rune) bool
+    value: CR
+        func useg.HasWbCr(r rune) bool
+    value: Extend
+        func useg.HasWbExtend(r rune) bool
+    value: Double_Quote (DQ)
+        func useg.HasWbDq(r rune) bool
+    value: ExtendNumLet (EX)
+        func useg.HasWbEx(r rune) bool
+    value: Format (FO)
+        func useg.HasWbFo(r rune) bool
+    value: Hebrew_Letter (HL)
+        func useg.HasWbHl(r rune) bool
+    value: Katakana (KA)
+        func useg.HasWbKa(r rune) bool
+    value: MidLetter (ML)
+        func useg.HasWbMl(r rune) bool
+    value: MidNum (MN)
+        func useg.HasWbMn(r rune) bool
+    value: LF
+        func useg.HasWbLf(r rune) bool
+    value: MidNumLet (MB)
+        func useg.HasWbMb(r rune) bool
+    value: Newline (NL)
+        func useg.HasWbNl(r rune) bool
+    value: Other (XX)
+        func useg.HasWbXx(r rune) bool
+    value: Numeric (NU)
+        func useg.HasWbNu(r rune) bool
+    value: Regional_Indicator (RI)
+        func useg.HasWbRi(r rune) bool
+    value: Single_Quote (SQ)
+        func useg.HasWbSq(r rune) bool
+    value: WSegSpace
+        func useg.HasWbWsegspace(r rune) bool
+    value: ZWJ
+        func useg.HasWbZwj(r rune) bool
+XID_Continue (XIDC)
+    value: No (N, F, False)
+        func upatids.HasXidcN(r rune) bool
+    value: Yes (Y, T, True)
+        func upatids.HasXidcY(r rune) bool
+XID_Start (XIDS)
+    value: No (N, F, False)
+        func upatids.HasXidsN(r rune) bool
+    value: Yes (Y, T, True)
+        func upatids.HasXidsY(r rune) bool
