@@ -706,7 +706,11 @@ func TestUtfDecode(t *testing.T) {
 
 // decodeTestEncoding is a utility function used by TestUftDecode to perform a
 // decode test for a given encoding.
-func decodeTestEncoding(t *testing.T, tc *testCaseDecode, hexData *string, ofs int, encoding utf.Encoding) {
+func decodeTestEncoding(t *testing.T,
+	tc *testCaseDecode,
+	hexData *string,
+	ofs int,
+	encoding utf.Encoding) {
 	for i := 0; ; i++ {
 		r, delta := utf.NextRune(tc.data, ofs, encoding)
 		rAlt, deltaAlt := encoding.NextRune(tc.data, ofs)
@@ -863,13 +867,9 @@ func TestUtfEncode(t *testing.T) {
 			var dataAlt []byte = []byte{}
 			for n := 0; n < len(thisTestCase.runes); n++ {
 				newBytes := utf.Bytes(thisTestCase.runes[n], thisEncoding)
-				for m := 0; m < len(newBytes); m++ {
-					data = append(data, newBytes[m])
-				}
+				data = append(data, newBytes...)
 				newBytes = thisEncoding.Bytes(thisTestCase.runes[n])
-				for m := 0; m < len(newBytes); m++ {
-					dataAlt = append(dataAlt, newBytes[m])
-				}
+				dataAlt = append(dataAlt, newBytes...)
 			}
 			if len(data) != len(thisBytes) {
 				t.Errorf("encoding{%s,%s} len = %d, want %d",
