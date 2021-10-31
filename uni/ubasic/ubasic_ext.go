@@ -101,7 +101,7 @@ func NextExtGraphemeClusterBreakLen(data []rune, offset int, dataLength int) (in
 			}
 			return previousLength, true
 		}
-		if HasGcbCr(rn) || HasGcbLf(rn) || HasGcbCn(rn) {
+		if HasGcbLf(rn) || HasGcbCn(rn) {
 			return previousLength, true
 		}
 		if HasGcbL(r) {
@@ -113,7 +113,7 @@ func NextExtGraphemeClusterBreakLen(data []rune, offset int, dataLength int) (in
 		if HasGcbLvt(r) || HasGcbT(r) {
 			return nextEGCBLvtT(data, offset+1, remainingLength-1, previousLength)
 		}
-		if HasGcbPp(r) {
+		if HasGcbPp(r) && !HasGcbCr(rn) && !HasGcbLf(rn) && !HasGcbCn(rn) {
 			offset++
 			remainingLength--
 			previousLength++
@@ -128,6 +128,10 @@ func NextExtGraphemeClusterBreakLen(data []rune, offset int, dataLength int) (in
 		return nextEGCBNotBeforesR(data, offset+1, remainingLength-1, previousLength, rn)
 	}
 }
+
+//===========================================================================
+// Private Helpers: Extended Grapheme Cluster Breaks:
+//===========================================================================
 
 // nextEGCBL parses extended grapheme cluster break boundaries after a code point
 // which has the property: Graphene_Cluster_Break=L. That is, it parses boundary

@@ -224,11 +224,9 @@ HasExtpictY returns true if code point, r, has Unicode property, Extended_Pictog
 <tr><td>&nbsp;</td><td>Line_Separator (Zl)</td><td>`HasGcZl(r rune) bool`</td></tr>
 <tr><td>&nbsp;</td><td>Paragraph_Separator (Zp)</td><td>`HasGcZp(r rune) bool`</td></tr>
 <tr><td>&nbsp;</td><td>Space_Separator (Zs)</td><td>`HasGcZs(r rune) bool`</td></tr>
-</tbody></table>
 <tr><td colspan="3">White_Space (WSpace, space)</td></tr>
 <tr><td>&nbsp;</td><td>No (N, F, False)</td><td>`HasWspaceN(r rune) bool`</td></tr>
 <tr><td>&nbsp;</td><td>Yes (Y, T, True)</td><td>`HasWspaceY(r rune) bool`</td></tr>
-</tbody></table>
 <tr><td colspan="3">Grapheme_Cluster_Break (GCB)</td></tr>
 <tr><td>&nbsp;</td><td>Control (CN)</td><td>`HasGcbCn(r rune) bool`</td></tr>
 <tr><td>&nbsp;</td><td>CR</td><td>`HasGcbCr(r rune) bool`</td></tr>
@@ -244,7 +242,6 @@ HasExtpictY returns true if code point, r, has Unicode property, Extended_Pictog
 <tr><td>&nbsp;</td><td>V</td><td>`HasGcbV(r rune) bool`</td></tr>
 <tr><td>&nbsp;</td><td>Other (XX)</td><td>`HasGcbXx(r rune) bool`</td></tr>
 <tr><td>&nbsp;</td><td>ZWJ</td><td>`HasGcbZwj(r rune) bool`</td></tr>
-</tbody></table>
 <tr><td colspan="3">Extended_Pictographic (ExtPict)</td></tr>
 <tr><td>&nbsp;</td><td>No (N, F, False)</td><td>`HasExtpictN(r rune) bool`</td></tr>
 <tr><td>&nbsp;</td><td>Yes (Y, T, True)</td><td>`HasExtpictY(r rune) bool`</td></tr>

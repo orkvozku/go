@@ -303,11 +303,9 @@ HasSbXx returns true if code point, r, has Unicode property, Sentence_Break (SB)
 <tr><td>&nbsp;</td><td>V</td><td>`HasGcbV(r rune) bool`</td></tr>
 <tr><td>&nbsp;</td><td>Other (XX)</td><td>`HasGcbXx(r rune) bool`</td></tr>
 <tr><td>&nbsp;</td><td>ZWJ</td><td>`HasGcbZwj(r rune) bool`</td></tr>
-</tbody></table>
 <tr><td colspan="3">Extended_Pictographic (ExtPict)</td></tr>
 <tr><td>&nbsp;</td><td>No (N, F, False)</td><td>`HasExtpictN(r rune) bool`</td></tr>
 <tr><td>&nbsp;</td><td>Yes (Y, T, True)</td><td>`HasExtpictY(r rune) bool`</td></tr>
-</tbody></table>
 <tr><td colspan="3">Line_Break (lb)</td></tr>
 <tr><td>&nbsp;</td><td>Ambiguous (AI)</td><td>`HasLbAi(r rune) bool`</td></tr>
 <tr><td>&nbsp;</td><td>Alphabetic (AL)</td><td>`HasLbAl(r rune) bool`</td></tr>
@@ -352,7 +350,6 @@ HasSbXx returns true if code point, r, has Unicode property, Sentence_Break (SB)
 <tr><td>&nbsp;</td><td>Unknown (XX)</td><td>`HasLbXx(r rune) bool`</td></tr>
 <tr><td>&nbsp;</td><td>ZWSpace (ZW)</td><td>`HasLbZw(r rune) bool`</td></tr>
 <tr><td>&nbsp;</td><td>ZWJ</td><td>`HasLbZwj(r rune) bool`</td></tr>
-</tbody></table>
 <tr><td colspan="3">Word_Break (WB)</td></tr>
 <tr><td>&nbsp;</td><td>CR</td><td>`HasWbCr(r rune) bool`</td></tr>
 <tr><td>&nbsp;</td><td>Double_Quote (DQ)</td><td>`HasWbDq(r rune) bool`</td></tr>
@@ -373,7 +370,6 @@ HasSbXx returns true if code point, r, has Unicode property, Sentence_Break (SB)
 <tr><td>&nbsp;</td><td>WSegSpace</td><td>`HasWbWsegspace(r rune) bool`</td></tr>
 <tr><td>&nbsp;</td><td>Other (XX)</td><td>`HasWbXx(r rune) bool`</td></tr>
 <tr><td>&nbsp;</td><td>ZWJ</td><td>`HasWbZwj(r rune) bool`</td></tr>
-</tbody></table>
 <tr><td colspan="3">Sentence_Break (SB)</td></tr>
 <tr><td>&nbsp;</td><td>ATerm (AT)</td><td>`HasSbAt(r rune) bool`</td></tr>
 <tr><td>&nbsp;</td><td>Close (CL)</td><td>`HasSbCl(r rune) bool`</td></tr>
