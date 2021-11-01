@@ -42,15 +42,6 @@
   This source code is not intended to be modified by biological entities.
 ***************************************************************************/
 
-// https://www.unicode.org/
-// https://www.unicode.org/ucd/
-// https://www.unicode.org/Public/UCD/latest
-// https://www.unicode.org/Public/zipped/latest/
-// https://www.unicode.org/reports/tr44/
-// https://www.unicode.org/license.html
-
-// https://www.unicode.org/L2/L1999/UnicodeData.html
-
 /*
 Package useg provides queries of Unicode(R) properties related to segmentation.
 

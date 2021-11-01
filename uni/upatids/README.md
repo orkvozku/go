@@ -56,7 +56,6 @@ func main() {
     // ')' has Pattern_Syntax=Y
 }
 ```
-_Unicode and the Unicode Logo are registered trademarks of Unicode, Inc. in the United States and other countries._
 # API
 ## General Constants
 ### UnicodeVersion
@@ -93,21 +92,21 @@ HasXidsY returns true if code point, r, has Unicode property, XID_Start (XIDS), 
 <table><thead><tr><th>Property:</th><th>Value:</th><th>Function:</th></tr></thead>
 <tbody>
 <tr><td colspan="3">Pattern_White_Space (Pat_WS)</td></tr>
-<tr><td>&nbsp;</td><td>No (N, F, False)</td><td>`HasPatwsN(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Yes (Y, T, True)</td><td>`HasPatwsY(r rune) bool`</td></tr>
+<tr><td>&nbsp;</td><td>No (N, F, False)</td><td>HasPatwsN(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Yes (Y, T, True)</td><td>HasPatwsY(r rune) bool</td></tr>
 <tr><td colspan="3">Pattern_Syntax (Pat_Syn)</td></tr>
-<tr><td>&nbsp;</td><td>No (N, F, False)</td><td>`HasPatsynN(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Yes (Y, T, True)</td><td>`HasPatsynY(r rune) bool`</td></tr>
+<tr><td>&nbsp;</td><td>No (N, F, False)</td><td>HasPatsynN(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Yes (Y, T, True)</td><td>HasPatsynY(r rune) bool</td></tr>
 <tr><td colspan="3">ID_Continue (IDC)</td></tr>
-<tr><td>&nbsp;</td><td>No (N, F, False)</td><td>`HasIdcN(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Yes (Y, T, True)</td><td>`HasIdcY(r rune) bool`</td></tr>
+<tr><td>&nbsp;</td><td>No (N, F, False)</td><td>HasIdcN(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Yes (Y, T, True)</td><td>HasIdcY(r rune) bool</td></tr>
 <tr><td colspan="3">ID_Start (IDS)</td></tr>
-<tr><td>&nbsp;</td><td>No (N, F, False)</td><td>`HasIdsN(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Yes (Y, T, True)</td><td>`HasIdsY(r rune) bool`</td></tr>
+<tr><td>&nbsp;</td><td>No (N, F, False)</td><td>HasIdsN(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Yes (Y, T, True)</td><td>HasIdsY(r rune) bool</td></tr>
 <tr><td colspan="3">XID_Continue (XIDC)</td></tr>
-<tr><td>&nbsp;</td><td>No (N, F, False)</td><td>`HasXidcN(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Yes (Y, T, True)</td><td>`HasXidcY(r rune) bool`</td></tr>
+<tr><td>&nbsp;</td><td>No (N, F, False)</td><td>HasXidcN(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Yes (Y, T, True)</td><td>HasXidcY(r rune) bool</td></tr>
 <tr><td colspan="3">XID_Start (XIDS)</td></tr>
-<tr><td>&nbsp;</td><td>No (N, F, False)</td><td>`HasXidsN(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Yes (Y, T, True)</td><td>`HasXidsY(r rune) bool`</td></tr>
+<tr><td>&nbsp;</td><td>No (N, F, False)</td><td>HasXidsN(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Yes (Y, T, True)</td><td>HasXidsY(r rune) bool</td></tr>
 </tbody></table>

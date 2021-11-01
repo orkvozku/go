@@ -186,65 +186,65 @@ HasExtpictY returns true if code point, r, has Unicode property, Extended_Pictog
 <table><thead><tr><th>Property:</th><th>Value:</th><th>Function:</th></tr></thead>
 <tbody>
 <tr><td colspan="3">General_Category (gc)</td></tr>
-<tr><td>&nbsp;</td><td>Other (C)</td><td>`HasGcC(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Control (Cc, cntrl)</td><td>`HasGcCc(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Format (Cf)</td><td>`HasGcCf(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Unassigned (Cn)</td><td>`HasGcCn(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Private_Use (Co)</td><td>`HasGcCo(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Surrogate (Cs)</td><td>`HasGcCs(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Letter (L)</td><td>`HasGcL(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Cased_Letter (LC)</td><td>`HasGcLc(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Lowercase_Letter (Ll)</td><td>`HasGcLl(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Modifier_Letter (Lm)</td><td>`HasGcLm(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Other_Letter (Lo)</td><td>`HasGcLo(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Titlecase_Letter (Lt)</td><td>`HasGcLt(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Uppercase_Letter (Lu)</td><td>`HasGcLu(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Mark (M, Combining_Mark)</td><td>`HasGcM(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Spacing_Mark (Mc)</td><td>`HasGcMc(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Enclosing_Mark (Me)</td><td>`HasGcMe(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Nonspacing_Mark (Mn)</td><td>`HasGcMn(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Number (N)</td><td>`HasGcN(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Decimal_Number (Nd, digit)</td><td>`HasGcNd(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Letter_Number (Nl)</td><td>`HasGcNl(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Other_Number (No)</td><td>`HasGcNo(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Punctuation (P, punct)</td><td>`HasGcP(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Connector_Punctuation (Pc)</td><td>`HasGcPc(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Dash_Punctuation (Pd)</td><td>`HasGcPd(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Close_Punctuation (Pe)</td><td>`HasGcPe(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Final_Punctuation (Pf)</td><td>`HasGcPf(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Initial_Punctuation (Pi)</td><td>`HasGcPi(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Other_Punctuation (Po)</td><td>`HasGcPo(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Open_Punctuation (Ps)</td><td>`HasGcPs(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Symbol (S)</td><td>`HasGcS(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Currency_Symbol (Sc)</td><td>`HasGcSc(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Modifier_Symbol (Sk)</td><td>`HasGcSk(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Math_Symbol (Sm)</td><td>`HasGcSm(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Other_Symbol (So)</td><td>`HasGcSo(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Separator (Z)</td><td>`HasGcZ(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Line_Separator (Zl)</td><td>`HasGcZl(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Paragraph_Separator (Zp)</td><td>`HasGcZp(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Space_Separator (Zs)</td><td>`HasGcZs(r rune) bool`</td></tr>
+<tr><td>&nbsp;</td><td>Other (C)</td><td>HasGcC(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Control (Cc, cntrl)</td><td>HasGcCc(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Format (Cf)</td><td>HasGcCf(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Unassigned (Cn)</td><td>HasGcCn(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Private_Use (Co)</td><td>HasGcCo(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Surrogate (Cs)</td><td>HasGcCs(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Letter (L)</td><td>HasGcL(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Cased_Letter (LC)</td><td>HasGcLc(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Lowercase_Letter (Ll)</td><td>HasGcLl(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Modifier_Letter (Lm)</td><td>HasGcLm(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Other_Letter (Lo)</td><td>HasGcLo(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Titlecase_Letter (Lt)</td><td>HasGcLt(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Uppercase_Letter (Lu)</td><td>HasGcLu(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Mark (M, Combining_Mark)</td><td>HasGcM(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Spacing_Mark (Mc)</td><td>HasGcMc(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Enclosing_Mark (Me)</td><td>HasGcMe(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Nonspacing_Mark (Mn)</td><td>HasGcMn(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Number (N)</td><td>HasGcN(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Decimal_Number (Nd, digit)</td><td>HasGcNd(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Letter_Number (Nl)</td><td>HasGcNl(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Other_Number (No)</td><td>HasGcNo(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Punctuation (P, punct)</td><td>HasGcP(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Connector_Punctuation (Pc)</td><td>HasGcPc(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Dash_Punctuation (Pd)</td><td>HasGcPd(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Close_Punctuation (Pe)</td><td>HasGcPe(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Final_Punctuation (Pf)</td><td>HasGcPf(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Initial_Punctuation (Pi)</td><td>HasGcPi(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Other_Punctuation (Po)</td><td>HasGcPo(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Open_Punctuation (Ps)</td><td>HasGcPs(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Symbol (S)</td><td>HasGcS(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Currency_Symbol (Sc)</td><td>HasGcSc(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Modifier_Symbol (Sk)</td><td>HasGcSk(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Math_Symbol (Sm)</td><td>HasGcSm(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Other_Symbol (So)</td><td>HasGcSo(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Separator (Z)</td><td>HasGcZ(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Line_Separator (Zl)</td><td>HasGcZl(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Paragraph_Separator (Zp)</td><td>HasGcZp(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Space_Separator (Zs)</td><td>HasGcZs(r rune) bool</td></tr>
 <tr><td colspan="3">White_Space (WSpace, space)</td></tr>
-<tr><td>&nbsp;</td><td>No (N, F, False)</td><td>`HasWspaceN(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Yes (Y, T, True)</td><td>`HasWspaceY(r rune) bool`</td></tr>
+<tr><td>&nbsp;</td><td>No (N, F, False)</td><td>HasWspaceN(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Yes (Y, T, True)</td><td>HasWspaceY(r rune) bool</td></tr>
 <tr><td colspan="3">Grapheme_Cluster_Break (GCB)</td></tr>
-<tr><td>&nbsp;</td><td>Control (CN)</td><td>`HasGcbCn(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>CR</td><td>`HasGcbCr(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Extend (EX)</td><td>`HasGcbEx(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>L</td><td>`HasGcbL(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>LF</td><td>`HasGcbLf(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>LV</td><td>`HasGcbLv(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>LVT</td><td>`HasGcbLvt(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Prepend (PP)</td><td>`HasGcbPp(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Regional_Indicator (RI)</td><td>`HasGcbRi(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>SpacingMark (SM)</td><td>`HasGcbSm(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>T</td><td>`HasGcbT(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>V</td><td>`HasGcbV(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Other (XX)</td><td>`HasGcbXx(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>ZWJ</td><td>`HasGcbZwj(r rune) bool`</td></tr>
+<tr><td>&nbsp;</td><td>Control (CN)</td><td>HasGcbCn(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>CR</td><td>HasGcbCr(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Extend (EX)</td><td>HasGcbEx(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>L</td><td>HasGcbL(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>LF</td><td>HasGcbLf(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>LV</td><td>HasGcbLv(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>LVT</td><td>HasGcbLvt(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Prepend (PP)</td><td>HasGcbPp(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Regional_Indicator (RI)</td><td>HasGcbRi(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>SpacingMark (SM)</td><td>HasGcbSm(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>T</td><td>HasGcbT(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>V</td><td>HasGcbV(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Other (XX)</td><td>HasGcbXx(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>ZWJ</td><td>HasGcbZwj(r rune) bool</td></tr>
 <tr><td colspan="3">Extended_Pictographic (ExtPict)</td></tr>
-<tr><td>&nbsp;</td><td>No (N, F, False)</td><td>`HasExtpictN(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Yes (Y, T, True)</td><td>`HasExtpictY(r rune) bool`</td></tr>
+<tr><td>&nbsp;</td><td>No (N, F, False)</td><td>HasExtpictN(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Yes (Y, T, True)</td><td>HasExtpictY(r rune) bool</td></tr>
 </tbody></table>
 ## Performance
 Running the `go test -bench` command on this package produces performance benchmarks as follows.

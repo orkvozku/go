@@ -82,3 +82,21 @@ func NextExtGraphemeClusterBreak(data []rune, offset int) (int, bool) {
 func NextExtGraphemeClusterBreakLen(data []rune, offset int, dataLength int) (int, bool) {
 	return ubasic.NextExtGraphemeClusterBreakLen(data, offset, dataLength)
 }
+
+//===========================================================================
+// API: Line Breaks:
+//===========================================================================
+
+// to be implemented
+
+//===========================================================================
+// API: Word Breaks:
+//===========================================================================
+
+// to be implemented
+
+//===========================================================================
+// API: Sentence Breaks:
+//===========================================================================
+
+// to be implemented

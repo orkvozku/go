@@ -77,7 +77,11 @@ One package has the primary implementation of the function while the others
 consist of stubs that call into the primary implementation of the other
 package. Those are listed with the comment, (secondary implementation).
 
-Module Version: 0.0.2
+NOTE: the package ucomps is in the early stages of development and not
+included in the repository yet. It will be added when it starts becoming
+usable.
+
+Module Version: 0.0.3
 Unicode Version: 14.0.0
 
 PACKAGES:
@@ -86,6 +90,12 @@ ubasic:
     General_Category (gc)
     Grapheme_Cluster_Break (GCB)
     White_Space (WSpace, space)
+ucomps:
+    Decomposition_Mapping (dm)
+    NFC_Quick_Check (NFC_QC)
+    NFD_Quick_Check (NFD_QC)
+    NFKC_Quick_Check (NFKC_QC)
+    NFKD_Quick_Check (NFKD_QC)
 upatids:
     ID_Start (IDS)
     ID_Continue (IDC)
@@ -140,7 +150,7 @@ Changes_When_NFKC_Casefolded (CWKCF)
 Changes_When_Titlecased (CWT)
     (not implemented)
 Decomposition_Mapping (dm)
-    (not implemented)
+    func ucomps.ValueOfDm(r rune) []rune
 Decomposition_Type (dt)
     (not implemented)
 Changes_When_Uppercased (CWU)
@@ -484,15 +494,31 @@ Lowercase_Mapping (lc)
 Math
     (not implemented)
 NFC_Quick_Check (NFC_QC)
-    (not implemented)
+    value: Maybe (M)
+        func ucomps.HasNfcqcM(r rune) bool
+    value: No (N)
+        func ucomps.HasNfcqcN(r rune) bool
+    value: Yes (Y)
+        func ucomps.HasNfcqcY(r rune) bool
 NFD_Quick_Check (NFD_QC)
-    (not implemented)
+    value: No (N)
+        func ucomps.HasNfdqcN(r rune) bool
+    value: Yes (Y)
+        func ucomps.HasNfdqcY(r rune) bool
 NFKC_Casefold (NFKC_CF)
     (not implemented)
 NFKC_Quick_Check (NFKC_QC)
-    (not implemented)
+    value: Maybe (M)
+        func ucomps.HasNfkcqcM(r rune) bool
+    value: No (N)
+        func ucomps.HasNfkcqcN(r rune) bool
+    value: Yes (Y)
+        func ucomps.HasNfkcqcY(r rune) bool
 NFKD_Quick_Check (NFKD_QC)
-    (not implemented)
+    value: No (N)
+        func ucomps.HasNfkdqcN(r rune) bool
+    value: Yes (Y)
+        func ucomps.HasNfkdqcY(r rune) bool
 Name_Alias
     (not implemented)
 Noncharacter_Code_Point (NChar)

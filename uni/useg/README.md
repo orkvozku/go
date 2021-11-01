@@ -90,7 +90,6 @@ func main() {
     // Extended grapheme cluster ')': [U+0029]
 }
 ```
-_Unicode and the Unicode Logo are registered trademarks of Unicode, Inc. in the United States and other countries._
 # API
 ## General Constants
 ### UnicodeVersion
@@ -289,101 +288,101 @@ HasSbXx returns true if code point, r, has Unicode property, Sentence_Break (SB)
 <table><thead><tr><th>Property:</th><th>Value:</th><th>Function:</th></tr></thead>
 <tbody>
 <tr><td colspan="3">Grapheme_Cluster_Break (GCB)</td></tr>
-<tr><td>&nbsp;</td><td>Control (CN)</td><td>`HasGcbCn(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>CR</td><td>`HasGcbCr(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Extend (EX)</td><td>`HasGcbEx(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>L</td><td>`HasGcbL(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>LF</td><td>`HasGcbLf(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>LV</td><td>`HasGcbLv(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>LVT</td><td>`HasGcbLvt(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Prepend (PP)</td><td>`HasGcbPp(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Regional_Indicator (RI)</td><td>`HasGcbRi(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>SpacingMark (SM)</td><td>`HasGcbSm(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>T</td><td>`HasGcbT(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>V</td><td>`HasGcbV(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Other (XX)</td><td>`HasGcbXx(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>ZWJ</td><td>`HasGcbZwj(r rune) bool`</td></tr>
+<tr><td>&nbsp;</td><td>Control (CN)</td><td>HasGcbCn(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>CR</td><td>HasGcbCr(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Extend (EX)</td><td>HasGcbEx(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>L</td><td>HasGcbL(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>LF</td><td>HasGcbLf(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>LV</td><td>HasGcbLv(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>LVT</td><td>HasGcbLvt(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Prepend (PP)</td><td>HasGcbPp(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Regional_Indicator (RI)</td><td>HasGcbRi(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>SpacingMark (SM)</td><td>HasGcbSm(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>T</td><td>HasGcbT(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>V</td><td>HasGcbV(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Other (XX)</td><td>HasGcbXx(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>ZWJ</td><td>HasGcbZwj(r rune) bool</td></tr>
 <tr><td colspan="3">Extended_Pictographic (ExtPict)</td></tr>
-<tr><td>&nbsp;</td><td>No (N, F, False)</td><td>`HasExtpictN(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Yes (Y, T, True)</td><td>`HasExtpictY(r rune) bool`</td></tr>
+<tr><td>&nbsp;</td><td>No (N, F, False)</td><td>HasExtpictN(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Yes (Y, T, True)</td><td>HasExtpictY(r rune) bool</td></tr>
 <tr><td colspan="3">Line_Break (lb)</td></tr>
-<tr><td>&nbsp;</td><td>Ambiguous (AI)</td><td>`HasLbAi(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Alphabetic (AL)</td><td>`HasLbAl(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Break_Both (B2)</td><td>`HasLbB2(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Break_After (BA)</td><td>`HasLbBa(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Break_Before (BB)</td><td>`HasLbBb(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Mandatory_Break (BK)</td><td>`HasLbBk(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Contingent_Break (CB)</td><td>`HasLbCb(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Conditional_Japanese_Starter (CJ)</td><td>`HasLbCj(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Close_Punctuation (CL)</td><td>`HasLbCl(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Combining_Mark (CM)</td><td>`HasLbCm(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Close_Parenthesis (CP)</td><td>`HasLbCp(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Carriage_Return (CR)</td><td>`HasLbCr(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>E_Base (EB)</td><td>`HasLbEb(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>E_Modifier (EM)</td><td>`HasLbEm(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Exclamation (EX)</td><td>`HasLbEx(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Glue (GL)</td><td>`HasLbGl(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>H2</td><td>`HasLbH2(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>H3</td><td>`HasLbH3(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Hebrew_Letter (HL)</td><td>`HasLbHl(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Hyphen (HY)</td><td>`HasLbHy(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Ideographic (ID)</td><td>`HasLbId(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Inseparable (IN, Inseperable)</td><td>`HasLbIn(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Infix_Numeric (IS)</td><td>`HasLbIs(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>JL</td><td>`HasLbJl(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>JT</td><td>`HasLbJt(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>JV</td><td>`HasLbJv(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Line_Feed (LF)</td><td>`HasLbLf(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Next_Line (NL)</td><td>`HasLbNl(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Nonstarter (NS)</td><td>`HasLbNs(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Numeric (NU)</td><td>`HasLbNu(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Open_Punctuation (OP)</td><td>`HasLbOp(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Postfix_Numeric (PO)</td><td>`HasLbPo(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Prefix_Numeric (PR)</td><td>`HasLbPr(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Quotation (QU)</td><td>`HasLbQu(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Regional_Indicator (RI)</td><td>`HasLbRi(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Complex_Context (SA)</td><td>`HasLbSa(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Surrogate (SG)</td><td>`HasLbSg(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Space (SP)</td><td>`HasLbSp(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Break_Symbols (SY)</td><td>`HasLbSy(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Word_Joiner (WJ)</td><td>`HasLbWj(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Unknown (XX)</td><td>`HasLbXx(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>ZWSpace (ZW)</td><td>`HasLbZw(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>ZWJ</td><td>`HasLbZwj(r rune) bool`</td></tr>
+<tr><td>&nbsp;</td><td>Ambiguous (AI)</td><td>HasLbAi(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Alphabetic (AL)</td><td>HasLbAl(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Break_Both (B2)</td><td>HasLbB2(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Break_After (BA)</td><td>HasLbBa(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Break_Before (BB)</td><td>HasLbBb(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Mandatory_Break (BK)</td><td>HasLbBk(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Contingent_Break (CB)</td><td>HasLbCb(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Conditional_Japanese_Starter (CJ)</td><td>HasLbCj(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Close_Punctuation (CL)</td><td>HasLbCl(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Combining_Mark (CM)</td><td>HasLbCm(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Close_Parenthesis (CP)</td><td>HasLbCp(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Carriage_Return (CR)</td><td>HasLbCr(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>E_Base (EB)</td><td>HasLbEb(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>E_Modifier (EM)</td><td>HasLbEm(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Exclamation (EX)</td><td>HasLbEx(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Glue (GL)</td><td>HasLbGl(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>H2</td><td>HasLbH2(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>H3</td><td>HasLbH3(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Hebrew_Letter (HL)</td><td>HasLbHl(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Hyphen (HY)</td><td>HasLbHy(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Ideographic (ID)</td><td>HasLbId(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Inseparable (IN, Inseperable)</td><td>HasLbIn(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Infix_Numeric (IS)</td><td>HasLbIs(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>JL</td><td>HasLbJl(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>JT</td><td>HasLbJt(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>JV</td><td>HasLbJv(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Line_Feed (LF)</td><td>HasLbLf(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Next_Line (NL)</td><td>HasLbNl(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Nonstarter (NS)</td><td>HasLbNs(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Numeric (NU)</td><td>HasLbNu(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Open_Punctuation (OP)</td><td>HasLbOp(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Postfix_Numeric (PO)</td><td>HasLbPo(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Prefix_Numeric (PR)</td><td>HasLbPr(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Quotation (QU)</td><td>HasLbQu(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Regional_Indicator (RI)</td><td>HasLbRi(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Complex_Context (SA)</td><td>HasLbSa(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Surrogate (SG)</td><td>HasLbSg(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Space (SP)</td><td>HasLbSp(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Break_Symbols (SY)</td><td>HasLbSy(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Word_Joiner (WJ)</td><td>HasLbWj(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Unknown (XX)</td><td>HasLbXx(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>ZWSpace (ZW)</td><td>HasLbZw(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>ZWJ</td><td>HasLbZwj(r rune) bool</td></tr>
 <tr><td colspan="3">Word_Break (WB)</td></tr>
-<tr><td>&nbsp;</td><td>CR</td><td>`HasWbCr(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Double_Quote (DQ)</td><td>`HasWbDq(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>ExtendNumLet (EX)</td><td>`HasWbEx(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Extend</td><td>`HasWbExtend(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Format (FO)</td><td>`HasWbFo(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Hebrew_Letter (HL)</td><td>`HasWbHl(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Katakana (KA)</td><td>`HasWbKa(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>ALetter (LE)</td><td>`HasWbLe(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>LF</td><td>`HasWbLf(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>MidNumLet (MB)</td><td>`HasWbMb(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>MidLetter (ML)</td><td>`HasWbMl(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>MidNum (MN)</td><td>`HasWbMn(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Newline (NL)</td><td>`HasWbNl(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Numeric (NU)</td><td>`HasWbNu(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Regional_Indicator (RI)</td><td>`HasWbRi(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Single_Quote (SQ)</td><td>`HasWbSq(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>WSegSpace</td><td>`HasWbWsegspace(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Other (XX)</td><td>`HasWbXx(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>ZWJ</td><td>`HasWbZwj(r rune) bool`</td></tr>
+<tr><td>&nbsp;</td><td>CR</td><td>HasWbCr(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Double_Quote (DQ)</td><td>HasWbDq(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>ExtendNumLet (EX)</td><td>HasWbEx(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Extend</td><td>HasWbExtend(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Format (FO)</td><td>HasWbFo(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Hebrew_Letter (HL)</td><td>HasWbHl(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Katakana (KA)</td><td>HasWbKa(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>ALetter (LE)</td><td>HasWbLe(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>LF</td><td>HasWbLf(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>MidNumLet (MB)</td><td>HasWbMb(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>MidLetter (ML)</td><td>HasWbMl(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>MidNum (MN)</td><td>HasWbMn(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Newline (NL)</td><td>HasWbNl(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Numeric (NU)</td><td>HasWbNu(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Regional_Indicator (RI)</td><td>HasWbRi(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Single_Quote (SQ)</td><td>HasWbSq(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>WSegSpace</td><td>HasWbWsegspace(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Other (XX)</td><td>HasWbXx(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>ZWJ</td><td>HasWbZwj(r rune) bool</td></tr>
 <tr><td colspan="3">Sentence_Break (SB)</td></tr>
-<tr><td>&nbsp;</td><td>ATerm (AT)</td><td>`HasSbAt(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Close (CL)</td><td>`HasSbCl(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>CR</td><td>`HasSbCr(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Extend (EX)</td><td>`HasSbEx(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Format (FO)</td><td>`HasSbFo(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>OLetter (LE)</td><td>`HasSbLe(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>LF</td><td>`HasSbLf(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Lower (LO)</td><td>`HasSbLo(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Numeric (NU)</td><td>`HasSbNu(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>SContinue (SC)</td><td>`HasSbSc(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Sep (SE)</td><td>`HasSbSe(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Sp (SP)</td><td>`HasSbSp(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>STerm (ST)</td><td>`HasSbSt(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Upper (UP)</td><td>`HasSbUp(r rune) bool`</td></tr>
-<tr><td>&nbsp;</td><td>Other (XX)</td><td>`HasSbXx(r rune) bool`</td></tr>
+<tr><td>&nbsp;</td><td>ATerm (AT)</td><td>HasSbAt(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Close (CL)</td><td>HasSbCl(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>CR</td><td>HasSbCr(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Extend (EX)</td><td>HasSbEx(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Format (FO)</td><td>HasSbFo(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>OLetter (LE)</td><td>HasSbLe(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>LF</td><td>HasSbLf(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Lower (LO)</td><td>HasSbLo(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Numeric (NU)</td><td>HasSbNu(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>SContinue (SC)</td><td>HasSbSc(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Sep (SE)</td><td>HasSbSe(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Sp (SP)</td><td>HasSbSp(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>STerm (ST)</td><td>HasSbSt(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Upper (UP)</td><td>HasSbUp(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Other (XX)</td><td>HasSbXx(r rune) bool</td></tr>
 </tbody></table>
