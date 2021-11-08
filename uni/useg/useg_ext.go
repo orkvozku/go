@@ -72,8 +72,8 @@ func NextExtGraphemeClusterBreak(data []rune, offset int) (int, bool) {
 // of an extended grapheme cluster break, this function returns the count of
 // runes until the next extended grapheme cluster break.
 //
-// The second returned parameter is true if the break is mandatory here. This
-// is always true for this function.
+// The second returned parameter should be ignored for now. It may have
+// meaning in the future.
 //
 // This function can be used with ucutls.NewRunesReaderBreaker to create a
 // filter that receives an io.RuneReader interface and outputs a

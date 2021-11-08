@@ -1,4 +1,4 @@
-<h1 align="center">Unicode® queries of identifer and pattern syntax properties</h1>
+<h1 align="center">Unicode​® queries of identifer and pattern syntax properties</h1>
 
 **upatids** is a Go package for querying the Unicode identifier and pattern syntax properties.
 

@@ -1,4 +1,4 @@
-<h1 align="center">Unicode® queries of segmentation properties</h1>
+<h1 align="center">Unicode​® queries of segmentation properties</h1>
 
 **useg** is a Go package for querying Unicode segmentation properties.
 

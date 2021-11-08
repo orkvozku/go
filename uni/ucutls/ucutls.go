@@ -34,8 +34,6 @@ package ucutls
 
 import "io"
 
-//import "fmt"
-
 //===========================================================================
 // API: RunesReader Interface:
 //===========================================================================
@@ -43,12 +41,9 @@ import "io"
 // Runesreader is the interface that wraps the ReadRunes method.
 //
 // ReadRunes reads a single extended grapheme cluster of runes as a []rune.
-// If no runes are available, err will be set. The middle parameter returns
-// true if the break is mandatory here, and false otherwise. For most types
-// of breaks, the middle parameter is always true. Line breaks (not yet
-// implemented) can have mandatory and optional break points, which is
-// reflected here. For example, a line break is mandatory after 0x0A (LF),
-// but is optional in many places such as between words.
+// If no runes are available, err will be set. The middle parameter should
+// be ignored for now. It is a placeholder for future support that provides
+// additional information about the break.
 type RunesReader interface {
 	ReadRunes() ([]rune, bool, error)
 }
@@ -75,7 +70,7 @@ func NewRunesReaderFromBreaker(nbf func([]rune, int, int) (int, bool),
 	cacheFillSize int,
 	rr io.RuneReader) RunesReader {
 	var rrb runesReaderBreaker
-	var rrbi runesREaderBreakerImpl
+	var rrbi runesReaderBreakerImpl
 	rrb.impl = &rrbi
 	rrbi.runeReader = rr
 	rrbi.cacheFillSize = cacheFillSize
@@ -91,12 +86,12 @@ func NewRunesReaderFromBreaker(nbf func([]rune, int, int) (int, bool),
 // runesReaderBreaker implements a RunesReader interface for wrapping the
 // segment break functions in the ubasic and usegs packages.
 type runesReaderBreaker struct {
-	impl *runesREaderBreakerImpl
+	impl *runesReaderBreakerImpl
 }
 
-// runesREaderBreakerImpl supports an implementation of the RunesReader interface
+// runesReaderBreakerImpl supports an implementation of the RunesReader interface
 // for wrapping the segment break functions in the ubasic and usegs packages.
-type runesREaderBreakerImpl struct {
+type runesReaderBreakerImpl struct {
 	runeReader     io.RuneReader
 	runesCache     []rune
 	cacheFillSize  int
@@ -142,7 +137,7 @@ func (rrb runesReaderBreaker) ReadRunes() ([]rune, bool, error) {
 }
 
 // reload is a private method to reload the cache.
-func (rrbi *runesREaderBreakerImpl) reload() error {
+func (rrbi *runesReaderBreakerImpl) reload() error {
 	if !rrbi.atEnd {
 		rrbi.runesCache = append(make([]rune, 0, rrbi.cacheFillSize), rrbi.runesCache[rrbi.offset:]...)
 		rrbi.runesCacheSize -= rrbi.offset
