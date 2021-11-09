@@ -94,7 +94,7 @@ One package has the primary implementation of the function while the others
 consist of stubs that call into the primary implementation of the other
 package. Those are listed with the comment, (secondary implementation).
 
-Module Version: 0.0.4
+Module Version: 0.0.5
 Unicode Version: 14.0.0
 
 PACKAGES:

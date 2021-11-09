@@ -1,6 +1,6 @@
-<h1 align="center">a collection of Unicode® packages Go/Golang</h1>
+<h1 align="center">a collection of Unicode​® packages Go/Golang</h1>
 
-This module contains several packages to support use of Unicode properties. These include common operations such as property queries, as well as some other support such as parsing extended grapheme cluster breaks. For a full list, see the file, **SUMMARY.txt** in this directory, and the **README.md** files in the individual package directories.
+This module contains several packages to support use of Unicode properties. These include common operations such as property queries, as well as some other support such as parsing extended grapheme cluster breaks. For a full list, see the file, **SUMMARY.txt** in this directory, and the **README.md** files in the individual package directories. It also includes a normalization package, **unorm** that appears faster than the golang.org unicode/norm package.
 
 _Unicode and the Unicode Logo are registered trademarks of Unicode, Inc. in the United States and other countries._
 

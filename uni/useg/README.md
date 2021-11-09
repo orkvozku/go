@@ -90,201 +90,201 @@ func main() {
     // Extended grapheme cluster ')': [U+0029]
 }
 ```
-# API
-## General Constants
-### UnicodeVersion
+## API
+### General Constants
+#### UnicodeVersion
 UnicodeVersion is the current version of the Unicode specification that this package is intended to comply with.
 
 UnicodeVersion = "14.0.0".
-## Unicode Property Queries
-### func HasGcbCn(r rune) bool
+### Unicode Property Queries
+#### func HasGcbCn(r rune) bool
 HasGcbCn returns true if code point, r, has Unicode property, Grapheme_Cluster_Break (GCB), of Control (CN).
-### func HasGcbCr(r rune) bool
+#### func HasGcbCr(r rune) bool
 HasGcbCr returns true if code point, r, has Unicode property, Grapheme_Cluster_Break (GCB), of CR.
-### func HasGcbEx(r rune) bool
+#### func HasGcbEx(r rune) bool
 HasGcbEx returns true if code point, r, has Unicode property, Grapheme_Cluster_Break (GCB), of Extend (EX).
-### func HasGcbL(r rune) bool
+#### func HasGcbL(r rune) bool
 HasGcbL returns true if code point, r, has Unicode property, Grapheme_Cluster_Break (GCB), of L.
-### func HasGcbLf(r rune) bool
+#### func HasGcbLf(r rune) bool
 HasGcbLf returns true if code point, r, has Unicode property, Grapheme_Cluster_Break (GCB), of LF.
-### func HasGcbLv(r rune) bool
+#### func HasGcbLv(r rune) bool
 HasGcbLv returns true if code point, r, has Unicode property, Grapheme_Cluster_Break (GCB), of LV.
-### func HasGcbLvt(r rune) bool
+#### func HasGcbLvt(r rune) bool
 HasGcbLvt returns true if code point, r, has Unicode property, Grapheme_Cluster_Break (GCB), of LVT.
-### func HasGcbPp(r rune) bool
+#### func HasGcbPp(r rune) bool
 HasGcbPp returns true if code point, r, has Unicode property, Grapheme_Cluster_Break (GCB), of Prepend (PP).
-### func HasGcbRi(r rune) bool
+#### func HasGcbRi(r rune) bool
 HasGcbRi returns true if code point, r, has Unicode property, Grapheme_Cluster_Break (GCB), of Regional_Indicator (RI).
-### func HasGcbSm(r rune) bool
+#### func HasGcbSm(r rune) bool
 HasGcbSm returns true if code point, r, has Unicode property, Grapheme_Cluster_Break (GCB), of SpacingMark (SM).
-### func HasGcbT(r rune) bool
+#### func HasGcbT(r rune) bool
 HasGcbT returns true if code point, r, has Unicode property, Grapheme_Cluster_Break (GCB), of T.
-### func HasGcbV(r rune) bool
+#### func HasGcbV(r rune) bool
 HasGcbV returns true if code point, r, has Unicode property, Grapheme_Cluster_Break (GCB), of V.
-### func HasGcbXx(r rune) bool
+#### func HasGcbXx(r rune) bool
 HasGcbXx returns true if code point, r, has Unicode property, Grapheme_Cluster_Break (GCB), of Other (XX).
-### func HasGcbZwj(r rune) bool
+#### func HasGcbZwj(r rune) bool
 HasGcbZwj returns true if code point, r, has Unicode property, Grapheme_Cluster_Break (GCB), of ZWJ.
-### func HasExtpictN(r rune) bool
+#### func HasExtpictN(r rune) bool
 HasExtpictN returns true if code point, r, has Unicode property, Extended_Pictographic (ExtPict), of No (N).
-### func HasExtpictY(r rune) bool
+#### func HasExtpictY(r rune) bool
 HasExtpictY returns true if code point, r, has Unicode property, Extended_Pictographic (ExtPict), of Yes (Y).
-### func HasLbAi(r rune) bool
+#### func HasLbAi(r rune) bool
 HasLbAi returns true if code point, r, has Unicode property, Line_Break (lb), of Ambiguous (AI).
-### func HasLbAl(r rune) bool
+#### func HasLbAl(r rune) bool
 HasLbAl returns true if code point, r, has Unicode property, Line_Break (lb), of Alphabetic (AL).
-### func HasLbB2(r rune) bool
+#### func HasLbB2(r rune) bool
 HasLbB2 returns true if code point, r, has Unicode property, Line_Break (lb), of Break_Both (B2).
-### func HasLbBa(r rune) bool
+#### func HasLbBa(r rune) bool
 HasLbBa returns true if code point, r, has Unicode property, Line_Break (lb), of Break_After (BA).
-### func HasLbBb(r rune) bool
+#### func HasLbBb(r rune) bool
 HasLbBb returns true if code point, r, has Unicode property, Line_Break (lb), of Break_Before (BB).
-### func HasLbBk(r rune) bool
+#### func HasLbBk(r rune) bool
 HasLbBk returns true if code point, r, has Unicode property, Line_Break (lb), of Mandatory_Break (BK).
-### func HasLbCb(r rune) bool
+#### func HasLbCb(r rune) bool
 HasLbCb returns true if code point, r, has Unicode property, Line_Break (lb), of Contingent_Break (CB).
-### func HasLbCj(r rune) bool
+#### func HasLbCj(r rune) bool
 HasLbCj returns true if code point, r, has Unicode property, Line_Break (lb), of Conditional_Japanese_Starter (CJ).
-### func HasLbCl(r rune) bool
+#### func HasLbCl(r rune) bool
 HasLbCl returns true if code point, r, has Unicode property, Line_Break (lb), of Close_Punctuation (CL).
-### func HasLbCm(r rune) bool
+#### func HasLbCm(r rune) bool
 HasLbCm returns true if code point, r, has Unicode property, Line_Break (lb), of Combining_Mark (CM).
-### func HasLbCp(r rune) bool
+#### func HasLbCp(r rune) bool
 HasLbCp returns true if code point, r, has Unicode property, Line_Break (lb), of Close_Parenthesis (CP).
-### func HasLbCr(r rune) bool
+#### func HasLbCr(r rune) bool
 HasLbCr returns true if code point, r, has Unicode property, Line_Break (lb), of Carriage_Return (CR).
-### func HasLbEb(r rune) bool
+#### func HasLbEb(r rune) bool
 HasLbEb returns true if code point, r, has Unicode property, Line_Break (lb), of E_Base (EB).
-### func HasLbEm(r rune) bool
+#### func HasLbEm(r rune) bool
 HasLbEm returns true if code point, r, has Unicode property, Line_Break (lb), of E_Modifier (EM).
-### func HasLbEx(r rune) bool
+#### func HasLbEx(r rune) bool
 HasLbEx returns true if code point, r, has Unicode property, Line_Break (lb), of Exclamation (EX).
-### func HasLbGl(r rune) bool
+#### func HasLbGl(r rune) bool
 HasLbGl returns true if code point, r, has Unicode property, Line_Break (lb), of Glue (GL).
-### func HasLbH2(r rune) bool
+#### func HasLbH2(r rune) bool
 HasLbH2 returns true if code point, r, has Unicode property, Line_Break (lb), of H2.
-### func HasLbH3(r rune) bool
+#### func HasLbH3(r rune) bool
 HasLbH3 returns true if code point, r, has Unicode property, Line_Break (lb), of H3.
-### func HasLbHl(r rune) bool
+#### func HasLbHl(r rune) bool
 HasLbHl returns true if code point, r, has Unicode property, Line_Break (lb), of Hebrew_Letter (HL).
-### func HasLbHy(r rune) bool
+#### func HasLbHy(r rune) bool
 HasLbHy returns true if code point, r, has Unicode property, Line_Break (lb), of Hyphen (HY).
-### func HasLbId(r rune) bool
+#### func HasLbId(r rune) bool
 HasLbId returns true if code point, r, has Unicode property, Line_Break (lb), of Ideographic (ID).
-### func HasLbIn(r rune) bool
+#### func HasLbIn(r rune) bool
 HasLbIn returns true if code point, r, has Unicode property, Line_Break (lb), of Inseparable (IN).
-### func HasLbIs(r rune) bool
+#### func HasLbIs(r rune) bool
 HasLbIs returns true if code point, r, has Unicode property, Line_Break (lb), of Infix_Numeric (IS).
-### func HasLbJl(r rune) bool
+#### func HasLbJl(r rune) bool
 HasLbJl returns true if code point, r, has Unicode property, Line_Break (lb), of JL.
-### func HasLbJt(r rune) bool
+#### func HasLbJt(r rune) bool
 HasLbJt returns true if code point, r, has Unicode property, Line_Break (lb), of JT.
-### func HasLbJv(r rune) bool
+#### func HasLbJv(r rune) bool
 HasLbJv returns true if code point, r, has Unicode property, Line_Break (lb), of JV.
-### func HasLbLf(r rune) bool
+#### func HasLbLf(r rune) bool
 HasLbLf returns true if code point, r, has Unicode property, Line_Break (lb), of Line_Feed (LF).
-### func HasLbNl(r rune) bool
+#### func HasLbNl(r rune) bool
 HasLbNl returns true if code point, r, has Unicode property, Line_Break (lb), of Next_Line (NL).
-### func HasLbNs(r rune) bool
+#### func HasLbNs(r rune) bool
 HasLbNs returns true if code point, r, has Unicode property, Line_Break (lb), of Nonstarter (NS).
-### func HasLbNu(r rune) bool
+#### func HasLbNu(r rune) bool
 HasLbNu returns true if code point, r, has Unicode property, Line_Break (lb), of Numeric (NU).
-### func HasLbOp(r rune) bool
+#### func HasLbOp(r rune) bool
 HasLbOp returns true if code point, r, has Unicode property, Line_Break (lb), of Open_Punctuation (OP).
-### func HasLbPo(r rune) bool
+#### func HasLbPo(r rune) bool
 HasLbPo returns true if code point, r, has Unicode property, Line_Break (lb), of Postfix_Numeric (PO).
-### func HasLbPr(r rune) bool
+#### func HasLbPr(r rune) bool
 HasLbPr returns true if code point, r, has Unicode property, Line_Break (lb), of Prefix_Numeric (PR).
-### func HasLbQu(r rune) bool
+#### func HasLbQu(r rune) bool
 HasLbQu returns true if code point, r, has Unicode property, Line_Break (lb), of Quotation (QU).
-### func HasLbRi(r rune) bool
+#### func HasLbRi(r rune) bool
 HasLbRi returns true if code point, r, has Unicode property, Line_Break (lb), of Regional_Indicator (RI).
-### func HasLbSa(r rune) bool
+#### func HasLbSa(r rune) bool
 HasLbSa returns true if code point, r, has Unicode property, Line_Break (lb), of Complex_Context (SA).
-### func HasLbSg(r rune) bool
+#### func HasLbSg(r rune) bool
 HasLbSg returns true if code point, r, has Unicode property, Line_Break (lb), of Surrogate (SG).
-### func HasLbSp(r rune) bool
+#### func HasLbSp(r rune) bool
 HasLbSp returns true if code point, r, has Unicode property, Line_Break (lb), of Space (SP).
-### func HasLbSy(r rune) bool
+#### func HasLbSy(r rune) bool
 HasLbSy returns true if code point, r, has Unicode property, Line_Break (lb), of Break_Symbols (SY).
-### func HasLbWj(r rune) bool
+#### func HasLbWj(r rune) bool
 HasLbWj returns true if code point, r, has Unicode property, Line_Break (lb), of Word_Joiner (WJ).
-### func HasLbXx(r rune) bool
+#### func HasLbXx(r rune) bool
 HasLbXx returns true if code point, r, has Unicode property, Line_Break (lb), of Unknown (XX).
-### func HasLbZw(r rune) bool
+#### func HasLbZw(r rune) bool
 HasLbZw returns true if code point, r, has Unicode property, Line_Break (lb), of ZWSpace (ZW).
-### func HasLbZwj(r rune) bool
+#### func HasLbZwj(r rune) bool
 HasLbZwj returns true if code point, r, has Unicode property, Line_Break (lb), of ZWJ.
-### func HasWbCr(r rune) bool
+#### func HasWbCr(r rune) bool
 HasWbCr returns true if code point, r, has Unicode property, Word_Break (WB), of CR.
-### func HasWbDq(r rune) bool
+#### func HasWbDq(r rune) bool
 HasWbDq returns true if code point, r, has Unicode property, Word_Break (WB), of Double_Quote (DQ).
-### func HasWbEx(r rune) bool
+#### func HasWbEx(r rune) bool
 HasWbEx returns true if code point, r, has Unicode property, Word_Break (WB), of ExtendNumLet (EX).
-### func HasWbExtend(r rune) bool
+#### func HasWbExtend(r rune) bool
 HasWbExtend returns true if code point, r, has Unicode property, Word_Break (WB), of Extend.
-### func HasWbFo(r rune) bool
+#### func HasWbFo(r rune) bool
 HasWbFo returns true if code point, r, has Unicode property, Word_Break (WB), of Format (FO).
-### func HasWbHl(r rune) bool
+#### func HasWbHl(r rune) bool
 HasWbHl returns true if code point, r, has Unicode property, Word_Break (WB), of Hebrew_Letter (HL).
-### func HasWbKa(r rune) bool
+#### func HasWbKa(r rune) bool
 HasWbKa returns true if code point, r, has Unicode property, Word_Break (WB), of Katakana (KA).
-### func HasWbLe(r rune) bool
+#### func HasWbLe(r rune) bool
 HasWbLe returns true if code point, r, has Unicode property, Word_Break (WB), of ALetter (LE).
-### func HasWbLf(r rune) bool
+#### func HasWbLf(r rune) bool
 HasWbLf returns true if code point, r, has Unicode property, Word_Break (WB), of LF.
-### func HasWbMb(r rune) bool
+#### func HasWbMb(r rune) bool
 HasWbMb returns true if code point, r, has Unicode property, Word_Break (WB), of MidNumLet (MB).
-### func HasWbMl(r rune) bool
+#### func HasWbMl(r rune) bool
 HasWbMl returns true if code point, r, has Unicode property, Word_Break (WB), of MidLetter (ML).
-### func HasWbMn(r rune) bool
+#### func HasWbMn(r rune) bool
 HasWbMn returns true if code point, r, has Unicode property, Word_Break (WB), of MidNum (MN).
-### func HasWbNl(r rune) bool
+#### func HasWbNl(r rune) bool
 HasWbNl returns true if code point, r, has Unicode property, Word_Break (WB), of Newline (NL).
-### func HasWbNu(r rune) bool
+#### func HasWbNu(r rune) bool
 HasWbNu returns true if code point, r, has Unicode property, Word_Break (WB), of Numeric (NU).
-### func HasWbRi(r rune) bool
+#### func HasWbRi(r rune) bool
 HasWbRi returns true if code point, r, has Unicode property, Word_Break (WB), of Regional_Indicator (RI).
-### func HasWbSq(r rune) bool
+#### func HasWbSq(r rune) bool
 HasWbSq returns true if code point, r, has Unicode property, Word_Break (WB), of Single_Quote (SQ).
-### func HasWbWsegspace(r rune) bool
+#### func HasWbWsegspace(r rune) bool
 HasWbWsegspace returns true if code point, r, has Unicode property, Word_Break (WB), of WSegSpace.
-### func HasWbXx(r rune) bool
+#### func HasWbXx(r rune) bool
 HasWbXx returns true if code point, r, has Unicode property, Word_Break (WB), of Other (XX).
-### func HasWbZwj(r rune) bool
+#### func HasWbZwj(r rune) bool
 HasWbZwj returns true if code point, r, has Unicode property, Word_Break (WB), of ZWJ.
-### func HasSbAt(r rune) bool
+#### func HasSbAt(r rune) bool
 HasSbAt returns true if code point, r, has Unicode property, Sentence_Break (SB), of ATerm (AT).
-### func HasSbCl(r rune) bool
+#### func HasSbCl(r rune) bool
 HasSbCl returns true if code point, r, has Unicode property, Sentence_Break (SB), of Close (CL).
-### func HasSbCr(r rune) bool
+#### func HasSbCr(r rune) bool
 HasSbCr returns true if code point, r, has Unicode property, Sentence_Break (SB), of CR.
-### func HasSbEx(r rune) bool
+#### func HasSbEx(r rune) bool
 HasSbEx returns true if code point, r, has Unicode property, Sentence_Break (SB), of Extend (EX).
-### func HasSbFo(r rune) bool
+#### func HasSbFo(r rune) bool
 HasSbFo returns true if code point, r, has Unicode property, Sentence_Break (SB), of Format (FO).
-### func HasSbLe(r rune) bool
+#### func HasSbLe(r rune) bool
 HasSbLe returns true if code point, r, has Unicode property, Sentence_Break (SB), of OLetter (LE).
-### func HasSbLf(r rune) bool
+#### func HasSbLf(r rune) bool
 HasSbLf returns true if code point, r, has Unicode property, Sentence_Break (SB), of LF.
-### func HasSbLo(r rune) bool
+#### func HasSbLo(r rune) bool
 HasSbLo returns true if code point, r, has Unicode property, Sentence_Break (SB), of Lower (LO).
-### func HasSbNu(r rune) bool
+#### func HasSbNu(r rune) bool
 HasSbNu returns true if code point, r, has Unicode property, Sentence_Break (SB), of Numeric (NU).
-### func HasSbSc(r rune) bool
+#### func HasSbSc(r rune) bool
 HasSbSc returns true if code point, r, has Unicode property, Sentence_Break (SB), of SContinue (SC).
-### func HasSbSe(r rune) bool
+#### func HasSbSe(r rune) bool
 HasSbSe returns true if code point, r, has Unicode property, Sentence_Break (SB), of Sep (SE).
-### func HasSbSp(r rune) bool
+#### func HasSbSp(r rune) bool
 HasSbSp returns true if code point, r, has Unicode property, Sentence_Break (SB), of Sp (SP).
-### func HasSbSt(r rune) bool
+#### func HasSbSt(r rune) bool
 HasSbSt returns true if code point, r, has Unicode property, Sentence_Break (SB), of STerm (ST).
-### func HasSbUp(r rune) bool
+#### func HasSbUp(r rune) bool
 HasSbUp returns true if code point, r, has Unicode property, Sentence_Break (SB), of Upper (UP).
-### func HasSbXx(r rune) bool
+#### func HasSbXx(r rune) bool
 HasSbXx returns true if code point, r, has Unicode property, Sentence_Break (SB), of Other (XX).
-## Other Functions
-# Supported Unicode Properties
+### Other Functions
+## Supported Unicode Properties
 <table><thead><tr><th>Property:</th><th>Value:</th><th>Function:</th></tr></thead>
 <tbody>
 <tr><td colspan="3">Grapheme_Cluster_Break (GCB)</td></tr>

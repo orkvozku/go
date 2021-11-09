@@ -56,39 +56,39 @@ func main() {
     // ')' has Pattern_Syntax=Y
 }
 ```
-# API
-## General Constants
-### UnicodeVersion
+## API
+### General Constants
+#### UnicodeVersion
 UnicodeVersion is the current version of the Unicode specification that this package is intended to comply with.
 
 UnicodeVersion = "14.0.0".
-## Unicode Property Queries
-### func HasPatwsN(r rune) bool
+### Unicode Property Queries
+#### func HasPatwsN(r rune) bool
 HasPatwsN returns true if code point, r, has Unicode property, Pattern_White_Space (Pat_WS), of No (N).
-### func HasPatwsY(r rune) bool
+#### func HasPatwsY(r rune) bool
 HasPatwsY returns true if code point, r, has Unicode property, Pattern_White_Space (Pat_WS), of Yes (Y).
-### func HasPatsynN(r rune) bool
+#### func HasPatsynN(r rune) bool
 HasPatsynN returns true if code point, r, has Unicode property, Pattern_Syntax (Pat_Syn), of No (N).
-### func HasPatsynY(r rune) bool
+#### func HasPatsynY(r rune) bool
 HasPatsynY returns true if code point, r, has Unicode property, Pattern_Syntax (Pat_Syn), of Yes (Y).
-### func HasIdcN(r rune) bool
+#### func HasIdcN(r rune) bool
 HasIdcN returns true if code point, r, has Unicode property, ID_Continue (IDC), of No (N).
-### func HasIdcY(r rune) bool
+#### func HasIdcY(r rune) bool
 HasIdcY returns true if code point, r, has Unicode property, ID_Continue (IDC), of Yes (Y).
-### func HasIdsN(r rune) bool
+#### func HasIdsN(r rune) bool
 HasIdsN returns true if code point, r, has Unicode property, ID_Start (IDS), of No (N).
-### func HasIdsY(r rune) bool
+#### func HasIdsY(r rune) bool
 HasIdsY returns true if code point, r, has Unicode property, ID_Start (IDS), of Yes (Y).
-### func HasXidcN(r rune) bool
+#### func HasXidcN(r rune) bool
 HasXidcN returns true if code point, r, has Unicode property, XID_Continue (XIDC), of No (N).
-### func HasXidcY(r rune) bool
+#### func HasXidcY(r rune) bool
 HasXidcY returns true if code point, r, has Unicode property, XID_Continue (XIDC), of Yes (Y).
-### func HasXidsN(r rune) bool
+#### func HasXidsN(r rune) bool
 HasXidsN returns true if code point, r, has Unicode property, XID_Start (XIDS), of No (N).
 ### func HasXidsY(r rune) bool
 HasXidsY returns true if code point, r, has Unicode property, XID_Start (XIDS), of Yes (Y).
-## Other Functions
-# Supported Unicode Properties
+### Other Functions
+## Supported Unicode Properties
 <table><thead><tr><th>Property:</th><th>Value:</th><th>Function:</th></tr></thead>
 <tbody>
 <tr><td colspan="3">Pattern_White_Space (Pat_WS)</td></tr>
