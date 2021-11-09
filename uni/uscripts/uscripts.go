@@ -43,10 +43,15 @@
 ***************************************************************************/
 
 /*
-Package upatids provides queries of common Unicode(R) properties.
+Package uscripts provides queries of Unicode(R) Script_Extensions property.
 
-For example, the function, HasGcLu(rune r) bool, returns true only if the
-code point, r, has the Unicode General_Category value of Lu.
+The Script_Extensions property is similar to the more familiar Script
+property, except that itsupports code points being in more than one Script.
+For example, the code point, U+0485 shows up in both Cyrillic and Latin
+scripts, so HasScxCyrl(0x0485) and HasScxLatn(0x0485) both return true.
+
+For example, the function, HasScxLatn(rune r) bool, returns true only if the
+code point, r, has the Unicode Script_Extensions value of Latin.
 
 The file, README.md, provides a complete list of all functions provided by
 this package along with which Unicode properties and values it tests for.

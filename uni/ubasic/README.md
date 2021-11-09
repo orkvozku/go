@@ -1,4 +1,4 @@
-<h1 align="center">Unicode​® queries of common properties (e.g. General_Category, White_Space, etc.) and extended grapheme cluster parsing</h1>
+<h1 align="center">Unicode ® queries of common properties (e.g. General_Category, White_Space, etc.) and extended grapheme cluster parsing</h1>
 
 **ubasic** is a Go package for querying common Unicode properties. Other Unicode properties are supported by other packages in this module.
 

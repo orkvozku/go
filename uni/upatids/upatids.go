@@ -43,10 +43,11 @@
 ***************************************************************************/
 
 /*
-Package upatids provides queries of common Unicode(R) properties.
+Package upatids provides queries of Unicode(R) identifier and pattern syntax
+properties.
 
-For example, the function, HasGcLu(rune r) bool, returns true only if the
-code point, r, has the Unicode General_Category value of Lu.
+For example, the function, HasXidcY(rune r) bool, returns true only if the
+code point, r, has the Unicode XID_Continue value of Yes.
 
 The file, README.md, provides a complete list of all functions provided by
 this package along with which Unicode properties and values it tests for.

@@ -1,4 +1,4 @@
-<h1 align="center">Unicode​® package for script queries</h1>
+<h1 align="center">Unicode ® package for script queries</h1>
 
 **uscripts** is a Go package for querying the Unicode **Script_Extensions** property. This property is similar to the more familiar **Script** property and produces the same results for most code points. The significant difference is that, for a given code point, the Script property only assigns at most one script, while the Script_Extensions property may assign multiple scripts. Consider the following examples (from Unicode version 14.0.0).
 

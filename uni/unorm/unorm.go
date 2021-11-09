@@ -38,6 +38,23 @@
   in the United States and other countries.
 ***************************************************************************/
 
+/*
+Package unorm provides support for Unicode(R) normalization and some related
+properties.
+
+For example, the function, NextNFCLen(data []rune, offset int) ([]rune, int),
+processes a chunk of runes to ensure they are normalized to NFC form.
+
+The file, README.md, provides a complete list of all functions provided by
+this package along with which Unicode properties and values it tests for.
+
+The file, SUMMARY.txt, in the parent directory (top level directory of this
+module), can be perused to look up Unicode property names/values and which
+functions test it within this and other packages of this module.
+
+Unicode and the Unicode Logo are registered trademarks of Unicode, Inc. in the
+United States and other countries.
+*/
 package unorm
 
 // UnicodeVersion specifies the version of the Unicode Standard that this

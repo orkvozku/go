@@ -1,4 +1,4 @@
-<h1 align="center">Unicode​® normalization (NFC, NFD, NFKC, NFKD) and related queries</h1>
+<h1 align="center">Unicode ® normalization (NFC, NFD, NFKC, NFKD) and related queries</h1>
 
 **unorm** is a Go package for normalizaing Unicode text to canonical forms, NFC, NFD, NFKC, or NFKD.
 
