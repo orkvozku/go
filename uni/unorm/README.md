@@ -2,9 +2,7 @@
 
 **unorm** is a Go package for normalizaing Unicode text to canonical forms, NFC, NFD, NFKC, or NFKD.
 
-The Unicode standard allows for multiple ways to encode the same text. This means, for example, that `"cliché" != "cliché"`, in spite of being the exact same word. Also, `len("cliché") != len("cliché")` because one of them uses two Unicode code points for the **é** while the other uses only one. The Unicode standard defines two different normalization forms that can be used to encode these to a common (i.e. canonical) form, called NFC and NFD, NFC is the more common and compact representation. NFD is an alternate form that is (usually) less compact. Additionally, there are two other analogous forms, NFKC and NFKD, that map different but related characters into a common form. For example, superscripts and subscripts map to their base forms in NFKC and NFKD (e.g. **E=mc²** becomes **E=mc2**). As a less familiar example, the Latin Small Letter Long S, **ſ**, is mapped by NFKC and NFKD to the more familiar lower case **s**. NFKC and NFKD are used less often, but may be useful in cases where it is useful to combine related forms, such as key word searches.
-
-If you are unsure which form to use, NFC is typically the best choice. Normalization is more efficient in cases where the incoming text is already propertly encoded in that form, and most real world text is already encoded in NFC form. Also, NFC is usually more compact than NFD. NFKC and NFKD should be avoided except in cases where you know you want to use them.
+Normalization is an important consideration especially when dealing with text in languages other than English. For more information about what normalization is and why it is important, see the section, **Why is Normalization Important**, below.
 
 This functionality is also provided in the standard Go library at golang.org/x/text/unicode/norm. Each package has its advantages and disadvantages. As of this writing, this package appears to perform better in most cases, as shown by running `go test -bench`. Results may vary significantly with other platforms, software versions, and even just running the test in the same setup multiple times. The following summary is based on this author's experience of running `go text -bench` on this package.
 
@@ -148,6 +146,42 @@ func main() {
     // NFD2: "d'à côté" [U+0064 U+0027 U+0061 U+0300 U+0020 U+0063 U+006F U+0302 U+0074 U+0065 U+0301]
 }
 ```
+## Why is Normalization Important
+The Unicode standard allows for multiple ways to encode the same text. This means, for example, that `"cliché" != "cliché"`, in spite of being the exact same word. Also, `len("cliché") != len("cliché")` because one of them uses two Unicode code points for the **é** while the other uses only one. The Unicode standard defines two different normalization forms that can be used to encode these to a common canonical form, called NFC and NFD. NFC is the more common and compact representation. NFD is an alternate form that is (usually) less compact. Additionally, there are two other analogous forms, NFKC and NFKD, that map different but related characters into a common form. For example, superscripts and subscripts map to their base forms in NFKC and NFKD (e.g. **E=mc²** becomes **E=mc2**). As a less familiar example, the Latin Small Letter Long S, **ſ**, is mapped by NFKC and NFKD to the more familiar lower case **s**. NFKC and NFKD are used less often, but may be useful in cases where it is desirable to combine related forms, such as key word searches.
+
+In most cases, English language text is already normalized to all four forms. Normalization becomes more important when dealing with other languages.
+### Example: Web Pages
+Consider the following example web page consisting of two files.
+
+**sample.css**:
+
+```css
+body {
+    color: #0000FF;
+    background: #FFFFFF;
+    font-weight: bold;
+}
+.bronzé {
+    color: #CD7F32;
+}
+```
+**sample.html**:
+
+```html
+<html><head>
+<link href="sample.css" rel="stylesheet">
+</head><body>
+<p class="bronzé">Is this blue or bronze?</p>
+</body></html>
+```
+
+Is the text displayed in blue or bronze? That depends on whether or not the web browser matches the class in `<p class="bronzé">` to the `.bronzé` in the .css file. The **é** in **bronzé** may be encoded as either one code point, U+00E9, or two code points, U+0065 U+0301. If sample.css has it encoded in one way while sample.html has it in the other, they might not match. A correctly-implemented web browser will normalize both of these to either NFC or NFD form before comparing them to ensure the text shows up as bronze regardless of the underlying encoding. Older or buggy web browsers might show the text in blue instead. The W3C has an online tool that web developers can use to check for possible inconsistencies [W3C Internationalization Checker](https://validator.w3.org/i18n-checker/).
+
+### Which Should I Use
+If you are unsure which form to use, NFC is typically the best choice. Normalization is more efficient in cases where the incoming text is already encoded in that form and most real world text is already encoded in NFC form. Also, NFC is usually more compact than NFD. In most cases, either NFC or NFD will work fine as long as you are consistent. NFKC and NFKD should be avoided except in cases where you know you want to use them.
+
+### Further Reading
+There is a nicely written article about normalization here [Text normalization in Go](https://go.dev/blog/normalization). If you want to get into the details, consult [UAX#15](https://unicode.org/reports/tr15/) and [Chapter 3 of the Unicode Standard](https://www.unicode.org/versions/latest/).
 ## API
 ### General Constants
 #### UnicodeVersion
@@ -166,7 +200,7 @@ NextNFCReader is a wrapper over NextNFCLen that filters the input through an `io
 
 The performance of this function is typically lower than calling `NextNFCLen` directly.
 
-Due to internal caching, this function may fail to normalize some extreme cases where a character is composed of a large number of non-starter characters. [UAX#15](https://golang.org/doc/) defines a ##Stream-Safe Text Format## which limits sequences of non-starters to no more than 30. This function handles text in Stream-Safe Text Format.
+Due to internal caching, this function may fail to normalize some extreme cases where a character is composed of a large number of non-starters. These should only occur in contrived cases. [UAX#15](https://golang.org/doc/) defines a **Stream-Safe Text Format** which limits sequences of non-starters to no more than 30. This function handles text in Stream-Safe Text Format.
 #### func NextNFD(data []rune, offset int) ([]rune, int)
 NextNFD is equivalent to `NextNFDLen(data, offset, len(data), false)`.
 #### func NextNFDLen(data []rune, offset int, dataLength int, abandonAtEnd bool) ([]rune, int)
@@ -242,6 +276,7 @@ IsStarterNfkd returns the equivalent of `ValueOfCcc(r, -1)==0 && HasNfkdqcY(r)`.
 <tr><td>&nbsp;</td><td>No (N)</td><td>HasNfkdqcN(r rune) bool</td></tr>
 <tr><td>&nbsp;</td><td>Yes (Y)</td><td>HasNfkdqcY(r rune) bool</td></tr>
 </tbody></table>
+
 ## Performance
 Running the `go test -bench` command on this package produces performance benchmarks that compare this package's normalization functions to those of the golang.org/x/text/unicode/norm. Because of the nature of the normalization process, different patterns of text may yield significantly different results. Therefore, a variety of different test samples are needed to get an understanding of the performance comparison. The following benchmarks explore some specific patterns that provide a broad sense of the performance behavior, but may not include all potentially interesting kinds of patterns.
 
