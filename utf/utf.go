@@ -859,7 +859,12 @@ func (rsw readerStateWrapper) ReadRune() (rune, int, error) {
 		return 0, 0, io.EOF
 	}
 	r, delta := NextRuneLen(rs.data, rs.offset, rs.dataSize, rs.encoding)
-	rs.offset += delta
+	if delta > 0 {
+		rs.offset += delta
+	} else {
+		rs.offset = rs.dataSize
+		rs.atEnd = true
+	}
 	if r <= 0x7f {
 		delta = 1
 	} else if r <= 0x7ff {
