@@ -516,34 +516,252 @@ func normCommon(r rune,
 		return data[offset : offset+i], i
 	}
 	// sort decomposition by CCC:
+	//
+	// Note that in most cases, the sequence is short: 1, 2, 3, and on some
+	// occasions 4. It very rarely exceeds 4. Therefore, we try a fast but
+	// cumbersome sort of those shorter lengths, and revert to insertion sorting
+	// as a fallback. This requires extensive unit testing because each order
+	// lands on a different path through the conditions.
+	//
+	// Also note that once we are finished sorting, we don't use the CCC's
+	// (in cccs[] except during composition, to find boundaries (cccs[*]==0) and
+	// blockages (cccs[i-1]==cccs[i]). So we don't need to sort cccs[] beyond
+	// ensuring we keep those patterns in their respective indices. This means
+	// we can skip cccs[] sorting in some cases; for example, when the length is
+	// 2. In the code below, we have commented out the full cccs[] sorting lines
+	// when we can, and sometimes replaced them with partial sorting if some is
+	// still needed.
 	if i > 1 {
-		rsS := make([]rune, 1, len(rs))
-		cccsS := make([]int, 1, len(cccs))
-		rsS[0] = rs[0]
-		cccsS[0] = cccs[0]
-		for k := 1; k < len(cccs); k++ {
-			m := len(cccsS) - 1
-			for ; m >= 0; m-- {
-				if cccsS[m] <= cccs[k] {
-					if m >= len(cccsS)-1 {
-						rsS = append(rsS, rs[k])
-						cccsS = append(cccsS, cccs[k])
-						break
+		switch len(cccs) {
+		case 0: // does not happen
+		case 1: // does not happen
+		case 2:
+			if cccs[0] > cccs[1] && cccs[1] > 0 {
+//				cccs[0], cccs[1] = cccs[1], cccs[0]
+				rs[0],   rs[1]   = rs[1],   rs[0]
+			}
+		case 3:
+			if cccs[0] == 0 {
+				if cccs[1] > cccs[2] && cccs[2] > 0 {
+//					cccs[1], cccs[2] = cccs[2], cccs[1]
+					rs[1],   rs[2]   = rs[2],   rs[1]
+				}
+			} else if cccs[2] == 0 {
+				if cccs[0] > cccs[1] && cccs[1] > 0 {
+//					cccs[0], cccs[1] = cccs[1], cccs[0]
+					rs[0],   rs[1]   = rs[1],   rs[0]
+				}
+			} else if cccs[1] > 0 {
+				if cccs[0] > cccs[1] {
+					if cccs[1] > cccs[2] {
+//						cccs[0], cccs[2] = cccs[2], cccs[0]
+						rs[0],   rs[2]   = rs[2],   rs[0]
+					} else if cccs[0] > cccs[2] {
+						cccs[0], cccs[1], cccs[2] = cccs[1], cccs[2], cccs[0]
+						rs[0],   rs[1],   rs[2]   = rs[1],   rs[2],   rs[0]
+					} else {
+						cccs[0], cccs[1] = cccs[1], cccs[0]
+						rs[0],   rs[1]   = rs[1],   rs[0]
 					}
-					rsS = append(rsS[:m+1], rsS[m:]...)
-					cccsS = append(cccsS[:m+1], cccsS[m:]...)
-					rsS[m+1] = rs[k]
-					cccsS[m+1] = cccs[k]
-					break
+				} else if cccs[1] > cccs[2] {
+					if cccs[0] > cccs[2] {
+						cccs[0], cccs[1], cccs[2] = cccs[2], cccs[0], cccs[1]
+						rs[0],   rs[1],   rs[2]   = rs[2],   rs[0],   rs[1]
+					} else {
+						cccs[1], cccs[2] = cccs[2], cccs[1]
+						rs[1],   rs[2]   = rs[2],   rs[1]
+					}
 				}
 			}
-			if m < 0 {
-				rsS = append([]rune{rs[k]}, rsS...)
-				cccsS = append([]int{cccs[k]}, cccsS...)
+		case 4:
+			if cccs[0] == 0 {
+				// 3-way: cccs[1], cccs[2], cccs[3]
+				if cccs[1] == 0 {
+					if cccs[2] > cccs[3] && cccs[3] > 0 {
+//						cccs[2], cccs[3] = cccs[3], cccs[2]
+						rs[2],   rs[3]   = rs[3],   rs[2]
+					}
+				} else if cccs[3] == 0 {
+					if cccs[1] > cccs[2] && cccs[2] > 0 {
+//						cccs[1], cccs[2] = cccs[2], cccs[1]
+						rs[1],   rs[2]   = rs[2],   rs[1]
+					}
+				} else if cccs[2] > 0 {
+
+					if cccs[1] > cccs[2] {
+						if cccs[2] > cccs[3] {
+//							cccs[1], cccs[3] = cccs[3], cccs[1]
+							rs[1],   rs[3]   = rs[3],   rs[1]
+						} else if cccs[1] > cccs[3] {
+							cccs[1], cccs[2], cccs[3] = cccs[2], cccs[3], cccs[1]
+							rs[1],   rs[2],   rs[3]   = rs[2],   rs[3],   rs[1]
+						} else {
+							cccs[1], cccs[2] = cccs[2], cccs[1]
+							rs[1],   rs[2]   = rs[2],   rs[1]
+						}
+					} else if cccs[2] > cccs[3] {
+						if cccs[1] > cccs[3] {
+							cccs[1], cccs[2], cccs[3] = cccs[3], cccs[1], cccs[2]
+							rs[1],   rs[2],   rs[3]   = rs[3],   rs[1],   rs[2]
+						} else {
+							cccs[2], cccs[3] = cccs[3], cccs[2]
+							rs[2],   rs[3]   = rs[3],   rs[2]
+						}
+					}
+				}
+			} else if cccs[3] == 0 {
+				// 3-way: cccs[0], cccs[1], cccs[2]
+				if cccs[2] == 0 {
+					if cccs[0] > cccs[1] && cccs[1] > 0 {
+//						cccs[0], cccs[1] = cccs[1], cccs[0]
+						rs[0],   rs[1]   = rs[1],   rs[0]
+					}
+				} else if cccs[1] > 0 {
+					if cccs[0] > cccs[1] {
+						if cccs[1] > cccs[2] {
+//							cccs[0], cccs[2] = cccs[2], cccs[0]
+							rs[0],   rs[2]   = rs[2],   rs[0]
+						} else if cccs[0] > cccs[2] {
+							cccs[0], cccs[1], cccs[2] = cccs[1], cccs[2], cccs[0]
+							rs[0],   rs[1],   rs[2]   = rs[1],   rs[2],   rs[0]
+						} else {
+							cccs[0], cccs[1] = cccs[1], cccs[0]
+							rs[0],   rs[1]   = rs[1],   rs[0]
+						}
+					} else if cccs[1] > cccs[2] {
+						if cccs[0] > cccs[2] {
+							cccs[0], cccs[1], cccs[2] = cccs[2], cccs[0], cccs[1]
+							rs[0],   rs[1],   rs[2]   = rs[2],   rs[0],   rs[1]
+						} else {
+							cccs[1], cccs[2] = cccs[2], cccs[1]
+							rs[1],   rs[2]   = rs[2],   rs[1]
+						}
+					}
+				}
+			} else if cccs[2] == 0 {
+				if cccs[0] > cccs[1] && cccs[1] > 0 {
+//					cccs[0], cccs[1] = cccs[1], cccs[0]
+					rs[0],   rs[1]   = rs[1],   rs[0]
+				}
+			} else if cccs[1] == 0 {
+				if cccs[2] > cccs[3] {
+//					cccs[2], cccs[3] = cccs[3], cccs[2]
+					rs[2],   rs[3]   = rs[3],   rs[2]
+				}
+			} else {
+				// 4-way: cccs[0], cccs[1], cccs[2], cccs[3]
+				if cccs[0] <= cccs[1] {
+					if cccs[1] <= cccs[2] {
+						if cccs[2] > cccs[3] {
+							if cccs[0] > cccs[3] { // 3 5 7 1
+								cccs[0], cccs[1], cccs[2], cccs[3] = cccs[3], cccs[0], cccs[1], cccs[2]
+								rs[0],   rs[1],   rs[2],   rs[3]   = rs[3],   rs[0],   rs[1],   rs[2]
+							} else if cccs[1] > cccs[3] { // 3 5 7 4
+								cccs[1], cccs[2], cccs[3] = cccs[3], cccs[1], cccs[2]
+								rs[1],   rs[2],   rs[3]   = rs[3],   rs[1],   rs[2]
+							} else { // 3 5 7 6
+								cccs[2], cccs[3] = cccs[3], cccs[2]
+								rs[2],   rs[3]   = rs[3],   rs[2]
+							}
+						}
+					} else if cccs[0] <= cccs[2] {
+						if cccs[1] <= cccs[3] { // 3 7 5 8
+							cccs[1], cccs[2] = cccs[2], cccs[1]
+							rs[1],   rs[2]   = rs[2],   rs[1]
+						} else if cccs[2] <= cccs[3] { // 3 7 5 6
+							cccs[1], cccs[2], cccs[3] = cccs[2], cccs[3], cccs[1]
+							rs[1],   rs[2],   rs[3]   = rs[2],   rs[3],   rs[1]
+						} else if cccs[0] <= cccs[3] { // 3 7 5 4
+							cccs[1], cccs[2], cccs[3] = cccs[3], cccs[2], cccs[1]
+							rs[1],   rs[2],   rs[3]   = rs[3],   rs[2],   rs[1]
+						} else { // 3 7 5 1
+							cccs[0], cccs[1], cccs[2], cccs[3] = cccs[3], cccs[0], cccs[2], cccs[1]
+							rs[0],   rs[1],   rs[2],   rs[3]   = rs[3],   rs[0],   rs[2],   rs[1]
+						}
+					} else if cccs[1] <= cccs[3] { // 5 7 1 9
+						cccs[0], cccs[1], cccs[2] = cccs[2], cccs[0], cccs[1]
+						rs[0],   rs[1],   rs[2]   = rs[2],   rs[0],   rs[1]
+					} else if cccs[0] <= cccs[3] { // 5 7 1 6
+						cccs[0], cccs[1], cccs[2], cccs[3] = cccs[2], cccs[0], cccs[3], cccs[1]
+						rs[0],   rs[1],   rs[2],   rs[3]   = rs[2],   rs[0],   rs[3],   rs[1]
+					} else if cccs[2] <= cccs[3] { // 5 7 1 3
+						cccs[0], cccs[1], cccs[2], cccs[3] = cccs[2], cccs[3], cccs[0], cccs[1]
+						rs[0],   rs[1],   rs[2],   rs[3]   = rs[2],   rs[3],   rs[0],   rs[1]
+					} else { // 5 7 3 1
+						cccs[0], cccs[1], cccs[2], cccs[3] = cccs[3], cccs[2], cccs[0], cccs[1]
+						rs[0],   rs[1],   rs[2],   rs[3]   = rs[3],   rs[2],   rs[0],   rs[1]
+					}
+				} else if cccs[0] <= cccs[2] { // 7 4 8 ?
+					if cccs[2] <= cccs[3] { // 7 4 8 9
+						cccs[0], cccs[1] = cccs[1], cccs[0]
+						rs[0],   rs[1]   = rs[1],   rs[0]
+					} else if cccs[0] <= cccs[3] { // 7 4 9 8
+						cccs[0], cccs[1], cccs[2], cccs[3] = cccs[1], cccs[0], cccs[3], cccs[2]
+						rs[0],   rs[1],   rs[2],   rs[3]   = rs[1],   rs[0],   rs[3],   rs[2]
+					} else if cccs[1] <= cccs[3] { // 7 4 8 5
+						cccs[0], cccs[1], cccs[2], cccs[3] = cccs[1], cccs[3], cccs[0], cccs[2]
+						rs[0],   rs[1],   rs[2],   rs[3]   = rs[1],   rs[3],   rs[0],   rs[2]
+					} else { // 7 4 8 1
+						cccs[0], cccs[2], cccs[3] = cccs[3], cccs[0], cccs[2]
+						rs[0],   rs[2],   rs[3]   = rs[3],   rs[0],   rs[2]
+					}
+				} else if cccs[1] <= cccs[2] { // 7 4 5 ?
+					if cccs[0] <= cccs[3] { // 7 4 5 9
+						cccs[0], cccs[1], cccs[2] = cccs[1], cccs[2], cccs[0]
+						rs[0],   rs[1],   rs[2]   = rs[1],   rs[2],   rs[0]
+					} else if cccs[2] <= cccs[3] { // 7 4 5 6
+						cccs[0], cccs[1], cccs[2], cccs[3] = cccs[1], cccs[2], cccs[3], cccs[0]
+						rs[0],   rs[1],   rs[2],   rs[3]   = rs[1],   rs[2],   rs[3],   rs[0]
+					} else if cccs[1] <= cccs[3] { // 7 4 6 5
+						cccs[0], cccs[1], cccs[3] = cccs[1], cccs[3], cccs[0]
+						rs[0],   rs[1],   rs[3]   = rs[1],   rs[3],   rs[0]
+					} else { // 7 4 5 1
+						cccs[0], cccs[3] = cccs[3], cccs[0]
+						rs[0],   rs[3]   = rs[3],   rs[0]
+					}
+				} else if cccs[0] <= cccs[3] { // 7 4 1 8
+					cccs[0], cccs[2] = cccs[2], cccs[0]
+					rs[0],   rs[2]   = rs[2],   rs[0]
+				} else if cccs[1] <= cccs[3] { // 7 4 1 5
+					cccs[0], cccs[2], cccs[3] = cccs[2], cccs[3], cccs[0]
+					rs[0],   rs[2],   rs[3]   = rs[2],   rs[3],   rs[0]
+				} else if cccs[2] <= cccs[3] { // 7 4 1 3
+					cccs[0], cccs[1], cccs[2], cccs[3] = cccs[2], cccs[3], cccs[1], cccs[0]
+					rs[0],   rs[1],   rs[2],   rs[3]   = rs[2],   rs[3],   rs[1],   rs[0]
+				} else { // 7 4 2 1
+//					cccs[0], cccs[1], cccs[2], cccs[3] = cccs[3], cccs[2], cccs[1], cccs[0]
+					rs[0],   rs[1],   rs[2],   rs[3]   = rs[3],   rs[2],   rs[1],   rs[0]
+				}
 			}
+		default:
+			rsS := make([]rune, 1, len(rs))
+			cccsS := make([]int, 1, len(cccs))
+			rsS[0] = rs[0]
+			cccsS[0] = cccs[0]
+			for k := 1; k < len(cccs); k++ {
+				m := len(cccsS) - 1
+				for ; m >= 0; m-- {
+					if cccsS[m] <= cccs[k] {
+						if m >= len(cccsS)-1 {
+							rsS = append(rsS, rs[k])
+							cccsS = append(cccsS, cccs[k])
+							break
+						}
+						rsS = append(rsS[:m+1], rsS[m:]...)
+						cccsS = append(cccsS[:m+1], cccsS[m:]...)
+						rsS[m+1] = rs[k]
+						cccsS[m+1] = cccs[k]
+						break
+					}
+				}
+				if m < 0 {
+					rsS = append([]rune{rs[k]}, rsS...)
+					cccsS = append([]int{cccs[k]}, cccsS...)
+				}
+			}
+			rs = rsS
+			cccs = cccsS
 		}
-		rs = rsS
-		cccs = cccsS
 	}
 	if !doComposition {
 		// NFD/NFDK: we're done
@@ -590,7 +808,11 @@ func normCommon(r rune,
 			k++
 			continue
 		}
-		if k == 0 || cccs[k] <= cccs[k-1] {
+		// Because our decomposition sorting may not have put all the cccs[] in
+		// the proper order so long as it maintained cccs[*]==0 and
+		// cccs[*-1]==cccs[*], and the only blockage is when they are equal, we
+		// can only use cccs[k] == cccs[k-1] and not cccs[k] <= cccs[k-1].
+		if k == 0 || cccs[k] == cccs[k-1] {
 			k++
 			continue
 		}
