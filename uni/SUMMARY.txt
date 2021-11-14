@@ -94,7 +94,7 @@ One package has the primary implementation of the function while the others
 consist of stubs that call into the primary implementation of the other
 package. Those are listed with the comment, (secondary implementation).
 
-Module Version: 0.0.8
+Module Version: 0.0.9
 Unicode Version: 14.0.0
 
 PACKAGES:
@@ -103,6 +103,14 @@ ubasic:
     General_Category (gc)
     Grapheme_Cluster_Break (GCB)
     White_Space (WSpace, space)
+uemojis:
+    Emoji
+    Emoji_Component (EComp)
+    Emoji_Modifier (EMod)
+    Emoji_Modifier_Base (EBase)
+    Emoji_Presentation (EPres)
+    Extended_Pictographic (ExtPict)
+    Regional_Indicator (RI)
 unorm:
     Canonical_Combining_Class (ccc)
     NFC_Quick_Check (NFC_QC)
@@ -175,17 +183,29 @@ Dash
 Deprecated (Dep)
     (not implemented)
 Emoji
-    (not implemented)
+    value: No (N, F, False)
+        func uemojis.HasEmojiN(r rune) bool
+    value: Yes (Y, T, True)
+        func uemojis.HasEmojiY(r rune) bool
 Diacritic (Dia)
     (not implemented)
 Emoji_Component (EComp)
-    (not implemented)
+    value: No (N, F, False)
+        func uemojis.HasEcompN(r rune) bool
+    value: Yes (Y, T, True)
+        func uemojis.HasEcompY(r rune) bool
 Emoji_Modifier (EMod)
-    (not implemented)
+    value: No (N, F, False)
+        func uemojis.HasEmodN(r rune) bool
+    value: Yes (Y, T, True)
+        func uemojis.HasEmodY(r rune) bool
 East_Asian_Width (ea)
     (not implemented)
 Emoji_Modifier_Base (EBase)
-    (not implemented)
+    value: No (N, F, False)
+        func uemojis.HasEbaseN(r rune) bool
+    value: Yes (Y, T, True)
+        func uemojis.HasEbaseY(r rune) bool
 Expands_On_NFC (XO_NFC)
     (not implemented)
 Expands_On_NFD (XO_NFD)
@@ -195,13 +215,18 @@ Expands_On_NFKC (XO_NFKC)
 Expands_On_NFKD (XO_NFKD)
     (not implemented)
 Emoji_Presentation (EPres)
-    (not implemented)
+    value: No (N, F, False)
+        func uemojis.HasEpresN(r rune) bool
+    value: Yes (Y, T, True)
+        func uemojis.HasEpresY(r rune) bool
 Extended_Pictographic (ExtPict)
     value: No (N, F, False)
         func ubasic.HasExtpictN(r rune) bool
+        func uemojis.HasExtpictN(r rune) bool (secondary implementation)
         func useg.HasExtpictN(r rune) bool (secondary implementation)
     value: Yes (Y, T, True)
         func ubasic.HasExtpictY(r rune) bool
+        func uemojis.HasExtpictY(r rune) bool (secondary implementation)
         func useg.HasExtpictY(r rune) bool (secondary implementation)
 Equivalent_Unified_Ideograph (EqUIdeo)
     (not implemented)
@@ -900,7 +925,10 @@ Script_Extensions (scx)
     value: Zanabazar_Square (Zanb)
         func uscripts.HasScxZanb(r rune) bool
 Regional_Indicator (RI)
-    (not implemented)
+    value: No (N, F, False)
+        func uemojis.HasRiN(r rune) bool
+    value: Yes (Y, T, True)
+        func uemojis.HasRiY(r rune) bool
 Sentence_Terminal (STerm)
     (not implemented)
 Sentence_Break (SB)

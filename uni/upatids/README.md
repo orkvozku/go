@@ -85,7 +85,7 @@ HasXidcN returns true if code point, r, has Unicode property, XID_Continue (XIDC
 HasXidcY returns true if code point, r, has Unicode property, XID_Continue (XIDC), of Yes (Y).
 #### func HasXidsN(r rune) bool
 HasXidsN returns true if code point, r, has Unicode property, XID_Start (XIDS), of No (N).
-### func HasXidsY(r rune) bool
+#### func HasXidsY(r rune) bool
 HasXidsY returns true if code point, r, has Unicode property, XID_Start (XIDS), of Yes (Y).
 ### Other Functions
 ## Supported Unicode Properties

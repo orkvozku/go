@@ -186,10 +186,10 @@ func HasScxBass(r rune) bool {
 // HasScxBatk returns true if r has Unicode property Script_Extensions = Batak.
 func HasScxBatk(r rune) bool {
 	switch r {
-	case 7156, 7157, 7158, 7159, 7160, 7161, 7162, 7163:
-		return false
 	case 7164, 7165, 7166, 7167:
 		return true
+	case 7156, 7157, 7158, 7159, 7160, 7161, 7162, 7163:
+		return false
 	}
 	return r >= 7104 && r <= 7167
 }
@@ -240,10 +240,10 @@ func HasScxBopo(r rune) bool {
 // HasScxBrah returns true if r has Unicode property Script_Extensions = Brahmi.
 func HasScxBrah(r rune) bool {
 	switch r {
-	case 69710, 69711, 69712, 69713:
-		return false
 	case 69759:
 		return true
+	case 69710, 69711, 69712, 69713:
+		return false
 	}
 	return r >= 69632 && r <= 69749
 }
@@ -463,11 +463,11 @@ func HasScxEthi(r rune) bool {
 // HasScxGeor returns true if r has Unicode property Script_Extensions = Georgian.
 func HasScxGeor(r rune) bool {
 	switch r {
+	case 4295, 4301, 7357, 7358, 7359, 11559, 11565:
+		return true
 	case 4294, 4296, 4297, 4298, 4299, 4300, 4302, 4303, 7355, 7356, 11558,
 		11560, 11561, 11562, 11563, 11564:
 		return false
-	case 4295, 4301, 7357, 7358, 7359, 11559, 11565:
-		return true
 	}
 	return r >= 4256 && (r <= 4351 || r >= 7312 && (r <= 7359 || r >= 11520)) &&
 		r <= 11565
@@ -502,12 +502,12 @@ func HasScxGong(r rune) bool {
 // HasScxGonm returns true if r has Unicode property Script_Extensions = Masaram_Gondi.
 func HasScxGonm(r rune) bool {
 	switch r {
-	case 72967, 72970, 73015, 73016, 73017, 73019, 73022, 73032, 73033, 73034,
-		73035, 73036, 73037, 73038, 73039:
-		return false
 	case 2404, 2405, 72960, 72961, 72962, 72963, 72964, 72965, 72966, 72968,
 		72969, 73018, 73020, 73021:
 		return true
+	case 72967, 72970, 73015, 73016, 73017, 73019, 73022, 73032, 73033, 73034,
+		73035, 73036, 73037, 73038, 73039:
+		return false
 	}
 	return r >= 72971 && r <= 73049
 }
@@ -612,16 +612,16 @@ func HasScxHang(r rune) bool {
 // HasScxHani returns true if r has Unicode property Script_Extensions = Han.
 func HasScxHani(r rune) bool {
 	switch r {
-	case 11930, 12292, 12306, 12320, 12334, 12335, 12337, 12338, 12339, 12340,
-		12341, 12342, 13311, 64110, 64111, 177977, 177978, 177979, 177980, 177981,
-		177982, 177983, 178206, 178207:
-		return false
 	case 12289, 12290, 12291, 12293, 12294, 12295, 12316, 12317, 12318, 12319,
 		12336, 12343, 12344, 12345, 12346, 12347, 12348, 12349, 12350, 12351, 12539,
 		13055, 13179, 13180, 13181, 13182, 13183, 42752, 42753, 42754, 42755, 42756,
 		42757, 42758, 42759, 65093, 65094, 65377, 65378, 65379, 65380, 65381, 94178,
 		94179, 94192, 94193, 127568, 127569:
 		return true
+	case 11930, 12292, 12306, 12320, 12334, 12335, 12337, 12338, 12339, 12340,
+		12341, 12342, 13311, 64110, 64111, 177977, 177978, 177979, 177980, 177981,
+		177982, 177983, 178206, 178207:
+		return false
 	}
 	return r >= 11904 && (r <= 13168 && (r <= 12703 && (r <= 12245 && (r <= 12019 ||
 		r >= 12032) || r >= 12296 && (r <= 12351 || r >= 12688)) || r >= 12736 &&
@@ -686,10 +686,10 @@ func HasScxHluw(r rune) bool {
 // HasScxHmng returns true if r has Unicode property Script_Extensions = Pahawh_Hmong.
 func HasScxHmng(r rune) bool {
 	switch r {
-	case 93018, 93026, 93048, 93049, 93050, 93051, 93052:
-		return false
 	case 93019, 93020, 93021, 93022, 93023, 93024, 93025:
 		return true
+	case 93018, 93026, 93048, 93049, 93050, 93051, 93052:
+		return false
 	}
 	return r >= 92928 && (r <= 92997 || r >= 93008) && r <= 93071
 }
@@ -880,10 +880,10 @@ func HasScxLatn(r rune) bool {
 // HasScxLepc returns true if r has Unicode property Script_Extensions = Lepcha.
 func HasScxLepc(r rune) bool {
 	switch r {
-	case 7245, 7246, 7247:
-		return true
 	case 7224, 7225, 7226, 7242, 7243, 7244:
 		return false
+	case 7245, 7246, 7247:
+		return true
 	}
 	return r >= 7168 && r <= 7247
 }
@@ -1091,12 +1091,12 @@ func HasScxMymr(r rune) bool {
 // HasScxNand returns true if r has Unicode property Script_Extensions = Nandinagari.
 func HasScxNand(r rune) bool {
 	switch r {
-	case 2404, 2405, 7401, 7410, 7418, 43056, 43057, 43058, 43059, 43060, 43061,
-		72096, 72097, 72098, 72099, 72100, 72101, 72102, 72103:
-		return true
 	case 7402, 7403, 7404, 7405, 7406, 7407, 7408, 7409, 7411, 7412, 7413, 7414,
 		7415, 7416, 7417, 72104, 72105, 72152, 72153:
 		return false
+	case 2404, 2405, 7401, 7410, 7418, 43056, 43057, 43058, 43059, 43060, 43061,
+		72096, 72097, 72098, 72099, 72100, 72101, 72102, 72103:
+		return true
 	}
 	return r >= 3302 && (r <= 3311 || r >= 72106) && r <= 72164
 }
@@ -1164,15 +1164,15 @@ func HasScxOrkh(r rune) bool {
 // HasScxOrya returns true if r has Unicode property Script_Extensions = Oriya.
 func HasScxOrya(r rune) bool {
 	switch r {
+	case 2820, 2829, 2830, 2833, 2834, 2857, 2865, 2868, 2874, 2875, 2885, 2886,
+		2889, 2890, 2894, 2895, 2896, 2897, 2898, 2899, 2900, 2904, 2905, 2906,
+		2907, 2910, 2916, 2917:
+		return false
 	case 2385, 2386, 2404, 2405, 2817, 2818, 2819, 2821, 2822, 2823, 2824, 2825,
 		2826, 2827, 2828, 2831, 2832, 2858, 2859, 2860, 2861, 2862, 2863, 2864,
 		2866, 2867, 2869, 2870, 2871, 2872, 2873, 2887, 2888, 2891, 2892, 2893,
 		2901, 2902, 2903, 2908, 2909, 2911, 2912, 2913, 2914, 2915, 7386, 7410:
 		return true
-	case 2820, 2829, 2830, 2833, 2834, 2857, 2865, 2868, 2874, 2875, 2885, 2886,
-		2889, 2890, 2894, 2895, 2896, 2897, 2898, 2899, 2900, 2904, 2905, 2906,
-		2907, 2910, 2916, 2917:
-		return false
 	}
 	return r >= 2835 && r <= 2935
 }
@@ -1235,10 +1235,10 @@ func HasScxPhag(r rune) bool {
 // HasScxPhli returns true if r has Unicode property Script_Extensions = Inscriptional_Pahlavi.
 func HasScxPhli(r rune) bool {
 	switch r {
-	case 68467, 68468, 68469, 68470, 68471:
-		return false
 	case 68472, 68473, 68474, 68475, 68476, 68477, 68478, 68479:
 		return true
+	case 68467, 68468, 68469, 68470, 68471:
+		return false
 	}
 	return r >= 68448 && r <= 68479
 }
@@ -1462,10 +1462,10 @@ func HasScxSyrc(r rune) bool {
 // HasScxTagb returns true if r has Unicode property Script_Extensions = Tagbanwa.
 func HasScxTagb(r rune) bool {
 	switch r {
-	case 5997, 6001:
-		return false
 	case 5941, 5942, 5998, 5999, 6000, 6002, 6003:
 		return true
+	case 5997, 6001:
+		return false
 	}
 	return r >= 5984 && r <= 6003
 }
@@ -1473,10 +1473,10 @@ func HasScxTagb(r rune) bool {
 // HasScxTakr returns true if r has Unicode property Script_Extensions = Takri.
 func HasScxTakr(r rune) bool {
 	switch r {
-	case 71354, 71355, 71356, 71357, 71358, 71359:
-		return false
 	case 2404, 2405:
 		return true
+	case 71354, 71355, 71356, 71357, 71358, 71359:
+		return false
 	}
 	return r >= 43056 && (r <= 43065 || r >= 71296) && r <= 71369
 }
@@ -1580,10 +1580,10 @@ func HasScxTglg(r rune) bool {
 // HasScxThaa returns true if r has Unicode property Script_Extensions = Thaana.
 func HasScxThaa(r rune) bool {
 	switch r {
-	case 1565, 1566:
-		return false
 	case 1548, 1563, 1564, 1567, 65010, 65021:
 		return true
+	case 1565, 1566:
+		return false
 	}
 	return r >= 1632 && (r <= 1641 || r >= 1920) && r <= 1969
 }
@@ -1600,10 +1600,10 @@ func HasScxThai(r rune) bool {
 // HasScxTibt returns true if r has Unicode property Script_Extensions = Tibetan.
 func HasScxTibt(r rune) bool {
 	switch r {
-	case 3912, 3949, 3950, 3951, 3952, 3992, 4029, 4045, 4053, 4054, 4055, 4056:
-		return false
 	case 4046, 4047, 4048, 4049, 4050, 4051, 4052, 4057, 4058:
 		return true
+	case 3912, 3949, 3950, 3951, 3952, 3992, 4029, 4045, 4053, 4054, 4055, 4056:
+		return false
 	}
 	return r >= 3840 && r <= 4058
 }
@@ -1636,10 +1636,10 @@ func HasScxToto(r rune) bool {
 // HasScxUgar returns true if r has Unicode property Script_Extensions = Ugaritic.
 func HasScxUgar(r rune) bool {
 	switch r {
-	case 66462:
-		return false
 	case 66463:
 		return true
+	case 66462:
+		return false
 	}
 	return r >= 66432 && r <= 66463
 }
@@ -1716,11 +1716,11 @@ func HasScxYezi(r rune) bool {
 // HasScxYiii returns true if r has Unicode property Script_Extensions = Yi.
 func HasScxYiii(r rune) bool {
 	switch r {
+	case 12306, 12307, 42125, 42126, 42127:
+		return false
 	case 12289, 12290, 12308, 12309, 12310, 12311, 12312, 12313, 12314, 12315,
 		12539, 65377, 65378, 65379, 65380, 65381:
 		return true
-	case 12306, 12307, 42125, 42126, 42127:
-		return false
 	}
 	return r >= 12296 && (r <= 12315 || r >= 40960) && r <= 42182
 }
@@ -1733,13 +1733,13 @@ func HasScxZanb(r rune) bool {
 // HasScxZinh returns true if r has Unicode property Script_Extensions = Inherited.
 func HasScxZinh(r rune) bool {
 	switch r {
-	case 834, 837, 7672, 7674, 118574, 118575, 119171, 119172:
-		return false
 	case 835, 836, 2387, 2388, 7673, 7675, 7676, 7677, 7678, 7679, 8204, 8205,
 		66045, 119143, 119144, 119145, 119163, 119164, 119165, 119166, 119167,
 		119168, 119169, 119170, 119173, 119174, 119175, 119176, 119177, 119178,
 		119179, 119210, 119211, 119212, 119213:
 		return true
+	case 834, 837, 7672, 7674, 118574, 118575, 119171, 119172:
+		return false
 	}
 	return r >= 768 && (r <= 8431 && (r <= 6862 && (r <= 866 || r >= 6832) ||
 		r >= 7618 && (r <= 7679 || r >= 8400)) || r >= 65024 && (r <= 65069 &&

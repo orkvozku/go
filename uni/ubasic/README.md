@@ -246,6 +246,7 @@ HasExtpictY returns true if code point, r, has Unicode property, Extended_Pictog
 <tr><td>&nbsp;</td><td>No (N, F, False)</td><td>HasExtpictN(r rune) bool</td></tr>
 <tr><td>&nbsp;</td><td>Yes (Y, T, True)</td><td>HasExtpictY(r rune) bool</td></tr>
 </tbody></table>
+
 ## Performance
 Running the `go test -bench` command on this package produces performance benchmarks as follows.
 
