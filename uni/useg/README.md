@@ -95,7 +95,7 @@ func main() {
 #### UnicodeVersion
 UnicodeVersion is the current version of the Unicode specification that this package is intended to comply with.
 
-UnicodeVersion = "14.0.0".
+UnicodeVersion = "15.0.0".
 ### Unicode Property Queries
 #### func HasGcbCn(r rune) bool
 HasGcbCn returns true if code point, r, has Unicode property, Grapheme_Cluster_Break (GCB), of Control (CN).

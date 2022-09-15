@@ -187,7 +187,7 @@ There is a nicely written article about normalization here [Text normalization i
 #### UnicodeVersion
 UnicodeVersion is the current version of the Unicode specification that this package is intended to comply with.
 
-UnicodeVersion = "14.0.0".
+UnicodeVersion = "15.0.0".
 ### Normalization
 #### func NextNFC(data []rune, offset int) ([]rune, int)
 NextNFC is equivalent to `NextNFCLen(data, offset, len(data), false)`.
@@ -276,7 +276,6 @@ IsStarterNfkd returns the equivalent of `ValueOfCcc(r, -1)==0 && HasNfkdqcY(r)`.
 <tr><td>&nbsp;</td><td>No (N)</td><td>HasNfkdqcN(r rune) bool</td></tr>
 <tr><td>&nbsp;</td><td>Yes (Y)</td><td>HasNfkdqcY(r rune) bool</td></tr>
 </tbody></table>
-
 ## Performance
 Running the `go test -bench` command on this package produces performance benchmarks that compare this package's normalization functions to those of the golang.org/x/text/unicode/norm. Because of the nature of the normalization process, different patterns of text may yield significantly different results. Therefore, a variety of different test samples are needed to get an understanding of the performance comparison. The following benchmarks explore some specific patterns that provide a broad sense of the performance behavior, but may not include all potentially interesting kinds of patterns.
 

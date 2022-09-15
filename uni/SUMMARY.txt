@@ -1,5 +1,5 @@
 /***************************************************************************
-  Copyright 2021 https://github.com user @orkvozku
+  Copyright 2021-2022 https://github.com user @orkvozku
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -94,8 +94,8 @@ One package has the primary implementation of the function while the others
 consist of stubs that call into the primary implementation of the other
 package. Those are listed with the comment, (secondary implementation).
 
-Module Version: 0.0.9
-Unicode Version: 14.0.0
+Module Version: 0.0.10
+Unicode Version: 15.0.0
 
 PACKAGES:
 ubasic:
@@ -720,6 +720,8 @@ Script_Extensions (scx)
         func uscripts.HasScxAghb(r rune) bool
     value: Katakana (Kana)
         func uscripts.HasScxKana(r rune) bool
+    value: Kawi
+        func uscripts.HasScxKawi(r rune) bool
     value: Javanese (Java)
         func uscripts.HasScxJava(r rune) bool
     value: Kayah_Li (Kali)
@@ -788,6 +790,8 @@ Script_Extensions (scx)
         func uscripts.HasScxNbat(r rune) bool
     value: Myanmar (Mymr)
         func uscripts.HasScxMymr(r rune) bool
+    value: Nag_Mundari (Nagm)
+        func uscripts.HasScxNagm(r rune) bool
     value: New_Tai_Lue (Talu)
         func uscripts.HasScxTalu(r rune) bool
     value: Nandinagari (Nand)

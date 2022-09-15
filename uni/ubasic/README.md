@@ -67,7 +67,7 @@ func main() {
 #### UnicodeVersion
 UnicodeVersion is the current version of the Unicode specification that this package is intended to comply with.
 
-UnicodeVersion = "14.0.0".
+UnicodeVersion = "15.0.0".
 ### Unicode Property Queries
 #### func HasGcC(r rune) bool
 HasGcC returns true if code point, r, has Unicode property, General_Category (gc), of Other (C).
@@ -246,7 +246,6 @@ HasExtpictY returns true if code point, r, has Unicode property, Extended_Pictog
 <tr><td>&nbsp;</td><td>No (N, F, False)</td><td>HasExtpictN(r rune) bool</td></tr>
 <tr><td>&nbsp;</td><td>Yes (Y, T, True)</td><td>HasExtpictY(r rune) bool</td></tr>
 </tbody></table>
-
 ## Performance
 Running the `go test -bench` command on this package produces performance benchmarks as follows.
 

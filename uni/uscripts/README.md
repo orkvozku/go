@@ -54,7 +54,7 @@ func main() {
 #### UnicodeVersion
 UnicodeVersion is the current version of the Unicode specification that this package is intended to comply with.
 
-UnicodeVersion = "14.0.0".
+UnicodeVersion = "15.0.0".
 ### Unicode Property Queries
 #### func HasScxAdlm(r rune) bool
 HasScxAdlm returns true if code point, r, has Unicode property, Script_Extensions (scx), of Adlam (Adlm).
@@ -176,6 +176,8 @@ HasScxJava returns true if code point, r, has Unicode property, Script_Extension
 HasScxKali returns true if code point, r, has Unicode property, Script_Extensions (scx), of Kayah_Li (Kali).
 #### func HasScxKana(r rune) bool
 HasScxKana returns true if code point, r, has Unicode property, Script_Extensions (scx), of Katakana (Kana).
+#### func HasScxKawi(r rune) bool
+HasScxKawi returns true if code point, r, has Unicode property, Script_Extensions (scx), of Kawi.
 #### func HasScxKhar(r rune) bool
 HasScxKhar returns true if code point, r, has Unicode property, Script_Extensions (scx), of Kharoshthi (Khar).
 #### func HasScxKhmr(r rune) bool
@@ -240,6 +242,8 @@ HasScxMtei returns true if code point, r, has Unicode property, Script_Extension
 HasScxMult returns true if code point, r, has Unicode property, Script_Extensions (scx), of Multani (Mult).
 #### func HasScxMymr(r rune) bool
 HasScxMymr returns true if code point, r, has Unicode property, Script_Extensions (scx), of Myanmar (Mymr).
+#### func HasScxNagm(r rune) bool
+HasScxNagm returns true if code point, r, has Unicode property, Script_Extensions (scx), of Nag_Mundari (Nagm).
 #### func HasScxNand(r rune) bool
 HasScxNand returns true if code point, r, has Unicode property, Script_Extensions (scx), of Nandinagari (Nand).
 #### func HasScxNarb(r rune) bool
@@ -445,6 +449,7 @@ HasScxZzzz returns true if code point, r, has Unicode property, Script_Extension
 <tr><td>&nbsp;</td><td>Javanese (Java)</td><td>HasScxJava(r rune) bool</td></tr>
 <tr><td>&nbsp;</td><td>Kayah_Li (Kali)</td><td>HasScxKali(r rune) bool</td></tr>
 <tr><td>&nbsp;</td><td>Katakana (Kana)</td><td>HasScxKana(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Kawi</td><td>HasScxKawi(r rune) bool</td></tr>
 <tr><td>&nbsp;</td><td>Kharoshthi (Khar)</td><td>HasScxKhar(r rune) bool</td></tr>
 <tr><td>&nbsp;</td><td>Khmer (Khmr)</td><td>HasScxKhmr(r rune) bool</td></tr>
 <tr><td>&nbsp;</td><td>Khojki (Khoj)</td><td>HasScxKhoj(r rune) bool</td></tr>
@@ -477,6 +482,7 @@ HasScxZzzz returns true if code point, r, has Unicode property, Script_Extension
 <tr><td>&nbsp;</td><td>Meetei_Mayek (Mtei)</td><td>HasScxMtei(r rune) bool</td></tr>
 <tr><td>&nbsp;</td><td>Multani (Mult)</td><td>HasScxMult(r rune) bool</td></tr>
 <tr><td>&nbsp;</td><td>Myanmar (Mymr)</td><td>HasScxMymr(r rune) bool</td></tr>
+<tr><td>&nbsp;</td><td>Nag_Mundari (Nagm)</td><td>HasScxNagm(r rune) bool</td></tr>
 <tr><td>&nbsp;</td><td>Nandinagari (Nand)</td><td>HasScxNand(r rune) bool</td></tr>
 <tr><td>&nbsp;</td><td>Old_North_Arabian (Narb)</td><td>HasScxNarb(r rune) bool</td></tr>
 <tr><td>&nbsp;</td><td>Nabataean (Nbat)</td><td>HasScxNbat(r rune) bool</td></tr>
