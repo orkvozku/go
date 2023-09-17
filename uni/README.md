@@ -2,6 +2,16 @@
 
 This module contains several packages to support use of Unicode properties. These include common operations such as property queries, as well as some other support such as parsing extended grapheme cluster breaks. For a full list, see the file, **SUMMARY.txt** in this directory, and the **README.md** files in the individual package directories. It also includes a normalization package, **unorm** that appears faster than the golang.org unicode/norm package.
 
+Note with Module Version 0.0.11 update to correspond with Unicode 15.1.0, there were some changes to the API. For the following properties, the functions of the form, HasXY(r rune) bool, have been deprecated and replaced with one function for the entire
+property returning the value. These deprecated functions will go away soon, probably with the next update.
+
+- Grapheme_Cluster_Break (GCB) - use `ValueOfGcb(r rune, -1) int` (ubasic, useg)
+- Line_Break (lb) - use `ValueOfLb(r rune, -1) int` (useg)
+- Sentence_Break (SB) - use `ValueOfSb(r rune, -1) int` (useg)
+- Word_Break (WB) - use `ValueOfWb(r rune, -1) int` (useg)
+
+For example, deprecated `ubasic.HasGcbEx(r)` can be replaced with `ubasic.ValueOfGcb(r, -1) == ubasic.GcbValueEx`.
+
 _Unicode and the Unicode Logo are registered trademarks of Unicode, Inc. in the United States and other countries._
 
 ## Example: Unicode General_Category

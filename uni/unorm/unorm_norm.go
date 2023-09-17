@@ -860,7 +860,8 @@ const (
 // LV=>L+V and LVT=>L+V+T.
 //
 // It is assumed that the caller has provided parameters as follows.
-//  r >= hangulSBase && r < hangulSBaseCount
+//
+//	r >= hangulSBase && r < hangulSBaseCount
 func normDecomposeHangulLvt(r rune) ([]rune, int) {
 	sIndex := r - hangulSBase
 	rL := hangulLBase + sIndex/hangulNCount
@@ -876,9 +877,10 @@ func normDecomposeHangulLvt(r rune) ([]rune, int) {
 // L+V=>LV and L+V+T=>LVT.
 //
 // It is assumed that the caller has provided parameters as follows.
-//  r = data[offset]
-//  r >= hangulLBase && r < hangulLBaseCount
-//  dataLength > offset+1
+//
+//	r = data[offset]
+//	r >= hangulLBase && r < hangulLBaseCount
+//	dataLength > offset+1
 func normComposeHangulLv(r rune,
 	data []rune,
 	offset,
@@ -908,9 +910,10 @@ func normComposeHangulLv(r rune,
 // LV+T=>LVT. It also skips over pre-composed forms (LV+^T and LVT).
 //
 // It is assumed that the caller has provided parameters as follows.
-//  r = data[offset]
-//  r >= hangulSBase && r < hangulSBaseCount
-//  dataLength > offset+1
+//
+//	r = data[offset]
+//	r >= hangulSBase && r < hangulSBaseCount
+//	dataLength > offset+1
 func normComposeHangulLvT(r rune,
 	data []rune,
 	offset,

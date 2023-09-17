@@ -83,6 +83,8 @@ func NextExtGraphemeClusterBreakLen(data []rune, offset int, dataLength int) (in
 	// https://www.unicode.org/reports/tr29/
 	remainingLength := dataLength - offset
 	previousLength := 1
+	gbState := gbStateNew()
+	gb9cState := gb9cStateNew()
 	for {
 		if offset >= dataLength {
 			return previousLength - 1, true
@@ -91,160 +93,305 @@ func NextExtGraphemeClusterBreakLen(data []rune, offset int, dataLength int) (in
 			return previousLength, true
 		}
 		r := data[offset]
-		if HasGcbLf(r) || HasGcbCn(r) {
-			return previousLength, true
-		}
 		rn := data[offset+1]
-		if HasGcbCr(r) {
-			if HasGcbLf(rn) {
-				return previousLength + 1, true
+		gbState.updateR(r)
+		gb9cState.updateR(r)
+		mustContinue, mustBreak := gbState.rulesGb3throughGb9b(rn)
+		if mustBreak {
+			return previousLength, true
+		}
+		if mustContinue {
+			offset++
+			remainingLength--
+			previousLength++
+			continue
+		}
+		mustContinue = gb9cState.ruleGb9c(rn)
+		if mustContinue {
+			offset++
+			remainingLength--
+			previousLength++
+			continue
+		}
+		_, mustBreak = gbState.rulesGb11throughGb999(rn)
+		if mustBreak {
+			return previousLength, true
+		}
+		offset++
+		remainingLength--
+		previousLength++
+	}
+}
+
+//===========================================================================
+// Private Helpers: rules GB3 through GB999, except GB9c
+//===========================================================================
+
+// Constants for keeping track of current state of these rules:
+const (
+	gbNone          = iota // none of the other states
+	gbCr                   // GB3, GB4: CR
+	gbLfCn                 // GB4: (LF | Control)
+	gbL                    // GB6: L
+	gbLvV                  // GB7: LV | V
+	gbLvtT                 // GB8: LVT | T
+	gbPrepend              // GB9b
+	gbExtP                 // GB911: \p{Extended_Pictographic}
+	gbExtPExtend           // GB911: \p{Extended_Pictographic} Extend*
+	gbExtPExtendZwj        // GB911: \p{Extended_Pictographic} Extend* ZWJ
+	gbRiOdd                // GB912, GB13: odd length of RI sequence
+	gbRiEven               // GB912, GB13: even length of RI sequence
+	gbUndefined            // used for undefined values
+)
+
+// gbState holds the current parsing state for >=GB3 except GB9c
+type gbState struct {
+	cur     int            // current state (see gb* constants)
+	next    int            // next state (see gb* constants), or -1 if unknown yet
+	nextGcb int            // ValueOfGcb(r) for next rune, or -1 if unknown yet
+}
+
+// gbStateNew returns a new gbState initialized to the starting state
+func gbStateNew() gbState {
+	var s gbState
+	s.cur = gbNone
+	s.next = gbUndefined
+	s.nextGcb = -1
+	return s
+}
+
+// updateR updates the current gbState for the current rune
+func (s *gbState) updateR(r rune) {
+	if s.next != gbUndefined {
+		s.cur = s.next
+		s.next = gbUndefined
+		s.nextGcb = -1
+	} else {
+		nextGcb := s.nextGcb
+		s.nextGcb = -1
+		if nextGcb < 0 {
+			nextGcb = ValueOfGcb(r, -1)
+		}
+		switch nextGcb {
+		case GcbValueCr:
+			s.cur = gbCr
+		case GcbValueLf, GcbValueCn:
+			s.cur = gbLfCn
+		case GcbValueL:
+			s.cur = gbL
+		case GcbValueLv, GcbValueV:
+			s.cur = gbLvV
+		case GcbValueLvt, GcbValueT:
+			s.cur = gbLvtT
+		case GcbValuePp:
+			s.cur = gbPrepend
+		case GcbValueRi:
+			// This code assumes that there are no collisions between
+			//   - Grapheme_Cluster_Break == Regional_Indicator: ValueOfGcb(r,-1)==GcbValueRi
+			//   = Extended Pictographic: HasExtpictY
+			// If there were such a collision, then we must check for HasExtPict here first
+			// to ensure that rule GB11 takes precedence over rules GB12 and GB13.
+			if s.cur == gbRiOdd {
+				s.cur = gbRiEven
+			} else {
+				s.cur = gbRiOdd
 			}
-			return previousLength, true
+		case GcbValueEx:
+			switch s.cur {
+			case gbExtP, gbExtPExtend:
+				s.cur = gbExtPExtend
+			default:
+				s.cur = gbNone
+			}
+		case GcbValueZwj:
+			switch s.cur {
+			case gbExtP, gbExtPExtend:
+				s.cur = gbExtPExtendZwj
+			default:
+				s.cur = gbNone
+			}
+		default:
+			if HasExtpictY(r) {
+				s.cur = gbExtP
+			} else {
+				s.cur = gbNone
+			}
 		}
-		if HasGcbLf(rn) || HasGcbCn(rn) {
-			return previousLength, true
-		}
-		if HasGcbL(r) {
-			return nextEGCBL(data, offset+1, remainingLength-1, previousLength)
-		}
-		if HasGcbLv(r) || HasGcbV(r) {
-			return nextEGCBLvV(data, offset+1, remainingLength-1, previousLength)
-		}
-		if HasGcbLvt(r) || HasGcbT(r) {
-			return nextEGCBLvtT(data, offset+1, remainingLength-1, previousLength)
-		}
-		if HasGcbPp(r) && !HasGcbCr(rn) && !HasGcbLf(rn) && !HasGcbCn(rn) {
-			offset++
-			remainingLength--
-			previousLength++
-			continue
-		}
-		if HasExtpictY(r) {
-			return nextEGCBExtPictStart(data, offset+1, remainingLength-1, previousLength)
-		}
-		if HasGcbRi(r) && HasGcbRi(rn) {
-			return nextEGCBNotBefores(data, offset+2, remainingLength-2, previousLength+1)
-		}
-		return nextEGCBNotBeforesR(data, offset+1, remainingLength-1, previousLength, rn)
 	}
+}
+
+// rulesGb3throughGb9b processes rules GB3 through GB9b.
+//
+// The first returned value is true if we should not break here, while
+// the second returned value is true if we should break here.
+func (s *gbState) rulesGb3throughGb9b(rn rune) (bool, bool) {
+	s.nextGcb = ValueOfGcb(rn, -1)
+	switch s.cur {
+	case gbCr:
+		if s.nextGcb == GcbValueLf {
+			s.next = gbLfCn
+			return true, false
+		}
+		return false, true
+	case gbLfCn:
+		return false, true
+	}
+	switch s.nextGcb {
+	case GcbValueCn, GcbValueCr, GcbValueLf:
+		return false, true
+	}
+	switch s.cur {
+	case gbL:
+		switch s.nextGcb {
+		case GcbValueL:
+			s.next = gbL
+			return true, false
+		case GcbValueLv, GcbValueV:
+			s.next = gbLvV
+			return true, false
+		case GcbValueLvt:
+			s.next = gbLvtT
+			return true, false
+		}
+	case gbLvV:
+		switch s.nextGcb {
+		case GcbValueV:
+			s.next = gbLvV
+			return true, false
+		case GcbValueT:
+			s.next = gbLvtT
+			return true, false
+		}
+	case gbLvtT:
+		switch s.nextGcb {
+		case GcbValueT:
+			s.next = gbLvtT
+			return true, false
+		}
+	case gbExtP, gbExtPExtend:
+		// We are processing rule GB9, but we must still keep track of state for
+		// rule GB11, in case we use it later.
+		switch s.nextGcb {
+		case GcbValueEx:
+			s.next = gbExtPExtend
+			return true, false
+		case GcbValueZwj:
+			s.next = gbExtPExtendZwj
+			return true, false
+		}
+	}
+	switch s.nextGcb {
+	case GcbValueEx, GcbValueZwj, GcbValueSm:
+		s.next = gbNone
+		return true, false
+	}
+	switch s.cur {
+	case gbPrepend:
+		return true, false
+	}
+	return false, false
+}
+
+// rulesGb3throughGb9b processes rules GB11 through GB999.
+//
+// The first returned value is true if we should not break here, while
+// the second returned value is true if we should break here.
+func (s *gbState) rulesGb11throughGb999(rn rune) (bool, bool) {
+	switch s.cur {
+	case gbExtP:
+		switch s.nextGcb {
+		case GcbValueEx:
+			s.next = gbExtPExtend
+			return false, false
+		}
+	case gbExtPExtend:
+		switch s.nextGcb {
+		case GcbValueEx:
+			s.next = gbExtPExtend
+			return false, false
+		case GcbValueZwj:
+			s.next = gbExtPExtendZwj
+			return false, false
+		}
+	case gbExtPExtendZwj:
+		if HasExtpictY(rn) {
+			s.next = gbExtP
+			return true, false
+		}
+	case gbRiOdd:
+		switch s.nextGcb {
+		case GcbValueRi:
+			s.next = gbRiEven
+			return true, false
+		}
+	case gbRiEven:
+		return false, true
+	}
+	return false, true
 }
 
 //===========================================================================
-// Private Helpers: Extended Grapheme Cluster Breaks:
+// Private Helpers: rule GB9c - Indic_Conjunct_Break:
 //===========================================================================
 
-// nextEGCBL parses extended grapheme cluster break boundaries after a code point
-// which has the property: Graphene_Cluster_Break=L. That is, it parses boundary
-// rule, GB6, defined in https://www.unicode.org/reports/tr29/.
-func nextEGCBL(data []rune, offset int, remainingLength, previousLength int) (int, bool) {
-	for {
-		if remainingLength == 0 {
-			return previousLength, true
+// Constants for keeping track of current state of rule GB9c:
+const (
+	gb9cNone          = iota // not in GB9c rule pattern
+	gb9cConsonant            // \p{InCB=Consonant}
+	gb9cExtendExtends        // \p{InCB=Consonant} [ \p{InCB=Extend} ]+
+	gb9cExtendLinker         // \p{InCB=Consonant} [ \p{InCB=Extend} \p{InCB=Linker} ]* (>=1 Linker)
+)
+
+// gb9cState holds the current parsing state for GB9c
+type gb9cState struct {
+	val      int
+	nextInCb int
+}
+
+// gbStateNew returns a new gb9cState initialized to the starting state
+func gb9cStateNew() gb9cState {
+	var s gb9cState
+	s.val = gb9cNone
+	s.nextInCb = -1
+	return s
+}
+
+// updateR updates the current gb9cState for the current rune
+func (s *gb9cState) updateR(r rune) {
+	nextInCb := s.nextInCb
+	s.nextInCb = -1
+	if nextInCb < 0 {
+		nextInCb = ValueOfIncb(r, IncbValueNone)
+	}
+	switch nextInCb {
+	case IncbValueNone:
+		s.val = gb9cNone
+	case IncbValueConsonant:
+		s.val = gb9cConsonant
+	case IncbValueExtend:
+		switch s.val {
+		case gb9cConsonant:
+			s.val = gb9cExtendExtends
 		}
-		r := data[offset]
-		if HasGcbL(r) {
-			offset++
-			remainingLength--
-			previousLength++
-			continue
+	case IncbValueLinker:
+		switch s.val {
+		case gb9cConsonant, gb9cExtendExtends:
+			s.val = gb9cExtendLinker
 		}
-		if HasGcbLv(r) || HasGcbV(r) {
-			return nextEGCBLvV(data, offset+1, remainingLength-1, previousLength+1)
-		}
-		if HasGcbLvt(r) {
-			return nextEGCBLvtT(data, offset+1, remainingLength-1, previousLength+1)
-		}
-		return nextEGCBNotBeforesR(data, offset, remainingLength, previousLength, r)
+	default:
+		s.val = gb9cNone
 	}
 }
 
-// nextEGCBLvV parses extended grapheme cluster break boundaries after a code
-// point which has the property: Graphene_Cluster_Break=(LV or V). That is,
-// it parses boundary rule, GB7, defined in https://www.unicode.org/reports/tr29/.
-func nextEGCBLvV(data []rune, offset int, remainingLength, previousLength int) (int, bool) {
-	for {
-		if remainingLength == 0 {
-			return previousLength, true
+// rulesGb3throughGb9b processes rule GB9c.
+//
+// The value, true, is returned if we should break here.
+func (s *gb9cState) ruleGb9c(rn rune) bool {
+	if s.val == gb9cExtendLinker {
+		s.nextInCb = ValueOfIncb(rn, IncbValueNone)
+		if s.nextInCb == IncbValueConsonant {
+			return true
 		}
-		r := data[offset]
-		if HasGcbV(r) {
-			offset++
-			remainingLength--
-			previousLength++
-			continue
-		}
-		if HasGcbT(r) {
-			return nextEGCBLvtT(data, offset+1, remainingLength-1, previousLength+1)
-		}
-		return nextEGCBNotBeforesR(data, offset, remainingLength, previousLength, r)
 	}
-}
-
-// nextEGCBLvtT parses extended grapheme cluster break boundaries after a code
-// point which has the property: Graphene_Cluster_Break=(LVT or T). That is,
-// it parses boundary rule, GB8, defined in https://www.unicode.org/reports/tr29/.
-func nextEGCBLvtT(data []rune, offset int, remainingLength, previousLength int) (int, bool) {
-	for {
-		if remainingLength == 0 {
-			return previousLength, true
-		}
-		r := data[offset]
-		if HasGcbT(r) {
-			offset++
-			remainingLength--
-			previousLength++
-			continue
-		}
-		return nextEGCBNotBeforesR(data, offset, remainingLength, previousLength, r)
-	}
-}
-
-// nextEGCBExtPictStart parses extended grapheme cluster break boundaries after
-// a code point which has the property: Extended_Pictographic. That is, it parses
-// boundary rule, GB11, defined in https://www.unicode.org/reports/tr29/.
-func nextEGCBExtPictStart(data []rune, offset int, remainingLength, previousLength int) (int, bool) {
-	for {
-		if remainingLength == 0 {
-			return previousLength, true
-		}
-		r := data[offset]
-		if HasGcbEx(r) {
-			offset++
-			remainingLength--
-			previousLength++
-			continue
-		}
-		if HasGcbZwj(r) && remainingLength > 1 && HasExtpictY(data[offset+1]) {
-			return nextEGCBNotBefores(data, offset+2, remainingLength-2, previousLength+2)
-		}
-		return nextEGCBNotBeforesR(data, offset, remainingLength, previousLength, r)
-	}
-}
-
-// nextEGCBNotBeforesR parses boundary rules, GB9 and GB9a, defined in
-// https://www.unicode.org/reports/tr29/, in cases where we have already
-// looked that the code point value for other reasons.
-func nextEGCBNotBeforesR(data []rune, offset int, remainingLength, previousLength int, r rune) (int, bool) {
-	if HasGcbEx(r) || HasGcbZwj(r) || HasGcbSm(r) {
-		return nextEGCBNotBefores(data, offset+1, remainingLength-1, previousLength+1)
-	}
-	return previousLength, true
-}
-
-// nextEGCBNotBefores parses boundary rules, GB9 and GB9a, defined in
-// https://www.unicode.org/reports/tr29/.
-func nextEGCBNotBefores(data []rune, offset int, remainingLength, previousLength int) (int, bool) {
-	for {
-		if remainingLength == 0 {
-			return previousLength, true
-		}
-		r := data[offset]
-		if HasGcbEx(r) || HasGcbZwj(r) || HasGcbSm(r) {
-			offset++
-			remainingLength--
-			previousLength++
-			continue
-		}
-		return previousLength, true
-	}
+	return false
 }

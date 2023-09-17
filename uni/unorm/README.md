@@ -187,7 +187,7 @@ There is a nicely written article about normalization here [Text normalization i
 #### UnicodeVersion
 UnicodeVersion is the current version of the Unicode specification that this package is intended to comply with.
 
-UnicodeVersion = "15.0.0".
+UnicodeVersion = "15.1.0".
 ### Normalization
 #### func NextNFC(data []rune, offset int) ([]rune, int)
 NextNFC is equivalent to `NextNFCLen(data, offset, len(data), false)`.

@@ -54,7 +54,7 @@ func main() {
 #### UnicodeVersion
 UnicodeVersion is the current version of the Unicode specification that this package is intended to comply with.
 
-UnicodeVersion = "15.0.0".
+UnicodeVersion = "15.1.0".
 ### Unicode Property Queries
 #### func HasScxAdlm(r rune) bool
 HasScxAdlm returns true if code point, r, has Unicode property, Script_Extensions (scx), of Adlam (Adlm).

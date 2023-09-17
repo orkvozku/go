@@ -61,7 +61,7 @@ func main() {
 #### UnicodeVersion
 UnicodeVersion is the current version of the Unicode specification that this package is intended to comply with.
 
-UnicodeVersion = "15.0.0".
+UnicodeVersion = "15.1.0".
 ### Unicode Property Queries
 #### func HasPatwsN(r rune) bool
 HasPatwsN returns true if code point, r, has Unicode property, Pattern_White_Space (Pat_WS), of No (N).

@@ -67,7 +67,7 @@ func main() {
 #### UnicodeVersion
 UnicodeVersion is the current version of the Unicode specification that this package is intended to comply with.
 
-UnicodeVersion = "15.0.0".
+UnicodeVersion = "15.1.0".
 ### Unicode Property Queries
 #### func HasGcC(r rune) bool
 HasGcC returns true if code point, r, has Unicode property, General_Category (gc), of Other (C).
@@ -149,38 +149,14 @@ HasGcZs returns true if code point, r, has Unicode property, General_Category (g
 HasWspaceN returns true if code point, r, has Unicode property, White_Space (WSpace), of No (N).
 #### func HasWspaceY(r rune) bool
 HasWspaceY returns true if code point, r, has Unicode property, White_Space (WSpace), of Yes (Y).
-#### func HasGcbCn(r rune) bool
-HasGcbCn returns true if code point, r, has Unicode property, Grapheme_Cluster_Break (GCB), of Control (CN).
-#### func HasGcbCr(r rune) bool
-HasGcbCr returns true if code point, r, has Unicode property, Grapheme_Cluster_Break (GCB), of CR.
-#### func HasGcbEx(r rune) bool
-HasGcbEx returns true if code point, r, has Unicode property, Grapheme_Cluster_Break (GCB), of Extend (EX).
-#### func HasGcbL(r rune) bool
-HasGcbL returns true if code point, r, has Unicode property, Grapheme_Cluster_Break (GCB), of L.
-#### func HasGcbLf(r rune) bool
-HasGcbLf returns true if code point, r, has Unicode property, Grapheme_Cluster_Break (GCB), of LF.
-#### func HasGcbLv(r rune) bool
-HasGcbLv returns true if code point, r, has Unicode property, Grapheme_Cluster_Break (GCB), of LV.
-#### func HasGcbLvt(r rune) bool
-HasGcbLvt returns true if code point, r, has Unicode property, Grapheme_Cluster_Break (GCB), of LVT.
-#### func HasGcbPp(r rune) bool
-HasGcbPp returns true if code point, r, has Unicode property, Grapheme_Cluster_Break (GCB), of Prepend (PP).
-#### func HasGcbRi(r rune) bool
-HasGcbRi returns true if code point, r, has Unicode property, Grapheme_Cluster_Break (GCB), of Regional_Indicator (RI).
-#### func HasGcbSm(r rune) bool
-HasGcbSm returns true if code point, r, has Unicode property, Grapheme_Cluster_Break (GCB), of SpacingMark (SM).
-#### func HasGcbT(r rune) bool
-HasGcbT returns true if code point, r, has Unicode property, Grapheme_Cluster_Break (GCB), of T.
-#### func HasGcbV(r rune) bool
-HasGcbV returns true if code point, r, has Unicode property, Grapheme_Cluster_Break (GCB), of V.
-#### func HasGcbXx(r rune) bool
-HasGcbXx returns true if code point, r, has Unicode property, Grapheme_Cluster_Break (GCB), of Other (XX).
-#### func HasGcbZwj(r rune) bool
-HasGcbZwj returns true if code point, r, has Unicode property, Grapheme_Cluster_Break (GCB), of ZWJ.
+#### func ValueOfGcb(r rune, d int) int
+ValueOfGcb returns the value of Unicode property, Grapheme_Cluster_Break (GCB), for code point, r. If r is not assigned a value for this property, then d is returned.
 #### func HasExtpictN(r rune) bool
 HasExtpictN returns true if code point, r, has Unicode property, Extended_Pictographic (ExtPict), of No (N).
 #### func HasExtpictY(r rune) bool
 HasExtpictY returns true if code point, r, has Unicode property, Extended_Pictographic (ExtPict), of Yes (Y).
+#### func ValueOfIncb(r rune, d int) int
+ValueOfIncb returns the value of Unicode property, Indic_Conjunct_Break (InCB), for code point, r. If r is not assigned a value for this property, then d is returned.
 ### Other Functions
 ## Supported Unicode Properties
 <table><thead><tr><th>Property:</th><th>Value:</th><th>Function:</th></tr></thead>
@@ -227,24 +203,11 @@ HasExtpictY returns true if code point, r, has Unicode property, Extended_Pictog
 <tr><td colspan="3">White_Space (WSpace, space)</td></tr>
 <tr><td>&nbsp;</td><td>No (N, F, False)</td><td>HasWspaceN(r rune) bool</td></tr>
 <tr><td>&nbsp;</td><td>Yes (Y, T, True)</td><td>HasWspaceY(r rune) bool</td></tr>
-<tr><td colspan="3">Grapheme_Cluster_Break (GCB)</td></tr>
-<tr><td>&nbsp;</td><td>Control (CN)</td><td>HasGcbCn(r rune) bool</td></tr>
-<tr><td>&nbsp;</td><td>CR</td><td>HasGcbCr(r rune) bool</td></tr>
-<tr><td>&nbsp;</td><td>Extend (EX)</td><td>HasGcbEx(r rune) bool</td></tr>
-<tr><td>&nbsp;</td><td>L</td><td>HasGcbL(r rune) bool</td></tr>
-<tr><td>&nbsp;</td><td>LF</td><td>HasGcbLf(r rune) bool</td></tr>
-<tr><td>&nbsp;</td><td>LV</td><td>HasGcbLv(r rune) bool</td></tr>
-<tr><td>&nbsp;</td><td>LVT</td><td>HasGcbLvt(r rune) bool</td></tr>
-<tr><td>&nbsp;</td><td>Prepend (PP)</td><td>HasGcbPp(r rune) bool</td></tr>
-<tr><td>&nbsp;</td><td>Regional_Indicator (RI)</td><td>HasGcbRi(r rune) bool</td></tr>
-<tr><td>&nbsp;</td><td>SpacingMark (SM)</td><td>HasGcbSm(r rune) bool</td></tr>
-<tr><td>&nbsp;</td><td>T</td><td>HasGcbT(r rune) bool</td></tr>
-<tr><td>&nbsp;</td><td>V</td><td>HasGcbV(r rune) bool</td></tr>
-<tr><td>&nbsp;</td><td>Other (XX)</td><td>HasGcbXx(r rune) bool</td></tr>
-<tr><td>&nbsp;</td><td>ZWJ</td><td>HasGcbZwj(r rune) bool</td></tr>
+<tr><td colspan="2">Grapheme_Cluster_Break (GCB)</td><td>ValueOfGcb(r rune, d int) int</td>
 <tr><td colspan="3">Extended_Pictographic (ExtPict)</td></tr>
 <tr><td>&nbsp;</td><td>No (N, F, False)</td><td>HasExtpictN(r rune) bool</td></tr>
 <tr><td>&nbsp;</td><td>Yes (Y, T, True)</td><td>HasExtpictY(r rune) bool</td></tr>
+<tr><td colspan="2">Indic_Conjunct_Break (InCB)</td><td>ValueOfIncb(r rune, d int) int</td>
 </tbody></table>
 ## Performance
 Running the `go test -bench` command on this package produces performance benchmarks as follows.

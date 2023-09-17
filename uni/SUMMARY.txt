@@ -1,5 +1,5 @@
 /***************************************************************************
-  Copyright 2021-2022 https://github.com user @orkvozku
+  Copyright 2021-2023 https://github.com user @orkvozku
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -71,6 +71,12 @@ The forms that these functions can have are as follows.
    unorm.ValueOfCcc(r rune, d int) returns the integer value of the
    Canonical_Combining_Class (CCC) for code point, r.
 
+Some of the ValueOfX(r rune, d int) int functions are for enumerated
+properties that return constant ints defined in the form XValueY, rather
+than using the HasXY(r rune) form. The constants are always non-negative
+so a default value of d = -1 is often a good choice (e.g.
+ubasic.ValueOfGcb(r, -1)).
+
 Some packages implement other functions that are other values derived from
 Unicode properties. These may be in other forms. For example,
 unorm.CanonicalComposition(r1, r2 rune) (rune, bool), returns the canonical
@@ -94,14 +100,15 @@ One package has the primary implementation of the function while the others
 consist of stubs that call into the primary implementation of the other
 package. Those are listed with the comment, (secondary implementation).
 
-Module Version: 0.0.10
-Unicode Version: 15.0.0
+Module Version: 0.0.11
+Unicode Version: 15.1.0
 
 PACKAGES:
 ubasic:
     Extended_Pictographic (ExtPict)
     General_Category (gc)
     Grapheme_Cluster_Break (GCB)
+    Indic_Conjunct_Break (InCB)
     White_Space (WSpace, space)
 uemojis:
     Emoji
@@ -129,6 +136,7 @@ uscripts:
 useg:
     Extended_Pictographic (ExtPict)
     Grapheme_Cluster_Break (GCB)
+    Indic_Conjunct_Break (InCB)
     Line_Break (lb)
     Sentence_Break (SB)
     Word_Break (WB)
@@ -318,48 +326,8 @@ General_Category (gc)
     value: Uppercase_Letter (Lu)
         func ubasic.HasGcLu(r rune) bool
 Grapheme_Cluster_Break (GCB)
-    value: Control (CN)
-        func ubasic.HasGcbCn(r rune) bool
-        func useg.HasGcbCn(r rune) bool (secondary implementation)
-    value: CR
-        func ubasic.HasGcbCr(r rune) bool
-        func useg.HasGcbCr(r rune) bool (secondary implementation)
-    value: Extend (EX)
-        func ubasic.HasGcbEx(r rune) bool
-        func useg.HasGcbEx(r rune) bool (secondary implementation)
-    value: L
-        func ubasic.HasGcbL(r rune) bool
-        func useg.HasGcbL(r rune) bool (secondary implementation)
-    value: LF
-        func ubasic.HasGcbLf(r rune) bool
-        func useg.HasGcbLf(r rune) bool (secondary implementation)
-    value: LV
-        func ubasic.HasGcbLv(r rune) bool
-        func useg.HasGcbLv(r rune) bool (secondary implementation)
-    value: Other (XX)
-        func ubasic.HasGcbXx(r rune) bool
-        func useg.HasGcbXx(r rune) bool (secondary implementation)
-    value: LVT
-        func ubasic.HasGcbLvt(r rune) bool
-        func useg.HasGcbLvt(r rune) bool (secondary implementation)
-    value: Prepend (PP)
-        func ubasic.HasGcbPp(r rune) bool
-        func useg.HasGcbPp(r rune) bool (secondary implementation)
-    value: Regional_Indicator (RI)
-        func ubasic.HasGcbRi(r rune) bool
-        func useg.HasGcbRi(r rune) bool (secondary implementation)
-    value: SpacingMark (SM)
-        func ubasic.HasGcbSm(r rune) bool
-        func useg.HasGcbSm(r rune) bool (secondary implementation)
-    value: T
-        func ubasic.HasGcbT(r rune) bool
-        func useg.HasGcbT(r rune) bool (secondary implementation)
-    value: V
-        func ubasic.HasGcbV(r rune) bool
-        func useg.HasGcbV(r rune) bool (secondary implementation)
-    value: ZWJ
-        func ubasic.HasGcbZwj(r rune) bool
-        func useg.HasGcbZwj(r rune) bool (secondary implementation)
+    func ubasic.ValueOfGcb(r rune, d int) int
+    func useg.ValueOfGcb(r rune, d int) int (secondary implementation)
 Grapheme_Extend (Gr_Ext)
     (not implemented)
 Hangul_Syllable_Type (hst)
@@ -367,6 +335,10 @@ Hangul_Syllable_Type (hst)
 Grapheme_Link (Gr_Link)
     (not implemented)
 Hex_Digit (Hex)
+    (not implemented)
+ID_Compat_Math_Continue
+    (not implemented)
+ID_Compat_Math_Start
     (not implemented)
 Hyphen
     (not implemented)
@@ -386,6 +358,11 @@ IDS_Binary_Operator (IDSB)
     (not implemented)
 IDS_Trinary_Operator (IDST)
     (not implemented)
+IDS_Unary_Operator (IDSU)
+    (not implemented)
+Indic_Conjunct_Break (InCB)
+    func ubasic.ValueOfIncb(r rune, d int) int
+    func useg.ValueOfIncb(r rune, d int) int (secondary implementation)
 Indic_Positional_Category (InPC)
     (not implemented)
 Jamo_Short_Name (JSN)
@@ -441,92 +418,7 @@ Logical_Order_Exception (LOE)
 Lowercase (Lower)
     (not implemented)
 Line_Break (lb)
-    value: Break_Symbols (SY)
-        func useg.HasLbSy(r rune) bool
-    value: Carriage_Return (CR)
-        func useg.HasLbCr(r rune) bool
-    value: Alphabetic (AL)
-        func useg.HasLbAl(r rune) bool
-    value: Close_Parenthesis (CP)
-        func useg.HasLbCp(r rune) bool
-    value: Break_After (BA)
-        func useg.HasLbBa(r rune) bool
-    value: Close_Punctuation (CL)
-        func useg.HasLbCl(r rune) bool
-    value: Combining_Mark (CM)
-        func useg.HasLbCm(r rune) bool
-    value: Complex_Context (SA)
-        func useg.HasLbSa(r rune) bool
-    value: Break_Before (BB)
-        func useg.HasLbBb(r rune) bool
-    value: Conditional_Japanese_Starter (CJ)
-        func useg.HasLbCj(r rune) bool
-    value: Ambiguous (AI)
-        func useg.HasLbAi(r rune) bool
-    value: Contingent_Break (CB)
-        func useg.HasLbCb(r rune) bool
-    value: E_Base (EB)
-        func useg.HasLbEb(r rune) bool
-    value: E_Modifier (EM)
-        func useg.HasLbEm(r rune) bool
-    value: Exclamation (EX)
-        func useg.HasLbEx(r rune) bool
-    value: Glue (GL)
-        func useg.HasLbGl(r rune) bool
-    value: H2
-        func useg.HasLbH2(r rune) bool
-    value: H3
-        func useg.HasLbH3(r rune) bool
-    value: Hebrew_Letter (HL)
-        func useg.HasLbHl(r rune) bool
-    value: Hyphen (HY)
-        func useg.HasLbHy(r rune) bool
-    value: Infix_Numeric (IS)
-        func useg.HasLbIs(r rune) bool
-    value: Ideographic (ID)
-        func useg.HasLbId(r rune) bool
-    value: Inseparable (IN, Inseperable)
-        func useg.HasLbIn(r rune) bool
-    value: JL
-        func useg.HasLbJl(r rune) bool
-    value: JT
-        func useg.HasLbJt(r rune) bool
-    value: JV
-        func useg.HasLbJv(r rune) bool
-    value: Line_Feed (LF)
-        func useg.HasLbLf(r rune) bool
-    value: Break_Both (B2)
-        func useg.HasLbB2(r rune) bool
-    value: Mandatory_Break (BK)
-        func useg.HasLbBk(r rune) bool
-    value: Next_Line (NL)
-        func useg.HasLbNl(r rune) bool
-    value: Nonstarter (NS)
-        func useg.HasLbNs(r rune) bool
-    value: Numeric (NU)
-        func useg.HasLbNu(r rune) bool
-    value: Open_Punctuation (OP)
-        func useg.HasLbOp(r rune) bool
-    value: Postfix_Numeric (PO)
-        func useg.HasLbPo(r rune) bool
-    value: Prefix_Numeric (PR)
-        func useg.HasLbPr(r rune) bool
-    value: Quotation (QU)
-        func useg.HasLbQu(r rune) bool
-    value: Space (SP)
-        func useg.HasLbSp(r rune) bool
-    value: Regional_Indicator (RI)
-        func useg.HasLbRi(r rune) bool
-    value: Unknown (XX)
-        func useg.HasLbXx(r rune) bool
-    value: Surrogate (SG)
-        func useg.HasLbSg(r rune) bool
-    value: ZWJ
-        func useg.HasLbZwj(r rune) bool
-    value: Word_Joiner (WJ)
-        func useg.HasLbWj(r rune) bool
-    value: ZWSpace (ZW)
-        func useg.HasLbZw(r rune) bool
+    func useg.ValueOfLb(r rune, d int) int
 Lowercase_Mapping (lc)
     (not implemented)
 Math
@@ -552,6 +444,8 @@ NFKC_Quick_Check (NFKC_QC)
         func unorm.HasNfkcqcN(r rune) bool
     value: Yes (Y)
         func unorm.HasNfkcqcY(r rune) bool
+NFKC_Simple_Casefold (NFKC_SCF)
+    (not implemented)
 NFKD_Quick_Check (NFKD_QC)
     value: No (N)
         func unorm.HasNfkdqcN(r rune) bool
@@ -936,36 +830,7 @@ Regional_Indicator (RI)
 Sentence_Terminal (STerm)
     (not implemented)
 Sentence_Break (SB)
-    value: ATerm (AT)
-        func useg.HasSbAt(r rune) bool
-    value: Close (CL)
-        func useg.HasSbCl(r rune) bool
-    value: CR
-        func useg.HasSbCr(r rune) bool
-    value: Extend (EX)
-        func useg.HasSbEx(r rune) bool
-    value: LF
-        func useg.HasSbLf(r rune) bool
-    value: Lower (LO)
-        func useg.HasSbLo(r rune) bool
-    value: Numeric (NU)
-        func useg.HasSbNu(r rune) bool
-    value: Format (FO)
-        func useg.HasSbFo(r rune) bool
-    value: Other (XX)
-        func useg.HasSbXx(r rune) bool
-    value: OLetter (LE)
-        func useg.HasSbLe(r rune) bool
-    value: SContinue (SC)
-        func useg.HasSbSc(r rune) bool
-    value: Sep (SE)
-        func useg.HasSbSe(r rune) bool
-    value: Sp (SP)
-        func useg.HasSbSp(r rune) bool
-    value: STerm (ST)
-        func useg.HasSbSt(r rune) bool
-    value: Upper (UP)
-        func useg.HasSbUp(r rune) bool
+    func useg.ValueOfSb(r rune, d int) int
 Simple_Lowercase_Mapping (slc)
     (not implemented)
 Simple_Titlecase_Mapping (stc)
@@ -1000,44 +865,7 @@ White_Space (WSpace, space)
 Vertical_Orientation (vo)
     (not implemented)
 Word_Break (WB)
-    value: ALetter (LE)
-        func useg.HasWbLe(r rune) bool
-    value: CR
-        func useg.HasWbCr(r rune) bool
-    value: Extend
-        func useg.HasWbExtend(r rune) bool
-    value: Double_Quote (DQ)
-        func useg.HasWbDq(r rune) bool
-    value: ExtendNumLet (EX)
-        func useg.HasWbEx(r rune) bool
-    value: Format (FO)
-        func useg.HasWbFo(r rune) bool
-    value: Hebrew_Letter (HL)
-        func useg.HasWbHl(r rune) bool
-    value: Katakana (KA)
-        func useg.HasWbKa(r rune) bool
-    value: MidLetter (ML)
-        func useg.HasWbMl(r rune) bool
-    value: MidNum (MN)
-        func useg.HasWbMn(r rune) bool
-    value: LF
-        func useg.HasWbLf(r rune) bool
-    value: MidNumLet (MB)
-        func useg.HasWbMb(r rune) bool
-    value: Newline (NL)
-        func useg.HasWbNl(r rune) bool
-    value: Other (XX)
-        func useg.HasWbXx(r rune) bool
-    value: Numeric (NU)
-        func useg.HasWbNu(r rune) bool
-    value: Regional_Indicator (RI)
-        func useg.HasWbRi(r rune) bool
-    value: Single_Quote (SQ)
-        func useg.HasWbSq(r rune) bool
-    value: WSegSpace
-        func useg.HasWbWsegspace(r rune) bool
-    value: ZWJ
-        func useg.HasWbZwj(r rune) bool
+    func useg.ValueOfWb(r rune, d int) int
 XID_Continue (XIDC)
     value: No (N, F, False)
         func upatids.HasXidcN(r rune) bool
